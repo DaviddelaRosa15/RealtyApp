@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RealtyApp.Infrastructure.Persistence.Repository
 {
-    public class ImmovableAssetTypeRepository : GenericRepository<ImmovableAssetType>
+    public class ImmovableAssetTypeRepository : GenericRepository<ImmovableAssetType>, IImmovableAssetTypeRepository
     {
         private readonly ApplicationContext _dbContext;
         public ImmovableAssetTypeRepository(ApplicationContext dbContext) 
