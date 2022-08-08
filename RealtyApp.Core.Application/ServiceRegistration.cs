@@ -16,12 +16,16 @@ namespace RealtyApp.Infrastructure.Persistence
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+           
             #region Services
             services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IFavoriteImmovableService, FavoriteImmovableService>();
             services.AddTransient<IImmovableAssetService, ImmovableAssetService>();
+            services.AddTransient<IImprovementService, ImprovementService>();
+            services.AddTransient<IImmovableAssetTypeService, ImmovableAssetTypeService>();
             #endregion
+
         }
     }
 }

@@ -2,6 +2,8 @@
 using RealtyApp.Core.Application.Dtos.Account;
 using RealtyApp.Core.Application.ViewModels.FavoriteImmovable;
 using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
+using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
+using RealtyApp.Core.Application.ViewModels.Improvement;
 using RealtyApp.Core.Application.ViewModels.User;
 using RealtyApp.Core.Domain.Entities;
 using System;
@@ -110,6 +112,40 @@ namespace RealtyApp.Core.Application.Mappings
              .ForMember(opt => opt.FavoriteImmovables, opt => opt.Ignore())
              .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore());
             #endregion
+
+            #region ImmovableAssetType
+
+            CreateMap<ImmovableAssetTypeViewModel, ImmovableAssetType>()
+                .ForMember(dest => dest.Created, options => options.Ignore())
+                .ForMember(dest => dest.LastModified, options => options.Ignore())
+                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
+
+            CreateMap<ImmovableAssetTypeSaveViewModel, ImmovableAssetType>()
+                .ForMember(dest => dest.Created, options => options.Ignore())
+                .ForMember(dest => dest.LastModified, options => options.Ignore())
+                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
+
+            #endregion
+
+            #region Improvement
+                CreateMap<ImprovementViewModel, Improvement>()
+                    .ForMember(dest => dest.Created, options => options.Ignore())
+                    .ForMember(dest => dest.LastModified, options => options.Ignore())
+                    .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                    .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
+
+                CreateMap<ImprovementSaveViewModel, Improvement>()
+                    .ForMember(dest => dest.Created, options => options.Ignore())
+                    .ForMember(dest => dest.LastModified, options => options.Ignore())
+                    .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                    .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                    .ForMember(dest => dest.Improvement_Immovables, options => options.Ignore());
+            #endregion
+
+
         }
     }
 }
