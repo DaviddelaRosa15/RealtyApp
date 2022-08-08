@@ -1,4 +1,4 @@
-﻿using Application.Repository;
+﻿using RealtyApp.Infrastructure.Persistence.Repository;
 using RealtyApp.Core.Application.Interfaces.Repositories;
 using RealtyApp.Core.Domain.Entities;
 using RealtyApp.Infrastructure.Persistence.Contexts;
