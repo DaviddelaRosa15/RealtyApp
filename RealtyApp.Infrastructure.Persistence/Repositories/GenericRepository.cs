@@ -4,7 +4,7 @@ using RealtyApp.Infrastructure.Persistence.Contexts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Application.Repository
+namespace RealtyApp.Infrastructure.Persistence.Repository
 {
     //Generics
     public class GenericRepository<Entity> : IGenericRepository<Entity> where Entity : class
