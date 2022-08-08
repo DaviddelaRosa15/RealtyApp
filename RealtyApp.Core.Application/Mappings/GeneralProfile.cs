@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using RealtyApp.Core.Application.Dtos.Account;
+using RealtyApp.Core.Application.ViewModels.FavoriteImmovable;
+using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 using RealtyApp.Core.Application.ViewModels.User;
+using RealtyApp.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -82,6 +85,30 @@ namespace RealtyApp.Core.Application.Mappings
             // .ForMember(x => x.LastModified, opt => opt.Ignore())
             // .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
             // .ReverseMap();
+            #endregion
+
+            #region FavoriteImmovable
+            CreateMap<FavoriteImmovable, FavoriteImmovableViewModel>()
+               .ReverseMap()
+               .ForMember(opt => opt.ImmovableAsset, opt => opt.Ignore());
+            CreateMap<FavoriteImmovable, SaveFavoriteImmovableViewModel>()
+              .ReverseMap()
+              .ForMember(opt => opt.ImmovableAsset, opt => opt.Ignore());
+            #endregion
+
+            #region  ImmovableAsset
+            CreateMap<ImmovableAsset, ImmovableAssetViewModel>()
+              .ReverseMap()
+              .ForMember(opt => opt.ImmovableAssetType, opt => opt.Ignore())
+              .ForMember(opt => opt.SellType, opt => opt.Ignore())
+              .ForMember(opt => opt.FavoriteImmovables, opt => opt.Ignore())
+              .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore());
+            CreateMap<ImmovableAsset, SaveImmovableAssetViewModel>()
+             .ReverseMap()
+             .ForMember(opt => opt.ImmovableAssetType, opt => opt.Ignore())
+             .ForMember(opt => opt.SellType, opt => opt.Ignore())
+             .ForMember(opt => opt.FavoriteImmovables, opt => opt.Ignore())
+             .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore());
             #endregion
         }
     }
