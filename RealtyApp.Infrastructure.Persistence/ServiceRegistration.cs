@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RealtyApp.Core.Application.Interfaces.Repositories;
 using RealtyApp.Infrastructure.Persistence.Contexts;
+using RealtyApp.Infrastructure.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,8 @@ namespace RealtyApp.Infrastructure.Persistence
 
             #region Repositories
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IImmovableAssetRepository, ImmovableAssetRepository>();
+            services.AddTransient<IFavoriteImmovableRepository, FavoriteImmovableRepository>();
             #endregion
         }
     }
