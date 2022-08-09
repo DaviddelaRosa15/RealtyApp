@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RealtyApp.Core.Application.ViewModels.Improvement_Immovable
 {
-    public class Improvement_ImmovableViewModel
+    public class SaveImprovement_ImmovableViewModel
     {
         public int Id { get; set; }
         public ImprovementViewModel Improvement { get; set; }
