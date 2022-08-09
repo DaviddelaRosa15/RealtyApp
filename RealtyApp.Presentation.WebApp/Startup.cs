@@ -24,7 +24,7 @@ namespace RealtyApp.Presentation.WebApp
         {
             services.AddSession();
             services.AddPersistenceInfrastructure(_config);
-            services.AddIdentityInfrastructure(_config);
+            services.AddIdentityInfrastructureWebAPP(_config);
             services.AddApplicationLayer(_config);
             services.AddSharedInfrastructure(_config);
 

@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Image\**" />
+    <Content Remove="wwwroot\Image\**" />
+    <EmbeddedResource Remove="wwwroot\Image\**" />
+    <None Remove="wwwroot\Image\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
       <PrivateAssets>all</PrivateAssets>
@@ -22,8 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\ImmovableAssets\" />
-    <Folder Include="wwwroot\Images\Users\" />
+    <Folder Include="wwwroot\Images\User\" />
   </ItemGroup>
 
 </Project>
