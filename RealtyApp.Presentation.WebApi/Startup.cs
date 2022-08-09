@@ -32,7 +32,7 @@ namespace RealtyApp.Presentation.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPersistenceInfrastructure(Configuration);
-            services.AddIdentityInfrastructure(Configuration);
+            services.AddIdentityInfrastructureWebAPI(Configuration);
             services.AddApplicationLayer(Configuration);
             services.AddSharedInfrastructure(Configuration);
             services.AddControllers(options =>

@@ -19,10 +19,11 @@ using System.Text;
 namespace RealtyApp.Infrastructure.Identity
 {
     //Extension Method - Decorator
-    public static class ServiceRegistration
+    public static class ServiceRegistrationWebAPI
     {
-        public static void AddIdentityInfrastructure(this IServiceCollection services, IConfiguration configuration)
-        {
+        public static void AddIdentityInfrastructureWebAPI(this IServiceCollection services, IConfiguration configuration)
+        { 
+
             #region Contexts
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
@@ -41,13 +42,8 @@ namespace RealtyApp.Infrastructure.Identity
 
             #region Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/User";
-                options.AccessDeniedPath = "/User/AccessDenied";
-            });
+                .AddEntityFrameworkStores<IdentityContext>()
+                .AddDefaultTokenProviders();
 
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
 
@@ -100,7 +96,7 @@ namespace RealtyApp.Infrastructure.Identity
             #endregion
 
             #region Services
-            services.AddTransient<IAccountService, AccountService>();
+                services.AddTransient<IAccountService, AccountService>();
             #endregion
         }
     }
