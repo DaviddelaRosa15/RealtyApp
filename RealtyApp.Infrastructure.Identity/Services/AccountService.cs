@@ -47,7 +47,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             if (user == null)
             {
                 response.HasError = true;
-                response.Error = $"No existen cuentas registradas con el correo: {request.Email}";
+                response.Error = $"No existen cuentas registradas con el correo: {request.Email}, si el problema persiste haga contacto con nuestro soporte técnico";
                 return response;
             }
 
@@ -55,13 +55,13 @@ namespace RealtyApp.Infrastructure.Identity.Services
             if (!result.Succeeded)
             {
                 response.HasError = true;
-                response.Error = $"Credenciales incorrectas para el correo: {request.Email}";
+                response.Error = $"Credenciales incorrectas para el correo: {request.Email}, si el problema persiste haga contacto con nuestro soporte técnico";
                 return response;
             }
             if (!user.EmailConfirmed)
             {
                 response.HasError = true;
-                response.Error = $"La cuenta no está activada para el correo: {request.Email}";
+                response.Error = $"Su cuenta no está activa, haga contacto con nuestro soporte técnico con";
                 return response;
             }
 
