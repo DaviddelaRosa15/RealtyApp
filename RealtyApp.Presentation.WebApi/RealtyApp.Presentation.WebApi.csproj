@@ -18,15 +18,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\v1\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RealtyApp.Core.Application\RealtyApp.Core.Application.csproj" />
     <ProjectReference Include="..\RealtyApp.Core.Domain\RealtyApp.Core.Domain.csproj" />
     <ProjectReference Include="..\RealtyApp.Infrastructure.Identity\RealtyApp.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\RealtyApp.Infrastructure.Persistence\RealtyApp.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\RealtyApp.Infrastructure.Shared\RealtyApp.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\v1\" />
   </ItemGroup>
 
 </Project>
