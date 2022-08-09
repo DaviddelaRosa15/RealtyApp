@@ -24,7 +24,7 @@ namespace RealtyApp.Core.Application.Services
         public async Task<AuthenticationResponse> LoginAsync(LoginViewModel vm)
         {
             AuthenticationRequest loginRequest = _mapper.Map<AuthenticationRequest>(vm);
-            AuthenticationResponse userResponse = await _accountService.AuthenticateAsyncWebApi(loginRequest);
+            AuthenticationResponse userResponse = await _accountService.AuthenticateAsyncWebApp(loginRequest);
             return userResponse;
         }
         public async Task SignOutAsync()
