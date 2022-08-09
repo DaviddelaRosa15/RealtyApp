@@ -87,7 +87,9 @@ namespace RealtyApp.Infrastructure.Identity.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<RegisterResponse> RegisterBasicUserAsync(RegisterRequest request, string origin)
+        #region Registration
+
+        private async Task<RegisterResponse> ValidateUserBeforeRegistrationAsync(RegisterRequest request)
         {
             RegisterResponse response = new()
             {
@@ -110,13 +112,130 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 return response;
             }
 
+            return response;
+
+        }
+
+
+        public async Task<RegisterResponse> RegisterDeveloperUserAsync(RegisterRequest request, string origin)
+        {
+            RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
+
+            //We could use AutoMaper here!
             var user = new ApplicationUser
             {
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                UserName = request.UserName
+                UserName = request.UserName,
+                CardIdentification = request.CardIdentification,
+                PhoneNumber = request.Phone,
+                UrlImage = "/Images/User/placeholder_profile_image.png",
+                EmailConfirmed = true
             };
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Developer.ToString());   
+            }
+            else
+            {
+                response.HasError = true;
+                response.Error = $"An error occurred trying to register the user. ";
+                response.Error += result.Errors.ToList()[0].Description;
+                return response;
+            }
+
+            return response;
+        }
+
+        public async Task<RegisterResponse> RegisterAdministratorUserAsync(RegisterRequest request, string origin)
+        {
+            RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
+
+            //We could use AutoMaper here!
+            var user = new ApplicationUser
+            {
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+                CardIdentification = request.CardIdentification,
+                PhoneNumber = request.Phone,
+                UrlImage = "/Images/User/placeholder_profile_image.png",
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Administrator.ToString());
+            }
+            else
+            {
+                response.HasError = true;
+                response.Error = $"An error occurred trying to register the user. ";
+                response.Error += result.Errors.ToList()[0].Description;
+                return response;
+            }
+
+            return response;
+        }
+
+        public async Task<RegisterResponse> RegisterAgentUserAsync(RegisterRequest request, string origin)
+        {
+            RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
+
+            //We could use AutoMaper here!
+            var user = new ApplicationUser
+            {
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+                CardIdentification = request.CardIdentification,
+                PhoneNumber = request.Phone
+            };
+            //Remember the image property
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Agent.ToString());
+                var verificationUri = await SendVerificationEmailUri(user, origin);
+                await _emailService.SendAsync(new EmailRequest()
+                {
+                    To = user.Email,
+                    Body = $"Please confirm your account visiting this URL {verificationUri}",
+                    Subject = "Confirm registration"
+                });
+            }
+            else
+            {
+                response.HasError = true;
+                response.Error = $"An error occurred trying to register the user.";
+                return response;
+            }
+
+            return response;
+        }
+
+        public async Task<RegisterResponse> RegisterClientUserAsync(RegisterRequest request, string origin)
+        {
+            RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
+
+            //We could use AutoMaper here!
+            var user = new ApplicationUser
+            {
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+                CardIdentification = request.CardIdentification,
+                PhoneNumber = request.Phone
+            };
+            //Remember the image property
 
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
@@ -139,6 +258,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             return response;
         }
+
+        #endregion
 
         public async Task<string> ConfirmAccountAsync(string userId, string token)
         {

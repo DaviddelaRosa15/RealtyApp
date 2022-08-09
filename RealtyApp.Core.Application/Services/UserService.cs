@@ -35,7 +35,13 @@ namespace RealtyApp.Core.Application.Services
         public async Task<RegisterResponse> RegisterAsync(SaveUserViewModel vm, string origin)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
-            return await _accountService.RegisterBasicUserAsync(registerRequest, origin);
+            
+            //Alex bro, tirarle un ojo al servicio AccountServices, puedes modificar los metodos como te convengan.
+            //no le hice mucho solo lo deje definido con la plantilla de quejo david. Ya el BasicNoExiste.
+            
+            //return await _accountService.RegisterBasicUserAsync(registerRequest, origin);
+            return new RegisterResponse();
+
         }
 
         public async Task<string> ConfirmEmailAsync(string userId, string token)
