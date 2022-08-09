@@ -5,7 +5,7 @@
 @inject IHttpContextAccessor httpContextAccessor;
 @{
     ViewData["Title"] = "Acceso denegado";
-    var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user_session");
+    var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
     var isAdmin = User != null ? User.Roles.Any(r => r == "Administrator") : false;
     var isAgent = User != null ? User.Roles.Any(r => r == "Agent") : false;
     var isClient = User != null ? User.Roles.Any(r => r == "Client") : false;
