@@ -1,4 +1,4 @@
-﻿using Application.Repository;
+﻿using RealtyApp.Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,9 +36,13 @@ namespace RealtyApp.Infrastructure.Persistence
             #endregion
 
             #region Repositories
+
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IImmovableAssetRepository, ImmovableAssetRepository>();
             services.AddTransient<IFavoriteImmovableRepository, FavoriteImmovableRepository>();
+            services.AddTransient<IImprovementRepository, ImprovementRepository>();
+            services.AddTransient<IImmovableAssetTypeRepository, ImmovableAssetTypeRepository>();
+
             #endregion
         }
     }
