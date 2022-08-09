@@ -39,7 +39,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             _jwtSettings = jwtSettings.Value;
         }
 
-        public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
+        public async Task<AuthenticationResponse> AuthenticateAsyncWebApi(AuthenticationRequest request)
         {
             AuthenticationResponse response = new();
 
@@ -47,7 +47,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             if (user == null)
             {
                 response.HasError = true;
-                response.Error = $"No Accounts registered with {request.Email}";
+                response.Error = $"No existen cuentas registradas con el correo: {request.Email}";
                 return response;
             }
 
@@ -55,13 +55,21 @@ namespace RealtyApp.Infrastructure.Identity.Services
             if (!result.Succeeded)
             {
                 response.HasError = true;
-                response.Error = $"Invalid credentials for {request.Email}";
+                response.Error = $"Credenciales incorrectas para el correo: {request.Email}";
                 return response;
             }
             if (!user.EmailConfirmed)
             {
                 response.HasError = true;
-                response.Error = $"Account no confirmed for {request.Email}";
+                response.Error = $"La cuenta no está activada para el correo: {request.Email}";
+                return response;
+            }
+
+            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            if (!rolesList.Any(x => x.Equals(Roles.Administrator.ToString()) || x.Equals(Roles.Developer.ToString())))
+            {
+                response.HasError = true;
+                response.Error = $"Usted no tiene permisos para usar la Api de RealtyApp";
                 return response;
             }
 
@@ -69,9 +77,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             response.Id = user.Id;
             response.Email = user.Email;
-            response.UserName = user.UserName;
-
-            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            response.UserName = user.UserName;            
 
             response.Roles = rolesList.ToList();
             response.IsVerified = user.EmailConfirmed;
