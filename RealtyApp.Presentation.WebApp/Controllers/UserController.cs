@@ -5,6 +5,7 @@ using RealtyApp.Core.Application.Helpers;
 using RealtyApp.Core.Application.Interfaces.Services;
 using RealtyApp.Core.Application.Dtos.Account;
 using RealtyApp.Presentation.WebApp.Middlewares;
+using RealtyApp.Core.Application.Enums;
 
 namespace RealtyApp.Presentation.WebApp.Controllers
 {
@@ -36,6 +37,10 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             if (userVm != null && userVm.HasError != true)
             {
                 HttpContext.Session.Set<AuthenticationResponse>("user", userVm);
+                if (userVm.Roles.Contains(Roles.Agent.ToString()))
+                {
+                    return RedirectToRoute(new { controller = "Agent", action = "Index" });
+                }
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
             else

@@ -26,10 +26,22 @@ namespace RealtyApp.Presentation.WebApi.Controllers
             Summary = "Login de usuario",
             Description = "Autentica un usuario en el sistema y le retorna un JWT"
         )]
+        [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(AuthenticationResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(AuthenticationResponse))]
+        [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(AuthenticationResponse))]
         [Consumes(MediaTypeNames.Application.Json)]
         public async Task<IActionResult> AuthenticateAsync([FromBody] AuthenticationRequest request)
         {
-            return Ok(await _accountService.AuthenticateAsync(request));
+            var response = await _accountService.AuthenticateAsyncWebApi(request);
+            if (response.HasError)
+            {
+                if (response.Error == "Usted no tiene permisos para usar la Api de RealtyApp")
+                {
+                    return Forbid(response.Error);
+                }
+                return BadRequest(response);                
+            }
+            return Ok(response);
         }
 
         #region [Developer & Administrator Registration]
