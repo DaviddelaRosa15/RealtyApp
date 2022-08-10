@@ -27,6 +27,8 @@ namespace RealtyApp.Core.Application.Mappings
             CreateMap<RegisterRequest, SaveUserViewModel>()
                 .ForMember(x => x.HasError, opt => opt.Ignore())
                 .ForMember(x => x.Error, opt => opt.Ignore())
+                .ForMember(x => x.TypeUser, opt => opt.Ignore())
+                .ForMember(x => x.File, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<ForgotPasswordRequest, ForgotPasswordViewModel>()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,9 +18,15 @@ namespace RealtyApp.Core.Application.ViewModels.User
         [DataType(DataType.Text)]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Debe colocar una cedula valida")]
+        [DataType(DataType.Text)]        
+        public string CardIdentification { get; set; }
         [Required(ErrorMessage = "Debe colocar un nombre de usuario")]
-        [DataType(DataType.Text)]
+        [DataType(DataType.Text)]       
+        
         public string Username { get; set; }
+        [Required(ErrorMessage = "Debe seleccionar un tipo de usuario")]
+        public string TypeUser { get; set; }
 
         [Required(ErrorMessage = "Debe colocar una contraseña")]
         [DataType(DataType.Password)]
@@ -33,7 +40,10 @@ namespace RealtyApp.Core.Application.ViewModels.User
         [Required(ErrorMessage = "Debe colocar un correo")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
+        public string ImageUrl { get; set; }
+        [Required(ErrorMessage = "Debe colocar una imagen")]
+        [DataType(DataType.Upload)]
+        public IFormFile File { get; set; }
         [Required(ErrorMessage = "Debe colocar un telefono")]
         [DataType(DataType.Text)]
         public string Phone { get; set; }
