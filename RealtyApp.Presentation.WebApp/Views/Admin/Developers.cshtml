@@ -1,17 +1,12 @@
 ﻿@using RealtyApp.Core.Application.ViewModels.User;
-@using Microsoft.AspNetCore.Http;
-@using RealtyApp.Core.Application.Dtos.Account
-@using RealtyApp.Core.Application.Helpers;
 @model List<UserViewModel>
-@inject IHttpContextAccessor httpContextAccessor
 @{
     ViewData["Title"] = "Administrar desarrolladores";
-    var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user_session");
 }
 
 <div class="row mt-5" id="ConUserAdmin">
     <div class="cont_btn_createGeneric">
-        <a class="btn btn-outline-primary btn_createGeneric " asp-controller="Admin" asp-action="Create">Crea nuevo usuario</a>
+        <a class="btn btn-outline-primary btn_createGeneric " asp-controller="Admin" asp-action="Register" asp-route-type="Developer">Crea nuevo usuario</a>
     </div>
 
     @* -----------------------------------> Usuarios desarrolladores activos<------------------------------------- *@

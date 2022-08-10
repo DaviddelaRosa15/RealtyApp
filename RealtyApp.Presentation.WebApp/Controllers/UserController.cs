@@ -71,7 +71,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             }
             if (vm.TypeUser == "Agent")
             {
-                RegisterResponse response = await _userService.RegisterAgentUserAsync(vm);
+                RegisterResponse response = await _userService.RegisterAgentUser(vm);
                 if (response.HasError)
                 {
                     vm.HasError = response.HasError;
@@ -84,7 +84,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             else
             {
                 var origin = Request.Headers["origin"];
-                RegisterResponse response = await _userService.RegisterClientUserAsync(vm, origin);
+                RegisterResponse response = await _userService.RegisterClientUser(vm, origin);
                 if (response.HasError)
                 {
                     vm.HasError = response.HasError;

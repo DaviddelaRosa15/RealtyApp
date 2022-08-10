@@ -9,8 +9,10 @@ namespace RealtyApp.Core.Application.Interfaces.Services
     {
         Task<string> ConfirmEmailAsync(string userId, string token);
         Task<AuthenticationResponse> LoginAsync(LoginViewModel vm);
-        Task<RegisterResponse> RegisterAgentUserAsync(SaveUserViewModel vm);
-        Task<RegisterResponse> RegisterClientUserAsync(SaveUserViewModel vm, string origin);
+        Task<RegisterResponse> RegisterAgentUser(SaveUserViewModel vm);
+        Task<RegisterResponse> RegisterClientUser(SaveUserViewModel vm, string origin);
+        Task<RegisterResponse> RegisterDeveloperUser(SaveUserViewModel vm);
+        Task<RegisterResponse> RegisterAdministratorUser(SaveUserViewModel vm);
         Task SignOutAsync();
         Task UpdateAsync(SaveUserViewModel vm, string id);
         Task DeleteAsync(string id);

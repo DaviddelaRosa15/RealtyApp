@@ -1,7 +1,7 @@
 ﻿@using RealtyApp.Core.Application.ViewModels.User;
 @model SaveUserViewModel
-@{    
-    ViewData["Title"] = "Registro";
+@{
+    ViewData["Title"] = "Registro de usuarios";
 
 }
 
@@ -15,11 +15,11 @@
                 </div>
                 @if (Model.HasError)
                 {
-                     <p class="text-danger">@Model.Error</p>
-                 
+                    <p class="text-danger">@Model.Error</p>
+
                 }
 
-                <form method="post" asp-controller="User" asp-action="Register" enctype="multipart/form-data">
+                <form method="post" asp-controller="Admin" asp-action="Register">
                     <div class="mb-3">
                         <label asp-for="FirstName" class="form-label">Nombre: </label>
                         <input asp-for="FirstName" class="form-control" />
@@ -52,12 +52,6 @@
                         <span asp-validation-for="Phone" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="File" class="form-label">Imagen: </label>
-                        <input asp-for="File"  class="form-control" />
-                        <span asp-validation-for="File" class="text-danger"></span>
-                    </div>
-
-                    <div class="mb-3">
                         <label asp-for="Password" class="form-label">Contraseña: </label>
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
@@ -68,18 +62,13 @@
                         <input asp-for="ConfirmPassword" class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
-                    <div class="mb-3">
-                        <label asp-for="TypeUser" class="form-label">Tipo de usuario: </label>
-                        <select class="form-select" aria-label="Default select example" asp-for="TypeUser">
-                            <option value="Agent">Agente</option>
-                            <option value="Client">Cliente</option>
-                        </select>
-                    </div>
 
+                    <input asp-for="TypeUser" type="hidden" />
 
-                    <div class="btn-group">
+                    <div class="btn-group w-100">
                         <button type="submit" class="btn btn-outline-primary">Guardar</button>
-                        <a asp-controller="User" asp-action="Index" class="btn btn-outline-warning">Volver atras</a>
+                        @*Compañero pon el nombre del action en donde empezará tu mantenimiento de administradores*@
+                        <a asp-controller="Admin" asp-action="@(Model.TypeUser == "Developer" ? "Developers" : "Admins")" class="btn btn-outline-warning">Volver atras</a>
                     </div>
                 </form>
 

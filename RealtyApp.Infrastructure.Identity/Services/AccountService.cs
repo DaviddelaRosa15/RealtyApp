@@ -94,8 +94,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
         {
             AuthenticationResponse response = new();
 
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            var user = await _userManager.FindByEmailAsync(request.Email);            
             if (user == null)
             {
                 response.HasError = true;
@@ -103,26 +102,13 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 return response;
             }
 
+            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
             if (!result.Succeeded)
             {
                 response.HasError = true;
                 response.Error = $"Credenciales incorrectas para el email {request.Email}, si el problema persiste haga contacto con nuestro soporte técnico";
-                return response;
-            }
-            if (!user.EmailConfirmed)
-            {
-                if (rolesList.Any(x => x.Equals(Roles.Agent.ToString())))
-                {
-                    response.HasError = true;
-                    response.Error = $"Su cuenta no está activa, haga contacto con nuestro soporte técnico";
-                }
-                else
-                {
-                    response.HasError = true;
-                    response.Error = $"Su cuenta no está activa, dirijase a su bandeja de correo, busque el correo que le mandamos y active su cuenta. ";
-                }
-
                 return response;
             }
 
@@ -132,6 +118,22 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 response.Error = $"Usted no tiene permisos para usar la App de RealtyApp";
                 return response;
             }
+
+            if (!user.EmailConfirmed)
+            {
+                if (rolesList.Any(x => x.Equals(Roles.Agent.ToString())))
+                {
+                    response.HasError = true;
+                    response.Error = $"Su cuenta no está activa, haga contacto con nuestro soporte técnico";
+                }
+                else if (rolesList.Any(x => x.Equals(Roles.Client.ToString())))
+                {
+                    response.HasError = true;
+                    response.Error = $"Su cuenta no está activa, dirijase a su bandeja de correo, busque el correo que le mandamos y active su cuenta. ";
+                }
+
+                return response;
+            }            
 
             response.Id = user.Id;
             response.Email = user.Email;

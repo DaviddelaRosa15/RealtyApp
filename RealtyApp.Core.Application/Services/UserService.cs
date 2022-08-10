@@ -43,18 +43,30 @@ namespace RealtyApp.Core.Application.Services
         //    return new RegisterResponse();
 
         //}
-        public async Task<RegisterResponse> RegisterAgentUserAsync(SaveUserViewModel vm)
+        public async Task<RegisterResponse> RegisterAgentUser(SaveUserViewModel vm)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
             return await _accountService.RegisterAgentUserAsync(registerRequest);
         }
 
-        public async Task<RegisterResponse> RegisterClientUserAsync(SaveUserViewModel vm, string origin)
+        public async Task<RegisterResponse> RegisterClientUser(SaveUserViewModel vm, string origin)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
             return await _accountService.RegisterClientUserAsync(registerRequest,origin);
         }
-       
+
+        public async Task<RegisterResponse> RegisterDeveloperUser(SaveUserViewModel vm)
+        {
+            RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
+            return await _accountService.RegisterDeveloperUserAsync(registerRequest);
+        }
+
+        public async Task<RegisterResponse> RegisterAdministratorUser(SaveUserViewModel vm)
+        {
+            RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
+            return await _accountService.RegisterAdministratorUserAsync(registerRequest);
+        }
+
         public async Task UpdateAsync(SaveUserViewModel vm, string id)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);

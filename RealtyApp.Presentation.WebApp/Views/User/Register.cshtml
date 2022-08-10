@@ -1,6 +1,6 @@
 ﻿@using RealtyApp.Core.Application.ViewModels.User;
 @model SaveUserViewModel
-@{    
+@{
     ViewData["Title"] = "Registro";
 
 }
@@ -15,8 +15,8 @@
                 </div>
                 @if (Model.HasError)
                 {
-                     <p class="text-danger">@Model.Error</p>
-                 
+                    <p class="text-danger">@Model.Error</p>
+
                 }
 
                 <form method="post" asp-controller="User" asp-action="Register" enctype="multipart/form-data">
@@ -53,8 +53,7 @@
                     </div>
                     <div class="mb-3">
                         <label asp-for="File" class="form-label">Imagen: </label>
-                        <input asp-for="File"  class="form-control" />
-                        <span asp-validation-for="File" class="text-danger"></span>
+                        <input asp-for="File" class="form-control" required/>
                     </div>
 
                     <div class="mb-3">

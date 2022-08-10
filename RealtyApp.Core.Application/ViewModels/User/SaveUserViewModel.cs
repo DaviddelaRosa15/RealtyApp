@@ -44,7 +44,6 @@ namespace RealtyApp.Core.Application.ViewModels.User
         public string Email { get; set; }
         public string ImageUrl { get; set; }
 
-        [Required(ErrorMessage = "Debe colocar una imagen")]
         [DataType(DataType.Upload)]
         public IFormFile File { get; set; }
 
