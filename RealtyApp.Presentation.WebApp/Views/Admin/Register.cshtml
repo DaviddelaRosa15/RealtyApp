@@ -1,0 +1,89 @@
+﻿@using RealtyApp.Core.Application.ViewModels.User;
+@model SaveUserViewModel
+@{    
+    ViewData["Title"] = "Registro";
+
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="card shadow-sm ">
+            <div class="card-body contCard">
+                <div class="card-header bg-primary text-light">
+                    <h4>Registro de usuario</h4>
+                </div>
+                @if (Model.HasError)
+                {
+                     <p class="text-danger">@Model.Error</p>
+                 
+                }
+
+                <form method="post" asp-controller="User" asp-action="Register" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label asp-for="FirstName" class="form-label">Nombre: </label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="LastName" class="form-label">Apellido: </label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label">Nombre de usuario: </label>
+                        <input asp-for="Username" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="CardIdentification" class="form-label">Cedula: </label>
+                        <input asp-for="CardIdentification" class="form-control" />
+                        <span asp-validation-for="CardIdentification" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Correo: </label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label"> Telefono: </label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="File" class="form-label">Imagen: </label>
+                        <input asp-for="File"  class="form-control" />
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Contraseña: </label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ConfirmPassword" class="form-label">Confirmar contraseña: </label>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="TypeUser" class="form-label">Tipo de usuario: </label>
+                        <select class="form-select" aria-label="Default select example" asp-for="TypeUser">
+                            <option value="Agent">Agente</option>
+                            <option value="Client">Cliente</option>
+                        </select>
+                    </div>
+
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                        <a asp-controller="User" asp-action="Index" class="btn btn-outline-warning">Volver atras</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

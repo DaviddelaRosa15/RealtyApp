@@ -41,4 +41,11 @@
     <Folder Include="wwwroot\Images\User\Client\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Admin\Developers.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

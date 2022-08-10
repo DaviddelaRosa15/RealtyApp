@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using RealtyApp.Core.Application.DTOs.Email;
+using RealtyApp.Core.Application.ViewModels.User;
 
 namespace RealtyApp.Infrastructure.Identity.Services
 {
@@ -171,6 +172,53 @@ namespace RealtyApp.Infrastructure.Identity.Services
             await _userManager.DeleteAsync(applicationUser);
         }
 
+        #region Get users
+        public async Task<List<UserViewModel>> GetAllUserAdminAsync()
+        {
+            var users = await _userManager.GetUsersInRoleAsync(Roles.Administrator.ToString());
+            List<UserViewModel> svm = new();
+            if (users != null)
+            {
+                foreach (var user in users)
+                {
+                    svm.Add(new UserViewModel()
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        CardIdentification = user.CardIdentification,
+                        Email = user.Email,
+                        IsVerified = user.EmailConfirmed,
+                        Username = user.UserName
+                    });
+                }
+            }
+            return svm;
+        }
+
+        public async Task<List<UserViewModel>> GetAllUserDeveloperAsync()
+        {
+            var users = await _userManager.GetUsersInRoleAsync(Roles.Developer.ToString());
+            List<UserViewModel> svm = new();
+            if (users != null)
+            {
+                foreach (var user in users)
+                {
+                    svm.Add(new UserViewModel()
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        CardIdentification = user.CardIdentification,
+                        Email = user.Email,
+                        IsVerified = user.EmailConfirmed,
+                        Username = user.UserName
+                    });
+                }
+            }
+            return svm;
+        }
+        #endregion
         #region Registration
 
         private async Task<RegisterResponse> ValidateUserBeforeRegistrationAsync(RegisterRequest request)
@@ -370,64 +418,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
         }
 
-        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordRequest request, string origin)
-        {
-            ForgotPasswordResponse response = new()
-            {
-                HasError = false
-            };
-
-            var user = await _userManager.FindByEmailAsync(request.Email);
-
-            if (user == null)
-            {
-                response.HasError = true;
-                response.Error = $"No Accounts registered with {request.Email}";
-                return response;
-            }
-
-            var verificationUri = await SendForgotPasswordUri(user, origin);
-
-            await _emailService.SendAsync(new EmailRequest()
-            {
-                To = user.Email,
-                Body = $"Please reset your account visiting this URL {verificationUri}",
-                Subject = "reset password"
-            });
-
-
-            return response;
-        }
-
-        public async Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordRequest request)
-        {
-            ResetPasswordResponse response = new()
-            {
-                HasError = false
-            };
-
-            var user = await _userManager.FindByEmailAsync(request.Email);
-
-            if (user == null)
-            {
-                response.HasError = true;
-                response.Error = $"No Accounts registered with {request.Email}";
-                return response;
-            }
-
-            request.Token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Token));
-            var result = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
-
-            if (!result.Succeeded)
-            {
-                response.HasError = true;
-                response.Error = $"An error occurred while reset password";
-                return response;
-            }
-
-            return response;
-        }
-
         #region PrivateMethods
         private string MakeEmailForConfirm(string verificationUri)
         {
@@ -489,7 +479,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
             return BitConverter.ToString(ramdomBytes).Replace("-", "");
         }
 
-
         private async Task<string> SendVerificationEmailUri(ApplicationUser user, string origin)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -501,6 +490,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             return verificationUri;
         }
+
         private async Task<string> SendForgotPasswordUri(ApplicationUser user, string origin)
         {
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);

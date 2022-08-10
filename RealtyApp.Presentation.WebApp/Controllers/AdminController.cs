@@ -18,6 +18,11 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             return View();
         }
 
+        public IActionResult Developers()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> DeleteAgent(string id)
         {
             await _userService.DeleteAsync(id);
