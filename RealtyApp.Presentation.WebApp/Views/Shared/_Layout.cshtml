@@ -5,15 +5,16 @@
 @inject IHttpContextAccessor httpContextAccessor
 @{
     var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
-    var isAdmin = User != null ? User.Roles.Any(r => r == "Admin") : false;
-     var isBasic = User != null ? User.Roles.Any(r => r == "Basic") : false;
+    var isAdmin = User != null ? User.Roles.Any(r => r == "Administrator") : false;
+    var isAgent = User != null ? User.Roles.Any(r => r == "Agent") : false;
+    var isClient = User != null ? User.Roles.Any(r => r == "Client") : false;
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StockApp</title>
+    <title>@ViewData["Title"] - RealtyApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -21,7 +22,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-danger navbar-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand text-white fw-bold" asp-area="" asp-controller="@(User!= null ? "Home" : "User")" asp-action="Index">StockApp</a>
+                <a class="navbar-brand text-white fw-bold" asp-area="" asp-controller="@(User!= null ? "Home" : "User")" asp-action="Index">RealtyApp</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,30 +30,96 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         @if (User != null)
-                        {                        
+                        {
 
-                            if(isBasic)
+                            if (isClient)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Product" asp-action="Index">Mant. Productos</a>
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Client" asp-action="Index">Home</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Agents">Agentes</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Client" asp-action="Index">Agentes</a>
                                 </li>
                             }
 
-                               if (isAdmin)
+                            if (isAgent)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Category" asp-action="Index">Mant. Categorias</a>
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Agent" asp-action="Index">Home</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Agent" asp-action="Index">Mi perfil</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Agent" asp-action="Index">Propiedades</a>
                                 </li>
                             }
 
-                            <li class="nav-item align-content-end">
-                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="LogOut">Cerrar session (@(User.UserName))</a>
+                            if (isAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Agentes</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Administradores</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Desarrolladores</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Tipo de propiedades</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Tipo de ventas</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Mejoras</a>
+                                </li>
+                            }
+
+                            <li class="nav-item align-item-end justify-content-end">
+                                <div class="dropdown">
+                                    <a class="nav-link text-white fw-bold bg-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="@User.UrlImage" class="avatar-img rounded-circle" style="width: 40px; height: 30px; margin: 0px 3px 0px 0px;">@(User.UserName)
+                                    </a>
+                                    <ul class="dropdown-menu bg-danger">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="LogOut">Cerrar sesión</a></li>
+                                    </ul>
+                                </div>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item align-content-end">
-                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Agent" asp-action="Register">Registrate!</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Agents">Agentes</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Register">Unete a la App!</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Index">Iniciar sesión</a>
                             </li>
                         }
                     </ul>
@@ -68,7 +135,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.Now.Year - StockApp
+            &copy; @DateTime.Now.Year - RealtyApp
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -18,6 +18,23 @@ a {
   border-color: #1861ac;
 }
 
+.dropdown > .dropdown-item:hover {
+    /*Modifica lo que quieras*/
+    background: lightblue;
+    color: white;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;

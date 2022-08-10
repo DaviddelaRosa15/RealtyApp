@@ -27,8 +27,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
         private readonly JWTSettings _jwtSettings;
 
         public AccountService(
-              UserManager<ApplicationUser> userManager,            
-              SignInManager<ApplicationUser> signInManager, 
+              UserManager<ApplicationUser> userManager,
+              SignInManager<ApplicationUser> signInManager,
               IEmailService emailService,
               IOptions<JWTSettings> jwtSettings
             )
@@ -39,7 +39,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
             _jwtSettings = jwtSettings.Value;
         }
 
-        public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
+        #region Authenticate
+        public async Task<AuthenticationResponse> AuthenticateAsyncWebApi(AuthenticationRequest request)
         {
             AuthenticationResponse response = new();
 
@@ -47,7 +48,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             if (user == null)
             {
                 response.HasError = true;
-                response.Error = $"No Accounts registered with {request.Email}";
+                response.Error = $"No existen cuentas registradas con el correo: {request.Email}, si el problema persiste haga contacto con nuestro soporte técnico";
                 return response;
             }
 
@@ -55,13 +56,21 @@ namespace RealtyApp.Infrastructure.Identity.Services
             if (!result.Succeeded)
             {
                 response.HasError = true;
-                response.Error = $"Invalid credentials for {request.Email}";
+                response.Error = $"Credenciales incorrectas para el correo: {request.Email}, si el problema persiste haga contacto con nuestro soporte técnico";
                 return response;
             }
             if (!user.EmailConfirmed)
             {
                 response.HasError = true;
-                response.Error = $"Account no confirmed for {request.Email}";
+                response.Error = $"Su cuenta no está activa, haga contacto con nuestro soporte técnico con";
+                return response;
+            }
+
+            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            if (!rolesList.Any(x => x.Equals(Roles.Administrator.ToString()) || x.Equals(Roles.Developer.ToString())))
+            {
+                response.HasError = true;
+                response.Error = $"Usted no tiene permisos para usar la Api de RealtyApp";
                 return response;
             }
 
@@ -71,8 +80,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
             response.Email = user.Email;
             response.UserName = user.UserName;
 
-            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
-
             response.Roles = rolesList.ToList();
             response.IsVerified = user.EmailConfirmed;
             response.JWToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
@@ -81,6 +88,55 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             return response;
         }
+
+        public async Task<AuthenticationResponse> AuthenticateAsyncWebApp(AuthenticationRequest request)
+        {
+            AuthenticationResponse response = new();
+
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null)
+            {
+                response.HasError = true;
+                response.Error = $"No existe una cuenta registrada con el email {request.Email}, si el problema persiste haga contacto con nuestro soporte técnico";
+                return response;
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
+            if (!result.Succeeded)
+            {
+                response.HasError = true;
+                response.Error = $"Credenciales incorrectas para el email {request.Email}, si el problema persiste haga contacto con nuestro soporte técnico";
+                return response;
+            }
+            if (!user.EmailConfirmed)
+            {
+                response.HasError = true;
+                response.Error = $"Su cuenta no está activa, haga contacto con nuestro soporte técnico";
+                return response;
+            }
+
+            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            if (rolesList.Any(x => x.Equals(Roles.Developer.ToString())))
+            {
+                response.HasError = true;
+                response.Error = $"Usted no tiene permisos para usar la App de RealtyApp";
+                return response;
+            }
+
+            response.Id = user.Id;
+            response.Email = user.Email;
+            response.UserName = user.UserName;
+            response.FirstName = user.FirstName;
+            response.LastName = user.LastName;
+            response.UrlImage = user.UrlImage;
+
+            response.Roles = rolesList.ToList();
+            response.IsVerified = user.EmailConfirmed;
+
+            return response;
+        }
+
+        #endregion
 
         public async Task SignOutAsync()
         {
@@ -125,7 +181,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
         }
 
-
         public async Task<RegisterResponse> RegisterDeveloperUserAsync(RegisterRequest request, string origin)
         {
             RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
@@ -146,7 +201,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Developer.ToString());   
+                await _userManager.AddToRoleAsync(user, Roles.Developer.ToString());
             }
             else
             {
@@ -356,7 +411,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
         }
 
         #region PrivateMethods
-      
+
         private async Task<JwtSecurityToken> GenerateJWToken(ApplicationUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
@@ -364,7 +419,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             var roleClaims = new List<Claim>();
 
-            foreach(var role in roles)
+            foreach (var role in roles)
             {
                 roleClaims.Add(new Claim("roles", role));
             }
@@ -401,7 +456,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 Created = DateTime.UtcNow
             };
         }
-        
+
         private string RandomTokenString()
         {
             using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
