@@ -264,8 +264,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 UserName = request.UserName,
                 CardIdentification = request.CardIdentification,
                 PhoneNumber = request.Phone,
-                EmailConfirmed=false,
-                UrlImage=request.ImageUrl
+                EmailConfirmed = false,
+                UrlImage = request.ImageUrl
             };
             //Remember the image property
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -303,7 +303,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 UserName = request.UserName,
                 CardIdentification = request.CardIdentification,
                 PhoneNumber = request.Phone,
-                UrlImage="default"
+                UrlImage = request.ImageUrl
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
@@ -337,18 +337,18 @@ namespace RealtyApp.Infrastructure.Identity.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return $"No accounts registered with this user";
+                return $"No existe cuenta registrada con este usuario";
             }
 
             token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
             {
-                return $"Account confirmed for {user.Email}. You can now use the app";
+                return $"Cuenta confirmada para {user.Email}. Ahora puedes usar la app";
             }
             else
             {
-                return $"An error occurred wgile confirming {user.Email}.";
+                return $"Ocurrió un error mientras se confirmaba la cuenta para el correo: {user.Email}.";
             }
         }
 

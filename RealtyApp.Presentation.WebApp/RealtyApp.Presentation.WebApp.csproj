@@ -6,9 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Images\Agent\**" />
+    <Compile Remove="wwwroot\Images\Client\**" />
     <Compile Remove="wwwroot\Image\**" />
+    <Content Remove="wwwroot\Images\Agent\**" />
+    <Content Remove="wwwroot\Images\Client\**" />
     <Content Remove="wwwroot\Image\**" />
+    <EmbeddedResource Remove="wwwroot\Images\Agent\**" />
+    <EmbeddedResource Remove="wwwroot\Images\Client\**" />
     <EmbeddedResource Remove="wwwroot\Image\**" />
+    <None Remove="wwwroot\Images\Agent\**" />
+    <None Remove="wwwroot\Images\Client\**" />
     <None Remove="wwwroot\Image\**" />
   </ItemGroup>
 
@@ -29,8 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\Client\" />
-    <Folder Include="wwwroot\Images\Agent\" />
     <Folder Include="wwwroot\Images\User\" />
   </ItemGroup>
 
