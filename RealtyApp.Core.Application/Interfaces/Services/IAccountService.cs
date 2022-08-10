@@ -11,9 +11,11 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordRequest request, string origin);
         Task<RegisterResponse> RegisterDeveloperUserAsync(RegisterRequest request, string origin);
         Task<RegisterResponse> RegisterAdministratorUserAsync(RegisterRequest request, string origin);
-        Task<RegisterResponse> RegisterAgentUserAsync(RegisterRequest request, string origin);
+        Task<RegisterResponse> RegisterAgentUserAsync(RegisterRequest request);
         Task<RegisterResponse> RegisterClientUserAsync(RegisterRequest request, string origin);
         Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordRequest request);
+        Task DeleteAsync(string id);
+        Task UpdateAsync(string id);
         Task SignOutAsync();
     }
 }

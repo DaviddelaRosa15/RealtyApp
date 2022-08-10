@@ -53,5 +53,6 @@ namespace RealtyApp.Core.Application.Dtos.Account
         [Required(ErrorMessage = "Debe de especificar un número de teléfono activo.")]
         [DataType(DataType.Text)]
         public string Phone { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
