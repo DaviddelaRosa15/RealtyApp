@@ -67,10 +67,10 @@ namespace RealtyApp.Core.Application.Services
             return await _accountService.RegisterAdministratorUserAsync(registerRequest);
         }
 
-        public async Task UpdateAsync(SaveUserViewModel vm, string id)
+        public async Task<SaveUserViewModel> Update(SaveUserViewModel vm, string id)
         {
-            RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
-            await _accountService.UpdateAsync(registerRequest, id);
+            vm.Id = id;
+            return await _accountService.UpdateAsync(vm);
         }
 
         public async Task DeleteAsync(string id)
@@ -88,9 +88,9 @@ namespace RealtyApp.Core.Application.Services
             return await _accountService.GetAllUserDeveloperAsync();
         }
 
-        public async Task<List<UserViewModel>> GetUserById()
+        public async Task<SaveUserViewModel> GetUserById(string id)
         {
-            return await _accountService.GetAllUserDeveloperAsync();
+            return await _accountService.GetUserByIdAsync(id);
         }
 
         public async Task ChangeUserStatus(string id)

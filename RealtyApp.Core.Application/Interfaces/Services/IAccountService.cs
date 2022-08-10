@@ -15,11 +15,11 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<RegisterResponse> RegisterAgentUserAsync(RegisterRequest request);
         Task<RegisterResponse> RegisterClientUserAsync(RegisterRequest request, string origin);
         Task DeleteAsync(string id);
-        Task UpdateAsync(RegisterRequest request, string id);
+        Task<SaveUserViewModel> UpdateAsync(SaveUserViewModel vm);
         Task SignOutAsync();
         Task<List<UserViewModel>> GetAllUserAdminAsync();
         Task<List<UserViewModel>> GetAllUserDeveloperAsync();
-        Task<UserViewModel> GetUserByIdAsync(string id);
+        Task<SaveUserViewModel> GetUserByIdAsync(string id);
         Task ChangeUserStatusAsync(string id);
     }
 }

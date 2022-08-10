@@ -10,6 +10,8 @@ namespace RealtyApp.Core.Application.ViewModels.User
 {
     public class SaveUserViewModel
     {   
+        public string Id { get; set; }
+
         [Required(ErrorMessage = "Debe colocar el nombre del usuario")]
         [DataType(DataType.Text)]
         public string FirstName { get; set; }
@@ -37,7 +39,10 @@ namespace RealtyApp.Core.Application.ViewModels.User
         [Compare(nameof(Password), ErrorMessage = "Las contraseñas no coiciden")]
         [Required(ErrorMessage = "Debe colocar una contraseña")]
         [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }       
+        public string ConfirmPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        public string CurrentPassword { get; set; }
 
         [Required(ErrorMessage = "Debe colocar un correo")]
         [DataType(DataType.EmailAddress)]
@@ -48,8 +53,10 @@ namespace RealtyApp.Core.Application.ViewModels.User
         public IFormFile File { get; set; }
 
         [Required(ErrorMessage = "Debe colocar un telefono")]
+        [StringLength(11, ErrorMessage = "El formato dominicano tiene 10 numeros", MinimumLength = 10)]
         [DataType(DataType.Text)]
         public string Phone { get; set; }
+        public bool IsVerified { get; set; }
         public bool HasError { get; set; }
         public string Error { get; set; }
     }

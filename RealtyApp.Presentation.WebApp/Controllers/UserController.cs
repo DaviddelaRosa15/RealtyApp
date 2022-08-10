@@ -79,7 +79,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                     return View(vm);
                 }
                 vm.ImageUrl = UploadFile(vm.File, vm.TypeUser, response.Id);
-                await _userService.UpdateAsync(vm, response.Id);
+                await _userService.Update(vm, response.Id);
             }
             else
             {
@@ -92,7 +92,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                     return View(vm);
                 }
                 vm.ImageUrl = UploadFile(vm.File, vm.TypeUser, response.Id);
-                await _userService.UpdateAsync(vm, response.Id);
+                await _userService.Update(vm, response.Id);
             }
             return RedirectToRoute(new { controller = "Home", action = "Index" });
         }

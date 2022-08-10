@@ -154,19 +154,133 @@ namespace RealtyApp.Infrastructure.Identity.Services
         {
             await _signInManager.SignOutAsync();
         }
-        public async Task UpdateAsync(RegisterRequest request, string id)
+        public async Task<SaveUserViewModel> UpdateAsync(SaveUserViewModel vm)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            ApplicationUser appliUser = await _userManager.FindByIdAsync(vm.Id);
+            SaveUserViewModel sv = new();
 
-            user.Email = request.Email;
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.UserName = request.UserName;
-            user.CardIdentification = request.CardIdentification;
-            user.PhoneNumber = request.Phone;
-            user.UrlImage = request.ImageUrl;
+            
+            if (vm.Password != null)
+            {
+                if (vm.CurrentPassword == null)
+                {
+                    sv.HasError = true;
+                    sv.Error = "Debe especificar la contraseña actual si desea cambiar la contraseña!";
+                    return sv;
+                }
+                if (vm.Password != vm.ConfirmPassword)
+                {
+                    sv.HasError = true;
+                    sv.Error = "Las contraseñas nuevas no coinciden";
+                    return sv;
+                }
+            }
 
-            await _userManager.UpdateAsync(user);
+            var user = _userManager.Users.ToList();
+            if (appliUser.UserName != vm.Username)
+            {
+                var verifUsername = await _userManager.FindByNameAsync(vm.Username);
+                if (verifUsername != null)
+                {
+                    sv.HasError = true;
+                    sv.Error = $"Este usuario {vm.Username} ya esta en uso";
+                    return sv;
+                }
+            }
+            if (appliUser.CardIdentification != vm.CardIdentification)
+            {
+                try
+                {
+                    var verifyCedula = user.FirstOrDefault(user => user.CardIdentification == vm.CardIdentification);
+                    if (verifyCedula != null)
+                    {
+                        sv.HasError = true;
+                        sv.Error = $"Esta cedula {vm.CardIdentification} ya esta en uso";
+                        return sv;
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    sv.HasError = true;
+                    sv.Error = $"Esta cedula {vm.CardIdentification} ya esta en uso";
+                    return sv;
+                }
+            }
+            if (appliUser.Email != vm.Email)
+            {
+                try
+                {
+                    var verifyEmail = await _userManager.FindByEmailAsync(vm.Email);
+                    if (verifyEmail != null)
+                    {
+                        sv.HasError = true;
+                        sv.Error = $"Este email {vm.Email} ya esta en uso";
+                        return sv;
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    sv.HasError = true;
+                    sv.Error = $"Este email {vm.Email} ya esta en uso";
+                    return sv;
+                }
+            }
+            if (appliUser.PhoneNumber != vm.Phone)
+            {
+                try
+                {
+                    var verifyPhone = user.FirstOrDefault(user => user.PhoneNumber == vm.Phone);
+                    if (verifyPhone != null)
+                    {
+                        sv.HasError = true;
+                        sv.Error = $"Este telefono {vm.Phone} ya esta en uso";
+                        return sv;
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    sv.HasError = true;
+                    sv.Error = $"Este telefono {vm.Phone} ya está en uso";
+                    return sv;
+                }
+            }
+
+            appliUser.Email = vm.Email;
+            appliUser.FirstName = vm.FirstName;
+            appliUser.LastName = vm.LastName;
+            appliUser.UserName = vm.Username;
+            appliUser.CardIdentification = vm.CardIdentification;
+            appliUser.PhoneNumber = vm.Phone;
+            appliUser.UrlImage = vm.ImageUrl;
+
+            if (vm.Password != null)
+            {
+                var statusUpdate = await _userManager.ChangePasswordAsync(appliUser, vm.CurrentPassword, vm.Password);
+                if (statusUpdate.Succeeded)
+                {
+                    sv.HasError = false;
+                }
+                else
+                {
+                    sv.HasError = true;
+                    foreach (var error in statusUpdate.Errors)
+                    {
+                        if (error.Code == "PasswordMismatch")
+                        {
+                            sv.Error += "La contraseña actual es incorrecta";
+                        }
+                        else
+                        {
+                            sv.Error += error.Code;
+                        }
+
+                    }
+                }
+            }
+
+            await _userManager.UpdateAsync(appliUser);
+
+            return sv;
         }
         public async Task DeleteAsync(string id)
         {
@@ -221,10 +335,10 @@ namespace RealtyApp.Infrastructure.Identity.Services
             return svm;
         }
 
-        public async Task<UserViewModel> GetUserByIdAsync(string id)
+        public async Task<SaveUserViewModel> GetUserByIdAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            UserViewModel userVm = new()
+            SaveUserViewModel userVm = new()
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
@@ -232,7 +346,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 CardIdentification = user.CardIdentification,
                 Email = user.Email,
                 IsVerified = user.EmailConfirmed,
-                Username = user.UserName
+                Username = user.UserName,
+                Phone = user.PhoneNumber
             };
 
             return userVm;
@@ -247,6 +362,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             {
                 HasError = false
             };
+            var user = _userManager.Users.ToList();
 
             var userWithSameUserName = await _userManager.FindByNameAsync(request.UserName);
             if (userWithSameUserName != null)
@@ -261,6 +377,14 @@ namespace RealtyApp.Infrastructure.Identity.Services
             {
                 response.HasError = true;
                 response.Error = $"Email '{request.Email}' is already registered.";
+                return response;
+            }
+
+            var verifyCedula = user.FirstOrDefault(user => user.CardIdentification == request.CardIdentification);
+            if (verifyCedula != null)
+            {
+                response.HasError = true;
+                response.Error = $"Esta cedula {request.CardIdentification} ya esta en uso";
                 return response;
             }
 

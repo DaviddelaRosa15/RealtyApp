@@ -40,7 +40,7 @@
                                 <td scope="row">@user.CardIdentification</td>
                                 <td scope="row">@user.Email</td>
                                 <td class="btn-group">
-                                    <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id">Editar</a>
+                                    <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Developer">Editar</a>
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
                                 </td>
                             </tr>

@@ -3,6 +3,7 @@ using RealtyApp.Core.Application.Dtos.Account;
 using RealtyApp.Core.Application.Interfaces.Services;
 using RealtyApp.Core.Application.ViewModels.User;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RealtyApp.Presentation.WebApp.Controllers
@@ -58,6 +59,38 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                 }
             }
             return RedirectToRoute(new { controller = "Admin", action = "Index" });
+        }
+
+        public async Task<IActionResult> Edit(string id, string type)
+        {
+            var model = await _userService.GetUserById(id);
+            model.TypeUser = type;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(SaveUserViewModel vm)
+        {
+            if (ModelState["Email"].Errors.Any() || ModelState["FirstName"].Errors.Any()
+                || ModelState["LastName"].Errors.Any() || ModelState["CardIdentification"].Errors.Any()
+                || ModelState["Username"].Errors.Any() || ModelState["Phone"].Errors.Any())
+            {
+                return View(vm);
+            }
+
+            var response = await _userService.Update(vm, vm.Id);
+            if (response.HasError)
+            {
+                vm.HasError = response.HasError;
+                vm.Error = response.Error;
+                return View(vm);
+            }
+
+            if (vm.TypeUser == "Administrator")
+            {
+                return RedirectToRoute(new { Controller = "Admin", Action = "Admins" });
+            }
+            return RedirectToRoute(new {Controller = "Admin", Action = "Developers"});
         }
 
         public async Task<IActionResult> Developers()
