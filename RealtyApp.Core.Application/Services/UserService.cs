@@ -30,19 +30,37 @@ namespace RealtyApp.Core.Application.Services
         public async Task SignOutAsync()
         {
             await _accountService.SignOutAsync();
-        }
+        }        
+        //public async Task<RegisterResponse> RegisterAsync(SaveUserViewModel vm, string origin)
+        //{
+        //    RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
+            
+        //    //Alex bro, tirarle un ojo al servicio AccountServices, puedes modificar los metodos como te convengan.
+        //    //no le hice mucho solo lo deje definido con la plantilla de quejo david. Ya el BasicNoExiste.
+            
+        //    //return await _accountService.RegisterBasicUserAsync(registerRequest, origin);
+        //    return new RegisterResponse();
 
-        public async Task<RegisterResponse> RegisterAsync(SaveUserViewModel vm, string origin)
+        //}
+        public async Task<RegisterResponse> RegisterAgentUserAsync(SaveUserViewModel vm)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
-            
-            //Alex bro, tirarle un ojo al servicio AccountServices, puedes modificar los metodos como te convengan.
-            //no le hice mucho solo lo deje definido con la plantilla de quejo david. Ya el BasicNoExiste.
-            
-            //return await _accountService.RegisterBasicUserAsync(registerRequest, origin);
-            return new RegisterResponse();
-
+            return await _accountService.RegisterAgentUserAsync(registerRequest);
         }
+        public async Task<RegisterResponse> RegisterClientUserAsync(SaveUserViewModel vm, string origin)
+        {
+            RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
+            return await _accountService.RegisterClientUserAsync(registerRequest,origin);
+        }
+        public async Task UpdateAsync(string id)
+        {
+            await _accountService.UpdateAsync(id);
+        }
+        public async Task DeleteAsync(string id)
+        {
+            await _accountService.DeleteAsync(id);
+        }
+
 
         public async Task<string> ConfirmEmailAsync(string userId, string token)
         {

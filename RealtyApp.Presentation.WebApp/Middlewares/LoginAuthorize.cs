@@ -17,7 +17,7 @@ namespace RealtyApp.Presentation.WebApp.Middlewares
         {
             if (_userSession.HasUser())
             {
-                var controller = (UserController)context.Controller;
+                var controller = (AgentController)context.Controller;
                 context.Result = controller.RedirectToAction("index", "home");
             }
             else

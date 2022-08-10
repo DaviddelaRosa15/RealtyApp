@@ -142,7 +142,16 @@ namespace RealtyApp.Infrastructure.Identity.Services
         {
             await _signInManager.SignOutAsync();
         }
-
+        public async Task UpdateAsync(string id)
+        {
+            ApplicationUser applicationUser =await _userManager.FindByIdAsync(id);
+            await _userManager.UpdateAsync(applicationUser);
+        }
+        public async Task DeleteAsync(string id)
+        {
+            ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
+            await _userManager.DeleteAsync(applicationUser);
+        }
         #region Registration
 
         private async Task<RegisterResponse> ValidateUserBeforeRegistrationAsync(RegisterRequest request)
@@ -238,9 +247,13 @@ namespace RealtyApp.Infrastructure.Identity.Services
             return response;
         }
 
-        public async Task<RegisterResponse> RegisterAgentUserAsync(RegisterRequest request, string origin)
+        public async Task<RegisterResponse> RegisterAgentUserAsync(RegisterRequest request)
         {
             RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
+            if (response.HasError)
+            {
+                return response;
+            }
 
             //We could use AutoMaper here!
             var user = new ApplicationUser
@@ -250,35 +263,36 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 LastName = request.LastName,
                 UserName = request.UserName,
                 CardIdentification = request.CardIdentification,
-                PhoneNumber = request.Phone
+                PhoneNumber = request.Phone,
+                EmailConfirmed=false,
+                UrlImage=request.ImageUrl
             };
             //Remember the image property
-
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Agent.ToString());
-                var verificationUri = await SendVerificationEmailUri(user, origin);
-                await _emailService.SendAsync(new EmailRequest()
-                {
-                    To = user.Email,
-                    Body = $"Please confirm your account visiting this URL {verificationUri}",
-                    Subject = "Confirm registration"
-                });
+                await _userManager.AddToRoleAsync(user, Roles.Agent.ToString());                
             }
             else
             {
-                response.HasError = true;
-                response.Error = $"An error occurred trying to register the user.";
+                foreach (var error in result.Errors)
+                {
+                    response.Error += $"{error.Description}";
+                }
+                response.HasError = true;               
                 return response;
             }
-
+            response.Id = user.Id;
             return response;
         }
 
         public async Task<RegisterResponse> RegisterClientUserAsync(RegisterRequest request, string origin)
         {
             RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
+            if (response.HasError)
+            {
+                return response;
+            }
 
             //We could use AutoMaper here!
             var user = new ApplicationUser
@@ -288,10 +302,9 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 LastName = request.LastName,
                 UserName = request.UserName,
                 CardIdentification = request.CardIdentification,
-                PhoneNumber = request.Phone
+                PhoneNumber = request.Phone,
+                UrlImage="default"
             };
-            //Remember the image property
-
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
@@ -306,11 +319,14 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
             else
             {
+                foreach (var error in result.Errors)
+                {
+                    response.Error += $"{error.Description}";
+                }
                 response.HasError = true;
-                response.Error = $"An error occurred trying to register the user.";
                 return response;
             }
-
+            response.Id = user.Id;
             return response;
         }
 
