@@ -18,13 +18,15 @@ namespace RealtyApp.Core.Application.ViewModels.User
         [DataType(DataType.Text)]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Debe colocar una cedula valida")]
-        [DataType(DataType.Text)]        
+        [Required(ErrorMessage = "Debe colocar la cédula del usuario")]
+        [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números")]
+        [StringLength(11, ErrorMessage = "Debe tener  11 numeros", MinimumLength = 11)]
         public string CardIdentification { get; set; }
+
         [Required(ErrorMessage = "Debe colocar un nombre de usuario")]
-        [DataType(DataType.Text)]       
-        
+        [DataType(DataType.Text)]
         public string Username { get; set; }
+
         [Required(ErrorMessage = "Debe seleccionar un tipo de usuario")]
         public string TypeUser { get; set; }
 
@@ -41,9 +43,11 @@ namespace RealtyApp.Core.Application.ViewModels.User
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string ImageUrl { get; set; }
+
         [Required(ErrorMessage = "Debe colocar una imagen")]
         [DataType(DataType.Upload)]
         public IFormFile File { get; set; }
+
         [Required(ErrorMessage = "Debe colocar un telefono")]
         [DataType(DataType.Text)]
         public string Phone { get; set; }

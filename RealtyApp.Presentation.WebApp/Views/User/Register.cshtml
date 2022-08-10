@@ -5,7 +5,7 @@
 
 }
 
-<div class="container-fluid">
+<div class="container">
 
     <div class="row">
         <div class="card shadow-sm ">
@@ -19,7 +19,7 @@
                  
                 }
 
-                <form method="post" asp-controller="Agent" enctype="multipart/form-data" asp-action="Register">
+                <form method="post" asp-controller="User" asp-action="Register" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label asp-for="FirstName" class="form-label">Nombre: </label>
                         <input asp-for="FirstName" class="form-control" />
@@ -79,7 +79,7 @@
 
                     <div class="btn-group">
                         <button type="submit" class="btn btn-outline-primary">Guardar</button>
-                        <a asp-controller="Agent" asp-action="Index" class="btn btn-outline-warning">Volver atras</a>
+                        <a asp-controller="User" asp-action="Index" class="btn btn-outline-warning">Volver atras</a>
                     </div>
                 </form>
 

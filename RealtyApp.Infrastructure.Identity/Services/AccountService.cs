@@ -94,6 +94,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             AuthenticationResponse response = new();
 
             var user = await _userManager.FindByEmailAsync(request.Email);
+            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
             if (user == null)
             {
                 response.HasError = true;
@@ -110,12 +111,20 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
             if (!user.EmailConfirmed)
             {
-                response.HasError = true;
-                response.Error = $"Su cuenta no está activa, haga contacto con nuestro soporte técnico";
+                if (rolesList.Any(x => x.Equals(Roles.Agent.ToString())))
+                {
+                    response.HasError = true;
+                    response.Error = $"Su cuenta no está activa, haga contacto con nuestro soporte técnico";
+                }
+                else
+                {
+                    response.HasError = true;
+                    response.Error = $"Su cuenta no está activa, dirijase a su bandeja de correo, busque el correo que le mandamos y active su cuenta. ";
+                }
+
                 return response;
             }
 
-            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
             if (rolesList.Any(x => x.Equals(Roles.Developer.ToString())))
             {
                 response.HasError = true;
@@ -142,16 +151,26 @@ namespace RealtyApp.Infrastructure.Identity.Services
         {
             await _signInManager.SignOutAsync();
         }
-        public async Task UpdateAsync(string id)
+        public async Task UpdateAsync(RegisterRequest request, string id)
         {
-            ApplicationUser applicationUser =await _userManager.FindByIdAsync(id);
-            await _userManager.UpdateAsync(applicationUser);
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+
+            user.Email = request.Email;
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.UserName = request.UserName;
+            user.CardIdentification = request.CardIdentification;
+            user.PhoneNumber = request.Phone;
+            user.UrlImage = request.ImageUrl;
+
+            await _userManager.UpdateAsync(user);
         }
         public async Task DeleteAsync(string id)
         {
             ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
             await _userManager.DeleteAsync(applicationUser);
         }
+
         #region Registration
 
         private async Task<RegisterResponse> ValidateUserBeforeRegistrationAsync(RegisterRequest request)
@@ -270,7 +289,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Agent.ToString());                
+                await _userManager.AddToRoleAsync(user, Roles.Agent.ToString());
             }
             else
             {
@@ -278,7 +297,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 {
                     response.Error += $"{error.Description}";
                 }
-                response.HasError = true;               
+                response.HasError = true;
                 return response;
             }
             response.Id = user.Id;
@@ -312,7 +331,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 await _emailService.SendAsync(new EmailRequest()
                 {
                     To = user.Email,
-                    Body = $"Please confirm your account visiting this URL {verificationUri}",
+                    Body = MakeEmailForConfirm(verificationUri),
                     Subject = "Confirm registration"
                 });
             }
@@ -410,6 +429,11 @@ namespace RealtyApp.Infrastructure.Identity.Services
         }
 
         #region PrivateMethods
+        private string MakeEmailForConfirm(string verificationUri)
+        {
+            string html = $"Please confirm your account visiting this URL {verificationUri}";
+            return html;
+        }
 
         private async Task<JwtSecurityToken> GenerateJWToken(ApplicationUser user)
         {

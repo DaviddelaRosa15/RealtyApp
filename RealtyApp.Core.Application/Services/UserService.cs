@@ -30,7 +30,8 @@ namespace RealtyApp.Core.Application.Services
         public async Task SignOutAsync()
         {
             await _accountService.SignOutAsync();
-        }        
+        }      
+        
         //public async Task<RegisterResponse> RegisterAsync(SaveUserViewModel vm, string origin)
         //{
         //    RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
@@ -47,36 +48,27 @@ namespace RealtyApp.Core.Application.Services
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
             return await _accountService.RegisterAgentUserAsync(registerRequest);
         }
+
         public async Task<RegisterResponse> RegisterClientUserAsync(SaveUserViewModel vm, string origin)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
             return await _accountService.RegisterClientUserAsync(registerRequest,origin);
         }
-        public async Task UpdateAsync(string id)
+       
+        public async Task UpdateAsync(SaveUserViewModel vm, string id)
         {
-            await _accountService.UpdateAsync(id);
+            RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
+            await _accountService.UpdateAsync(registerRequest, id);
         }
+
         public async Task DeleteAsync(string id)
         {
             await _accountService.DeleteAsync(id);
         }
 
-
         public async Task<string> ConfirmEmailAsync(string userId, string token)
         {
             return await _accountService.ConfirmAccountAsync(userId, token);
-        }
-
-        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordViewModel vm, string origin)
-        {
-            ForgotPasswordRequest forgotRequest = _mapper.Map<ForgotPasswordRequest>(vm);
-            return await _accountService.ForgotPasswordAsync(forgotRequest, origin);
-        }
-
-        public async Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordViewModel vm)
-        {
-            ResetPasswordRequest resetRequest = _mapper.Map<ResetPasswordRequest>(vm);
-            return await _accountService.ResetPasswordAsync(resetRequest);
         }
     }
 }

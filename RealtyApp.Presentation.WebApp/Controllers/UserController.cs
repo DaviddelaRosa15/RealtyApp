@@ -79,7 +79,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                     return View(vm);
                 }
                 vm.ImageUrl = UploadFile(vm.File, vm.TypeUser, response.Id);
-                await _userService.UpdateAsync(response.Id);
+                await _userService.UpdateAsync(vm, response.Id);
             }
             else
             {
@@ -92,7 +92,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                     return View(vm);
                 }
                 vm.ImageUrl = UploadFile(vm.File, vm.TypeUser, response.Id);
-                await _userService.UpdateAsync(response.Id);
+                await _userService.UpdateAsync(vm, response.Id);
             }
             return RedirectToRoute(new { controller = "Home", action = "Index" });
         }
@@ -110,56 +110,6 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         {
             string response = await _userService.ConfirmEmailAsync(userId, token);
             return View("ConfirmEmail", response);
-        }
-
-        [ServiceFilter(typeof(LoginAuthorize))]
-        public IActionResult ForgotPassword()
-        {
-            return View(new ForgotPasswordViewModel());
-        }
-
-        [ServiceFilter(typeof(LoginAuthorize))]
-        [HttpPost]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
-            var origin = Request.Headers["origin"];
-            ForgotPasswordResponse response = await _userService.ForgotPasswordAsync(vm, origin);
-            if (response.HasError)
-            {
-                vm.HasError = response.HasError;
-                vm.Error = response.Error;
-                return View(vm);
-            }
-            return RedirectToRoute(new { controller = "User", action = "Index" });
-        }
-
-        [ServiceFilter(typeof(LoginAuthorize))]
-        public IActionResult ResetPassword(string token)
-        {
-            return View(new ResetPasswordViewModel { Token = token });
-        }
-
-        [ServiceFilter(typeof(LoginAuthorize))]
-        [HttpPost]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
-
-            ResetPasswordResponse response = await _userService.ResetPasswordAsync(vm);
-            if (response.HasError)
-            {
-                vm.HasError = response.HasError;
-                vm.Error = response.Error;
-                return View(vm);
-            }
-            return RedirectToRoute(new { controller = "User", action = "Index" });
         }
 
         public IActionResult AccessDenied()

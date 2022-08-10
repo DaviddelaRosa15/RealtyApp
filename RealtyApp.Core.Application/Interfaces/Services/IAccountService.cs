@@ -15,7 +15,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<RegisterResponse> RegisterClientUserAsync(RegisterRequest request, string origin);
         Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordRequest request);
         Task DeleteAsync(string id);
-        Task UpdateAsync(string id);
+        Task UpdateAsync(RegisterRequest request, string id);
         Task SignOutAsync();
     }
 }

@@ -23,12 +23,10 @@ namespace RealtyApp.Core.Application.Dtos.Account
         [DataType(DataType.Text)]
         public string LastName { get; set; }
 
-
         [SwaggerParameter(Description = "Cedula o Documento de identificación ciudadana.")]
         [Required(ErrorMessage = "Debe de especificar un valor para el documento de identificación.")]
         [DataType(DataType.Text)]
         public string CardIdentification { get; set; }
-
 
         [SwaggerParameter(Description = "El correo de el usuario")]
         [Required(ErrorMessage = "Debe de especificar un valor para el correo electronico.")]
