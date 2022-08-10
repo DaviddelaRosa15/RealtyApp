@@ -127,7 +127,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
             response.Email = user.Email;
             response.UserName = user.UserName;
             response.FirstName = user.FirstName;
-            response.LastName = user.LastName;            
+            response.LastName = user.LastName;
+            response.UrlImage = user.UrlImage;
 
             response.Roles = rolesList.ToList();
             response.IsVerified = user.EmailConfirmed;
