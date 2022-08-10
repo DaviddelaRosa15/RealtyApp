@@ -38,6 +38,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             _emailService = emailService;
             _jwtSettings = jwtSettings.Value;
         }
+
         #region Authenticate
         public async Task<AuthenticationResponse> AuthenticateAsyncWebApi(AuthenticationRequest request)
         {
@@ -169,7 +170,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
             return response;
 
         }
-
 
         public async Task<RegisterResponse> RegisterDeveloperUserAsync(RegisterRequest request, string origin)
         {

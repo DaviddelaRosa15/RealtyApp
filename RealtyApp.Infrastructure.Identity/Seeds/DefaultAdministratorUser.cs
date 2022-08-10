@@ -21,7 +21,7 @@ namespace RealtyApp.Infrastructure.Identity.Seeds
             defaultUser.CardIdentification = "00112304991";
             defaultUser.PhoneNumber = "8099221234";
             //imagen por defecto
-            defaultUser.UrlImage = "";
+            defaultUser.UrlImage = "/Images/User/placeholder_profile_image.png";
             defaultUser.EmailConfirmed = true;
             defaultUser.PhoneNumberConfirmed = true;
 
