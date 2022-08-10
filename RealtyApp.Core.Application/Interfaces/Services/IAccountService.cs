@@ -19,5 +19,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task SignOutAsync();
         Task<List<UserViewModel>> GetAllUserAdminAsync();
         Task<List<UserViewModel>> GetAllUserDeveloperAsync();
+        Task<UserViewModel> GetUserByIdAsync(string id);
+        Task ChangeUserStatusAsync(string id);
     }
 }

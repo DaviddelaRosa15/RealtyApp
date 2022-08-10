@@ -18,9 +18,15 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Developers()
+        public async Task<IActionResult> Developers()
         {
-            return View();
+            return View(await _userService.GetAllUsersDeveloper());
+        }
+
+        public async Task<IActionResult> ChangeConfirmDevelopers(string id)
+        {
+            await _userService.ChangeUserStatus(id);
+            return RedirectToRoute(new { controller = "Admin", action = "Developers" });
         }
 
         public async Task<IActionResult> DeleteAgent(string id)

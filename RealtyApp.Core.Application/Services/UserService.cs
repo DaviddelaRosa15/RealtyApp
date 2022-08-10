@@ -66,6 +66,26 @@ namespace RealtyApp.Core.Application.Services
             await _accountService.DeleteAsync(id);
         }
 
+        public async Task<List<UserViewModel>> GetAllUsersAdmin()
+        {
+            return await _accountService.GetAllUserAdminAsync();
+        }
+
+        public async Task<List<UserViewModel>> GetAllUsersDeveloper()
+        {
+            return await _accountService.GetAllUserDeveloperAsync();
+        }
+
+        public async Task<List<UserViewModel>> GetUserById()
+        {
+            return await _accountService.GetAllUserDeveloperAsync();
+        }
+
+        public async Task ChangeUserStatus(string id)
+        {
+            await _accountService.ChangeUserStatusAsync(id);
+        }
+
         public async Task<string> ConfirmEmailAsync(string userId, string token)
         {
             return await _accountService.ConfirmAccountAsync(userId, token);

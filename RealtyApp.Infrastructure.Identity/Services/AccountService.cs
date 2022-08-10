@@ -218,7 +218,25 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
             return svm;
         }
+
+        public async Task<UserViewModel> GetUserByIdAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            UserViewModel userVm = new()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                CardIdentification = user.CardIdentification,
+                Email = user.Email,
+                IsVerified = user.EmailConfirmed,
+                Username = user.UserName
+            };
+
+            return userVm;
+        }
         #endregion
+
         #region Registration
 
         private async Task<RegisterResponse> ValidateUserBeforeRegistrationAsync(RegisterRequest request)
@@ -416,6 +434,24 @@ namespace RealtyApp.Infrastructure.Identity.Services
             {
                 return $"Ocurrió un error mientras se confirmaba la cuenta para el correo: {user.Email}.";
             }
+        }
+
+        public async Task ChangeUserStatusAsync(string id)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                if (user.EmailConfirmed == false)
+                {
+                    user.EmailConfirmed = true;
+                }
+                else
+                {
+                    user.EmailConfirmed = false;
+                }
+                await _userManager.UpdateAsync(user);
+            }
+
         }
 
         #region PrivateMethods

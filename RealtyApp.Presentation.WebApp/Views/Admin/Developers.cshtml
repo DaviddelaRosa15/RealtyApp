@@ -58,7 +58,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Desactive" asp-route-id="@user.Id">Sí</a>
+                                            <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="ChangeConfirmDevelopers" asp-route-id="@user.Id">Sí</a>
                                             <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
                                 <td scope="row">@user.CardIdentification</td>
                                 <td scope="row">@user.Email</td>
                                 <td class="btn-group">
-                                    <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="EditAdmin" asp-route-id="@user.Id">Editar</a>
+                                    <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id">Editar</a>
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Activar</button>
                                 </td>
                             </tr>
@@ -114,7 +114,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Active" asp-route-id="@user.Id">Sí</a>
+                                            <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="ChangeConfirmDevelopers" asp-route-id="@user.Id">Sí</a>
                                             <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
                                         </div>
                                     </div>
