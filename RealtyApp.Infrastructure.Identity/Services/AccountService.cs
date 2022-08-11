@@ -292,12 +292,13 @@ namespace RealtyApp.Infrastructure.Identity.Services
         public async Task<List<UserViewModel>> GetAllUserAdminAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync(Roles.Administrator.ToString());
-            List<UserViewModel> svm = new();
+            List<UserViewModel> userViewModels = new();
+
             if (users != null)
             {
                 foreach (var user in users)
                 {
-                    svm.Add(new UserViewModel()
+                    userViewModels.Add(new UserViewModel()
                     {
                         Id = user.Id,
                         FirstName = user.FirstName,
@@ -309,18 +310,19 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     });
                 }
             }
-            return svm;
+            return userViewModels;
+
         }
 
         public async Task<List<UserViewModel>> GetAllUserDeveloperAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync(Roles.Developer.ToString());
-            List<UserViewModel> svm = new();
+            List<UserViewModel> userViewModel = new();
             if (users != null)
             {
                 foreach (var user in users)
                 {
-                    svm.Add(new UserViewModel()
+                    userViewModel.Add(new UserViewModel()
                     {
                         Id = user.Id,
                         FirstName = user.FirstName,
@@ -332,7 +334,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     });
                 }
             }
-            return svm;
+            return userViewModel;
         }
 
         public async Task<SaveUserViewModel> GetUserByIdAsync(string id)
