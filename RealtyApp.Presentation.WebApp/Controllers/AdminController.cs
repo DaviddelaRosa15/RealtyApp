@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RealtyApp.Core.Application.Dtos.Account;
 using RealtyApp.Core.Application.Interfaces.Services;
 using RealtyApp.Core.Application.ViewModels.User;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace RealtyApp.Presentation.WebApp.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
@@ -19,6 +21,26 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Developers()
+        {
+            return View(await _userService.GetAllUsersDeveloper());
+        }
+
+        public async Task<IActionResult> Administrators()
+        {
+            return View(await _userService.GetAllUsersAdmin());
+        }
+
+        public async Task<IActionResult> SwithUserStatus(string id, string type)
+        {
+            var operationStatus = await _userService.ChangeUserStatus(id);
+
+            if (operationStatus)
+                return RedirectToRoute(new { controller = "Admin", action = (type == "Developer")? "Developers" : "Administrators" });
+            else
+                return StatusCode(400);
         }
 
         public IActionResult Register(string type)
@@ -48,7 +70,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                 }
                 return RedirectToRoute(new { controller = "Admin", action = "Developers" });
             }
-            else
+            if(vm.TypeUser == "Administrator")
             {
                 RegisterResponse response = await _userService.RegisterAdministratorUser(vm);
                 if (response.HasError)
@@ -57,9 +79,14 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                     vm.Error = response.Error;
                     return View(vm);
                 }
+
+                return RedirectToRoute(new { controller = "Admin", action = "Administrators" });
             }
+
             return RedirectToRoute(new { controller = "Admin", action = "Index" });
+
         }
+
 
         public async Task<IActionResult> Edit(string id, string type)
         {
@@ -79,6 +106,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             }
 
             var response = await _userService.Update(vm, vm.Id);
+
             if (response.HasError)
             {
                 vm.HasError = response.HasError;
@@ -88,21 +116,11 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
             if (vm.TypeUser == "Administrator")
             {
-                return RedirectToRoute(new { Controller = "Admin", Action = "Admins" });
+                return RedirectToRoute(new { Controller = "Admin", Action = "Administrators" });
             }
             return RedirectToRoute(new {Controller = "Admin", Action = "Developers"});
         }
 
-        public async Task<IActionResult> Developers()
-        {
-            return View(await _userService.GetAllUsersDeveloper());
-        }
-
-        public async Task<IActionResult> ChangeConfirmDevelopers(string id)
-        {
-            await _userService.ChangeUserStatus(id);
-            return RedirectToRoute(new { controller = "Admin", action = "Developers" });
-        }
 
         public async Task<IActionResult> DeleteAgent(string id)
         {
