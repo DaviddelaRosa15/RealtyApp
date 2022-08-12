@@ -19,6 +19,6 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<List<UserViewModel>> GetAllUsersAdmin();
         Task<List<UserViewModel>> GetAllUsersDeveloper();
         Task<SaveUserViewModel> GetUserById(string id);
-        Task ChangeUserStatus(string id);
+        Task<bool> ChangeUserStatus(string id);
     }
 }

@@ -154,6 +154,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
         {
             await _signInManager.SignOutAsync();
         }
+
+        #region Update
         public async Task<SaveUserViewModel> UpdateAsync(SaveUserViewModel vm)
         {
             ApplicationUser appliUser = await _userManager.FindByIdAsync(vm.Id);
@@ -176,6 +178,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 }
             }
 
+            
             var user = _userManager.Users.ToList();
             if (appliUser.UserName != vm.Username)
             {
@@ -187,6 +190,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     return sv;
                 }
             }
+
             if (appliUser.CardIdentification != vm.CardIdentification)
             {
                 try
@@ -206,6 +210,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     return sv;
                 }
             }
+
+            //Seria bueno comprobar la validez de este nuevo email atravez de un token de confirmacion.
             if (appliUser.Email != vm.Email)
             {
                 try
@@ -225,6 +231,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     return sv;
                 }
             }
+
+
             if (appliUser.PhoneNumber != vm.Phone)
             {
                 try
@@ -251,7 +259,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             appliUser.UserName = vm.Username;
             appliUser.CardIdentification = vm.CardIdentification;
             appliUser.PhoneNumber = vm.Phone;
-            appliUser.UrlImage = vm.ImageUrl;
+            appliUser.UrlImage = (string.IsNullOrEmpty(vm.ImageUrl) == true)? "/Images/User/placeholder_profile_image.png": vm.ImageUrl;
 
             if (vm.Password != null)
             {
@@ -267,7 +275,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     {
                         if (error.Code == "PasswordMismatch")
                         {
-                            sv.Error += "La contraseña actual es incorrecta";
+                            sv.Error += "La contraseña actual es incorrecta. ";
                         }
                         else
                         {
@@ -282,6 +290,9 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             return sv;
         }
+        #endregion
+
+
         public async Task DeleteAsync(string id)
         {
             ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
@@ -292,12 +303,13 @@ namespace RealtyApp.Infrastructure.Identity.Services
         public async Task<List<UserViewModel>> GetAllUserAdminAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync(Roles.Administrator.ToString());
-            List<UserViewModel> svm = new();
+            List<UserViewModel> userViewModels = new();
+
             if (users != null)
             {
                 foreach (var user in users)
                 {
-                    svm.Add(new UserViewModel()
+                    userViewModels.Add(new UserViewModel()
                     {
                         Id = user.Id,
                         FirstName = user.FirstName,
@@ -309,18 +321,19 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     });
                 }
             }
-            return svm;
+            return userViewModels;
+
         }
 
         public async Task<List<UserViewModel>> GetAllUserDeveloperAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync(Roles.Developer.ToString());
-            List<UserViewModel> svm = new();
+            List<UserViewModel> userViewModel = new();
             if (users != null)
             {
                 foreach (var user in users)
                 {
-                    svm.Add(new UserViewModel()
+                    userViewModel.Add(new UserViewModel()
                     {
                         Id = user.Id,
                         FirstName = user.FirstName,
@@ -332,7 +345,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     });
                 }
             }
-            return svm;
+            return userViewModel;
         }
 
         public async Task<SaveUserViewModel> GetUserByIdAsync(string id)
@@ -562,7 +575,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
         }
 
-        public async Task ChangeUserStatusAsync(string id)
+        public async Task<bool> ChangeUserStatusAsync(string id)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(id);
             if (user != null)
@@ -575,7 +588,13 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 {
                     user.EmailConfirmed = false;
                 }
+
                 await _userManager.UpdateAsync(user);
+                return true;
+            }
+            else
+            {
+                return false;
             }
 
         }

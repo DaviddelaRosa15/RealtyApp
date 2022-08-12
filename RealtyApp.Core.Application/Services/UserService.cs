@@ -93,9 +93,10 @@ namespace RealtyApp.Core.Application.Services
             return await _accountService.GetUserByIdAsync(id);
         }
 
-        public async Task ChangeUserStatus(string id)
+        public async Task<bool> ChangeUserStatus(string id)
         {
-            await _accountService.ChangeUserStatusAsync(id);
+            var operationStatus = await _accountService.ChangeUserStatusAsync(id);
+            return operationStatus;
         }
 
         public async Task<string> ConfirmEmailAsync(string userId, string token)

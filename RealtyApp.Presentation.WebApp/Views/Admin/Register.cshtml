@@ -7,24 +7,29 @@
 
 <div class="container">
 
+    <div class="text-dark">
+        <h4>Registro de usuario @Model.TypeUser</h4>
+    </div>
+
     <div class="row">
+
         <div class="card shadow-sm ">
+
             <div class="card-body contCard">
-                <div class="card-header bg-primary text-light">
-                    <h4>Registro de usuario @Model.TypeUser</h4>
-                </div>
+                
                 @if (Model.HasError)
                 {
                     <p class="text-danger">@Model.Error</p>
-
                 }
 
-                <form method="post" asp-controller="Admin" asp-action="Register">
+                <form method="post" asp-controller="Admin" asp-action="Register" class="form p-4">
+
                     <div class="mb-3">
                         <label asp-for="FirstName" class="form-label">Nombre: </label>
                         <input asp-for="FirstName" class="form-control" />
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
+
                     <div class="mb-3">
                         <label asp-for="LastName" class="form-label">Apellido: </label>
                         <input asp-for="LastName" class="form-control" />
@@ -66,13 +71,13 @@
                     <input asp-for="TypeUser" type="hidden" />
 
                     <div class="btn-group w-100">
-                        <button type="submit" class="btn btn-outline-primary">Guardar</button>
-                        @*Compañero pon el nombre del action en donde empezará tu mantenimiento de administradores*@
-                        <a asp-controller="Admin" asp-action="@(Model.TypeUser == "Developer" ? "Developers" : "Admins")" class="btn btn-outline-warning">Volver atras</a>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a asp-controller="Admin" asp-action="@(Model.TypeUser == "Developer" ? "Developers" : "Administrators")" class="btn btn-warning">Volver atras</a>
                     </div>
                 </form>
 
             </div>
         </div>
     </div>
+
 </div>

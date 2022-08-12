@@ -20,6 +20,6 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<List<UserViewModel>> GetAllUserAdminAsync();
         Task<List<UserViewModel>> GetAllUserDeveloperAsync();
         Task<SaveUserViewModel> GetUserByIdAsync(string id);
-        Task ChangeUserStatusAsync(string id);
+        Task<bool> ChangeUserStatusAsync(string id);
     }
 }
