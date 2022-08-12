@@ -1,0 +1,190 @@
+﻿@using RealtyApp.Core.Application.ViewModels.User;
+@model List<UserViewModel>
+@using Microsoft.AspNetCore.Http
+@using RealtyApp.Core.Application.Dtos.Account
+@using RealtyApp.Core.Application.Helpers
+@inject IHttpContextAccessor _httpContextAccessor
+@{
+    ViewData["Title"] = "Manejo de administradores.";
+    var sessionUser = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
+}
+
+<div class="container mt-5" id="ConUserAdmin">
+   
+    <div class="row mb-4">
+              
+        <div class="col-4">
+            <h4>Administradores:</h4>
+        </div>
+
+        <div class="col-md-2 offset-md-6">
+            <a class="btn btn-outline-primary btn_createGeneric " asp-controller="Admin" asp-action="Register" asp-route-type="Administrator">Crea nuevo usuario</a>
+        </div>
+
+    </div>
+
+
+
+    @* -----------------------------------> Adminstradores activos<------------------------------------- *@
+    <div class="card shadow-sm p-4">
+  
+        <h4 class="text-success">Activos</h4>
+        <table class="table table-hover ">
+
+            <thead class="table-dark">
+                <tr>
+                    <th class="">Nombre</th>
+                    <th class="">Apellido</th>
+                    <th class="">Usuario</th>
+                    <th class="">Cédula</th>
+                    <th class="">Correo</th>
+                    <th class="">----</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (Model != null)
+                {
+                    @foreach (var user in Model)
+                    {
+                        if (user.IsVerified)
+                        {
+                            <tr>
+                                <td scope="row">
+                                    <div class="">
+                                         <img src="/Images/User/placeholder_profile_image.png" class="avatar-img rounded-circle m-lg-2" style="width: 20px; height: 25px;">
+                                          @user.FirstName
+                                    </div>
+                                </td>
+                                <td scope="row">@user.LastName</td>
+                                <td scope="row">@user.Username</td>
+                                <td scope="row">@user.CardIdentification</td>
+                                <td scope="row">@user.Email</td>
+
+                                @{
+                                    if(user.Id != sessionUser.Id)
+                                    {
+                                        
+                                        <td class="row">
+                                            <div class="btn-group">
+                                                <a class="btn btn-warning text-white" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
+                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
+                                            </div>
+                                        </td>
+                            
+                                        <!-- Modal to confirm action -->
+                                        <div class="modal fade" id="desactivar-@user.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">¿Seguro que desea desactivar el usuario @user.FirstName @user.LastName?</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="SwithUserStatus" asp-route-id="@user.Id" asp-route-type="Administrator">Sí</a>
+                                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+
+                            </tr>
+                        }
+
+
+                    } @*Cierre Foreach*@
+
+                }@*Cierre Comprobacion General*@
+                else
+                {
+                     <h6 class="text-danger m-lg-3"> No existen usuarios, posible error! </h6>
+                }
+            </tbody>
+        </table>
+
+         @* -----------------------------------> Usuarios desarrolladores inactivos<------------------------------------- *@
+            <h4 class="text-danger">Inactivos</h4>
+  
+            <table class="table table-hover ">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th class="">Nombre</th>
+                        <th class="">Apellido</th>
+                        <th class="">Usuario</th>
+                        <th class="">Cédula</th>
+                        <th class="">Correo</th>
+                        <th class="">----</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null)
+                    {
+                        @foreach (var user in Model)
+                        {
+                            if (!user.IsVerified)
+                            {
+                                <tr>
+                                    <td scope="row">
+                                        <div class="">
+                                             <img src="/Images/User/placeholder_profile_image.png" class="avatar-img rounded-circle m-lg-2" style="width: 20px; height: 25px;">
+                                              @user.FirstName
+                                        </div>
+                                    </td>
+                                    <td scope="row">@user.LastName</td>
+                                    <td scope="row">@user.Username</td>
+                                    <td scope="row">@user.CardIdentification</td>
+                                    <td scope="row">@user.Email</td>
+
+                                    @{
+                                        if(user.Id != sessionUser.Id){
+                                            <td class="row">
+                                                <div class="btn-group">
+                                                    <a class="btn btn-warning text-white" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
+                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#activar-@user.Id">Activar</button>
+                                                </div>
+                                            </td>
+                            
+                                            <!-- Modal to confirm action -->
+                                            <div class="modal fade" id="activar-@user.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">¿Seguro que desea activar el usuario @user.FirstName @user.LastName?</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="SwithUserStatus" asp-route-id="@user.Id" asp-route-type="Administrator">Sí</a>
+                                                            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    }
+
+                                </tr>
+                            }
+
+
+                        } @*Cierre Foreach*@
+                    }@*Cierre Comprobacion General*@
+                    else
+                    {
+                         <h6 class="text-danger m-lg-3"> No existen usuarios, posible error! </h6>
+                    }
+                </tbody>
+            </table>
+
+
+       
+    </div>
+
+</div>
