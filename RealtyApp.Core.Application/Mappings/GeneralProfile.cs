@@ -107,11 +107,14 @@ namespace RealtyApp.Core.Application.Mappings
 
             #region  ImmovableAsset
             CreateMap<ImmovableAsset, ImmovableAssetViewModel>()
+              .ForMember(opt => opt.ImmovableAssetTypeName, opt => opt.Ignore())
+              .ForMember(opt => opt.SellTypeName, opt => opt.Ignore())
               .ReverseMap()
               .ForMember(opt => opt.ImmovableAssetType, opt => opt.Ignore())
               .ForMember(opt => opt.SellType, opt => opt.Ignore())
               .ForMember(opt => opt.FavoriteImmovables, opt => opt.Ignore())
               .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore());
+            
             CreateMap<ImmovableAsset, SaveImmovableAssetViewModel>()
              .ReverseMap()
              .ForMember(opt => opt.ImmovableAssetType, opt => opt.Ignore())

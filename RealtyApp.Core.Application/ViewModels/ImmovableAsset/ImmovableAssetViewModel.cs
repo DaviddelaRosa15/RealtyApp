@@ -19,6 +19,8 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
         public double BedroomQuantity { get; set; }
         public double BathroomQuantity { get; set; }
         public int ImmovableAssetTypeId { get; set; }
+        public string ImmovableAssetTypeName { get; set; }
         public int SellTypeId { get; set; }
+        public string SellTypeName { get; set; }
     }
 }
