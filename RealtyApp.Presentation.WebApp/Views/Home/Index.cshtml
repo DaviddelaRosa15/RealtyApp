@@ -1,8 +1,99 @@
-﻿@{
+﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
+@using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
+@using RealtyApp.Core.Application.ViewModels.SellType;
+@model List<ImmovableAssetTypeSaveViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <div class="card shadow-sm">
+                <div class="card-header text-light bgfondoCardHeader">
+                    <h4>Filtros</h4>
+                </div>
+                <div class="card-body text-dark">                    
+
+                    <form method="post" asp-controller="Home" asp-action="Index">
+
+                        <h4 class="card-title mb-2">Tipos de propiedad</h4>
+
+                        <div class="mb-3 d-flex justify-content-center align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input fs-5" value="0" type="radio" name="SellTypeId" id="sellType-all"/>
+                                <label class="form-check-label fs-5" for="sellType-all">Todas</label>
+                            </div>
+                        </div>
+
+                        @foreach (SellTypeViewModel type in ViewBag.SellTypes)
+                        {
+                            <div class="mb-3 d-flex justify-content-center align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input fs-5" value="@type.Id" type="radio" name="SellTypeId" id="sellType-@type.Id"/>
+                                    <label class="form-check-label fs-5" for="SellType-@type.Id">@type.Name</label>
+                                </div>
+                            </div>
+                        }
+
+                        <button type="submit" class="btn btn-primary">Filtrar</button>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="card mx-0">
+                <div class="card-header mb-0 text-light bgfondoCardHeader">
+                    <h2 class="text-lg-center mb-2">!Encuentra el articulo!</h2>
+                    <form method="post" asp-controller="Home" asp-action="Index">
+                        <div class="input-group mb-1">
+                            <button type="submit" class="btn btn-danger" onclick="reiniciarListado()">Mostrar todos</button>
+                            <input type="search" class="form-control rounded" name="ArticleName" id="ArticleTxt" placeholder="¡Escribe el nombre del articulo!" aria-label="¡Escribe el nombre del articulo!" aria-describedby="search-addon" />
+                            <button type="submit" class="btn btn-success">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+                @if (Model == null || Model.Count == 0)
+                {
+                    <h3 class="text-lg-center mb-3">No hay articulos</h3>
+                }
+                else
+                {
+                    @*<div class="card-body">
+                        <div class="row">
+                            @foreach (ArticleViewModel item in Model)
+                            {
+                                <div class="col-6 mb-3 card-sizing">
+                                    <div class="card shadow-sm card-sizing color-card mx-lg-2">
+                                        <a asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrlOne" class="img-product-size bd-placeholder-img card-img-top details-hov" /></a>
+
+                                        <div class="card-body">
+                                            <a class="text-decoration-none text-dark details-hov" asp-action="Details" asp-route-id="@item.Id"><h3>@item.Name</h3></a>
+                                            <p class="card-text">@item.Description</p>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item color-card">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small>Categoría: <span class="fw-bold">@item.CategoryName</span></small>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-group-item color-card">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small>Precio: <span class="fw-bold">$@item.Price</span></small>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>*@
+                }
+            </div>
+        </div>
+    </div>
 </div>

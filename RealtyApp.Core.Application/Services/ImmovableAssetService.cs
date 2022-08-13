@@ -22,5 +22,113 @@ namespace RealtyApp.Core.Application.Services
             _immovableAssetRepository = ImmovableAssetRepository;
             _mapper = mapper;
         }
+
+        public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters)
+        {
+            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "Category" });
+
+            var listViewModels = assetList.Select(asset => new ImmovableAssetViewModel
+            {
+                Id = asset.Id,
+                Code = asset.Code,
+                Description = asset.Description,                
+                Price = asset.Price,
+                UrlImage01 = asset.UrlImage01,
+                UrlImage02 = asset.UrlImage02,
+                UrlImage03 = asset.UrlImage03,
+                UrlImage04 = asset.UrlImage04,
+                Meters = asset.Meters,
+                BedroomQuantity = asset.BedroomQuantity,
+                BathroomQuantity = asset.BathroomQuantity,
+                ImmovableAssetTypeId = asset.ImmovableAssetType.Id,
+                ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
+                SellTypeId = asset.SellType.Id,
+                SellTypeName = asset.SellType.Name
+            }).ToList();
+
+            #region aplicar filtros
+            //if (filters.CategoryId != null)
+            //{
+            //    foreach (int item in filters.CategoryId)
+            //    {
+            //        var filterListViewModels = articleList.Where(article => article.UserId != userViewModel.Id).Select(article => new ArticleViewModel
+            //        {
+            //            Name = article.Name,
+            //            Description = article.Description,
+            //            Id = article.Id,
+            //            Price = article.Price,
+            //            ImageUrlOne = article.ImageUrlOne,
+            //            ImageUrlTwo = article.ImageUrlTwo,
+            //            ImageUrlThree = article.ImageUrlThree,
+            //            ImageUrlFour = article.ImageUrlFour,
+            //            CategoryName = article.Category.Name,
+            //            CategoryId = article.Category.Id
+            //        }).ToList();
+
+            //        filterListViewModels = filterListViewModels.Where(article => article.CategoryId == item).ToList();
+
+            //        foreach (ArticleViewModel article in filterListViewModels)
+            //        {
+            //            filterList.Add(new ArticleViewModel()
+            //            {
+            //                Name = article.Name,
+            //                Description = article.Description,
+            //                Id = article.Id,
+            //                Price = article.Price,
+            //                ImageUrlOne = article.ImageUrlOne,
+            //                ImageUrlTwo = article.ImageUrlTwo,
+            //                ImageUrlThree = article.ImageUrlThree,
+            //                ImageUrlFour = article.ImageUrlFour,
+            //                CategoryName = article.CategoryName,
+            //                CategoryId = article.CategoryId
+            //            });
+            //        }
+
+            //    }
+            //    if (filters.CategoryId[0] == 0)
+            //    {
+            //        listViewModels = listViewModels.OrderBy(article => article.Name).ToList();
+            //        return listViewModels.ToList();
+            //    }
+            //    else
+            //    {
+            //        filterList = filterList.OrderBy(article => article.Name).ToList();
+            //        return filterList.ToList();
+            //    }
+            //}
+            //else if (filters.ArticleName != null)
+            //{
+            //    listViewModels = listViewModels.Where(article => article.Name.Contains(filters.ArticleName)).ToList();
+            //}
+
+            //listViewModels = listViewModels.OrderBy(article => article.Name).ToList();
+            #endregion
+
+            return listViewModels;
+        }
+
+        public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithIncludes()
+        {
+            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "Category" });
+
+            return assetList.Select(asset => new ImmovableAssetViewModel
+            {
+                Id = asset.Id,
+                Code = asset.Code,
+                Description = asset.Description,
+                Price = asset.Price,
+                UrlImage01 = asset.UrlImage01,
+                UrlImage02 = asset.UrlImage02,
+                UrlImage03 = asset.UrlImage03,
+                UrlImage04 = asset.UrlImage04,
+                Meters = asset.Meters,
+                BedroomQuantity = asset.BedroomQuantity,
+                BathroomQuantity = asset.BathroomQuantity,
+                ImmovableAssetTypeId = asset.ImmovableAssetType.Id,
+                ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
+                SellTypeId = asset.SellType.Id,
+                SellTypeName = asset.SellType.Name
+            }).ToList();
+        }
     }
 }

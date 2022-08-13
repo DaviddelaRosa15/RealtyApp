@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RealtyApp.Core.Application.Interfaces.Services;
+using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 using RealtyApp.Presentation.WebApp.Models;
 using System;
 using System.Collections.Generic;
@@ -11,16 +13,24 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IImmovableAssetService _immovableAssetService;
+        private readonly IImmovableAssetTypeService _immovableAssetTypeService;
+        private readonly ISellTypeService _sellTypeService;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(IImmovableAssetService immovableAssetService, IImmovableAssetTypeService immovableAssetTypeService, ISellTypeService sellTypeService)
         {
-            _logger = logger;
+            _immovableAssetService = immovableAssetService;
+            _immovableAssetTypeService = immovableAssetTypeService;
+            _sellTypeService = sellTypeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(FilterViewModel vm)
         {
-            return View();
+            ViewBag.SellTypes = await _sellTypeService.GetAllViewModelWithIncludes();
+            ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
+            var model = await _immovableAssetService.GetAllViewModelWithFilters(vm);
+            return View(model);
         }
     }
 }

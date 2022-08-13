@@ -10,5 +10,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
 {
    public interface IImmovableAssetService:IGenericService<SaveImmovableAssetViewModel,ImmovableAssetViewModel, ImmovableAsset>
     {
+        Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters);
+        Task<List<ImmovableAssetViewModel>> GetAllViewModelWithIncludes();
     }
 }
