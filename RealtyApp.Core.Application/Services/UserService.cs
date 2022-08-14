@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RealtyApp.Core.Application.Dtos.Account;
 using RealtyApp.Core.Application.DTOs.Email;
+using RealtyApp.Core.Application.Helpers;
 using RealtyApp.Core.Application.Interfaces.Repositories;
 using RealtyApp.Core.Application.Interfaces.Services;
 using RealtyApp.Core.Application.ViewModels.User;
@@ -82,6 +83,10 @@ namespace RealtyApp.Core.Application.Services
         {
             return await _accountService.GetAllUserAdminAsync();
         }
+        public async Task<List<UserViewModel>> GetAllUserAgentAsync()
+        {
+            return await _accountService.GetAllUserAgentAsync();
+        }
 
         public async Task<List<UserViewModel>> GetAllUsersDeveloper()
         {
@@ -103,5 +108,22 @@ namespace RealtyApp.Core.Application.Services
         {
             return await _accountService.ConfirmAccountAsync(userId, token);
         }
+
+        public async Task<CountUser> CountClient()
+        {
+            return await _accountService.CountClient();
+        }
+
+        public async Task<CountUser> CountAgent()
+        {
+            return await _accountService.CountAgent();
+        }
+
+        public async Task<CountUser> CountDeveloper()
+        {
+            return await _accountService.CountDeveloper();
+        }
+
+        
     }
 }

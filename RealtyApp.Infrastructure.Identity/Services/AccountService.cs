@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using RealtyApp.Core.Application.DTOs.Email;
 using RealtyApp.Core.Application.ViewModels.User;
+using RealtyApp.Core.Application.Helpers;
 
 namespace RealtyApp.Infrastructure.Identity.Services
 {
@@ -298,8 +299,63 @@ namespace RealtyApp.Infrastructure.Identity.Services
             ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
             await _userManager.DeleteAsync(applicationUser);
         }
+        #region countUser
+        public async Task<CountUser> CountClient()
+        {
+            CountUser countClient = new();
+            var clients = await _userManager.GetUsersInRoleAsync(Roles.Client.ToString());
+            foreach (ApplicationUser user in clients)
+            {
+                if (user.EmailConfirmed)
+                {
+                    countClient.countActive += 1;
+                }
+                else
+                {
+                    countClient.countDesactive += 1;
+                }
+            }
+            return countClient;
+        }
+        public async Task<CountUser> CountAgent()
+        {
+            CountUser countAgent = new();
+            var agents = await _userManager.GetUsersInRoleAsync(Roles.Agent.ToString());
+            foreach (ApplicationUser aget in agents)
+            {
+                if (aget.EmailConfirmed)
+                {
+                    countAgent.countActive += 1;
+                }
+                else
+                {
+                    countAgent.countDesactive += 1;
+                }
+            }
+            return countAgent;
+        }
+        public async Task<CountUser> CountDeveloper()
+        {
+            CountUser countDeveloper = new();
+            var developers = await _userManager.GetUsersInRoleAsync(Roles.Developer.ToString());
+            foreach (ApplicationUser developer in developers)
+            {
+                if (developer.EmailConfirmed)
+                {
+                    countDeveloper.countActive += 1;
+                }
+                else
+                {
+                    countDeveloper.countDesactive += 1;
+                }
+            }
+            return countDeveloper;
+        }
+        #endregion
 
         #region Get users
+
+
         public async Task<List<UserViewModel>> GetAllUserAdminAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync(Roles.Administrator.ToString());
@@ -333,6 +389,29 @@ namespace RealtyApp.Infrastructure.Identity.Services
             {
                 foreach (var user in users)
                 {
+                    userViewModel.Add(new UserViewModel()
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        CardIdentification = user.CardIdentification,
+                        Email = user.Email,
+                        IsVerified = user.EmailConfirmed,
+                        Username = user.UserName
+                    });
+                }
+            }
+            return userViewModel;
+        }
+        public async Task<List<UserViewModel>> GetAllUserAgentAsync()
+        {
+            var users = await _userManager.GetUsersInRoleAsync(Roles.Agent.ToString());
+            List<UserViewModel> userViewModel = new();
+            if (users != null)
+            {
+                foreach (var user in users)
+                {
+
                     userViewModel.Add(new UserViewModel()
                     {
                         Id = user.Id,

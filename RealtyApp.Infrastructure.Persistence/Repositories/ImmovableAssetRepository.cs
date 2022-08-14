@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace RealtyApp.Infrastructure.Persistence.Repositories
 {
@@ -19,5 +20,11 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<int> CountImmovobleAsset()
+        {
+
+          var countImmovable  =  await _dbContext.Set<ImmovableAsset>().ToListAsync();
+          return countImmovable.Count;
+        }
     }
 }

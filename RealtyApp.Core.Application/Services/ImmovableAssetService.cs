@@ -22,5 +22,11 @@ namespace RealtyApp.Core.Application.Services
             _immovableAssetRepository = ImmovableAssetRepository;
             _mapper = mapper;
         }
+
+        public async Task<int> CountImmovobleAsset()
+        {
+            return await _immovableAssetRepository.CountImmovobleAsset();
+        }
+
     }
 }

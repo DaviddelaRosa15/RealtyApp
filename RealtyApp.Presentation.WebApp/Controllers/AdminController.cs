@@ -13,13 +13,19 @@ namespace RealtyApp.Presentation.WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
-        public AdminController(IUserService userService)
+        private readonly IImmovableAssetService _immovableAssetService;
+        public AdminController(IUserService userService, IImmovableAssetService immovableAssetService)
         {
             _userService = userService;
+            _immovableAssetService = immovableAssetService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.countImmovable = await _immovableAssetService.CountImmovobleAsset();
+            ViewBag.client = await _userService.CountClient();
+            ViewBag.agent = await _userService.CountAgent();
+            ViewBag.developer = await _userService.CountDeveloper();
             return View();
         }
 
@@ -33,12 +39,17 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             return View(await _userService.GetAllUsersAdmin());
         }
 
+        public async Task<IActionResult> Agents()
+        {
+            return View(await _userService.GetAllUserAgentAsync());
+        }
+
         public async Task<IActionResult> SwithUserStatus(string id, string type)
         {
             var operationStatus = await _userService.ChangeUserStatus(id);
 
             if (operationStatus)
-                return RedirectToRoute(new { controller = "Admin", action = (type == "Developer")? "Developers" : "Administrators" });
+                return RedirectToRoute(new { controller = "Admin", action = type });
             else
                 return StatusCode(400);
         }
@@ -122,10 +133,10 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         }
 
 
-        public async Task<IActionResult> DeleteAgent(string id)
+        public async Task<IActionResult> DeleteUser(string id, string type)
         {
             await _userService.DeleteAsync(id);
-            string basePath = $"/Images/User/Agent/{id}";
+            string basePath = $"/Images/User/{type}/{id}";
             string path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot{basePath}");
 
             if (Directory.Exists(path))
@@ -143,7 +154,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
                 Directory.Delete(path);
             }
-            return RedirectToRoute(new { controller = "Administrator", action = "Index" });
+            return RedirectToRoute(new { controller = "Admin", action =type+"s" });
         }
     }
 }

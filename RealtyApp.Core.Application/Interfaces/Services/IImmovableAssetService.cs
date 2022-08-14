@@ -10,5 +10,6 @@ namespace RealtyApp.Core.Application.Interfaces.Services
 {
    public interface IImmovableAssetService:IGenericService<SaveImmovableAssetViewModel,ImmovableAssetViewModel, ImmovableAsset>
     {
+        Task<int> CountImmovobleAsset();
     }
 }
