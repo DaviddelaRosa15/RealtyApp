@@ -3,6 +3,7 @@
 @model List<ImmovableAssetViewModel>
 @{
     ViewData["Title"] = "Home Page";
+    DataFilterViewModel filterVm = ViewBag.DataFilterViewModel;
 }
 
 <div class="container-fluid">
@@ -39,21 +40,21 @@
 
                         <div class="input-group mb-2">
                             <label for="minRange" class="form-label m-0">Precio minimo</label>
-                            <input type="range" class="form-range" name="MinPrice" min="0" max="5" value="0" id="minRange">
+                            <input type="range" class="form-range" name="MinPrice" min="0" max="@filterVm.MinPrice" value="0" id="minRange">
                             <label for="maxRange" class="form-label m-0">Precio máximo</label>
-                            <input type="range" class="form-range" name="MaxPrice" min="0" max="5" id="maxRange">
+                            <input type="range" class="form-range" name="MaxPrice" min="@filterVm.MinPrice" max="@filterVm.MaxPrice" value="0" id="maxRange">
                         </div>
 
                         <h4 class="card-title mb-2 text-center">Cantidad de habitaciones</h4>
 
                         <div class="mb-2">
-                            <input type="range" class="form-range" name="BedroomQuantity" min="0" max="5" value="0" id="bedroomRange">
+                            <input type="range" class="form-range" name="BedroomQuantity" min="0" max="@filterVm.MaxBedroomQuantity" value="0" id="bedroomRange">
                         </div>
 
                         <h4 class="card-title mb-2 text-center">Cantidad de baños</h4>
 
                         <div class="mb-2">
-                            <input type="range" class="form-range" name="BathroomQuantity" min="0" max="5" value="0" id="bathroomRange">
+                            <input type="range" class="form-range" name="BathroomQuantity" min="0" max="@filterVm.MaxBathroomQuantity" value="0" id="bathroomRange">
                         </div>
 
                         <button type="submit" class="btn btn-outline-primary form-control">Filtrar</button>
@@ -81,36 +82,52 @@
                 }
                 else
                 {
-                    @*<div class="card-body">
-                <div class="row">
-                @foreach (ArticleViewModel item in Model)
-                {
-                <div class="col-6 mb-3 card-sizing">
-                <div class="card shadow-sm card-sizing color-card mx-lg-2">
-                <a asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrlOne" class="img-product-size bd-placeholder-img card-img-top details-hov" /></a>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach (ImmovableAssetViewModel item in Model)
+                            {
+                                <div class="col-6 mb-3">
+                                    <div class="card shadow rounded" style="max-width: 400px">
+                                        <a asp-action="Details" asp-route-id="@item.Id"><img src="@item.UrlImage01" class="card-img-top" /></a>
 
-                <div class="card-body">
-                <a class="text-decoration-none text-dark details-hov" asp-action="Details" asp-route-id="@item.Id"><h3>@item.Name</h3></a>
-                <p class="card-text">@item.Description</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                <li class="list-group-item color-card">
-                <div class="d-flex justify-content-between align-items-center">
-                <small>Categoría: <span class="fw-bold">@item.CategoryName</span></small>
-                </div>
-                </li>
+                                        <div class="card-body">
+                                            <div class="mb-2">
+                                                <a class="text-decoration-none text-dark details-hov" asp-action="Details" asp-route-id="@item.Id"><h4>@item.ImmovableAssetTypeName</h4></a>
+                                                <small class="card-text text-secondary">@item.Address</small>
+                                            </div>
 
-                <li class="list-group-item color-card">
-                <div class="d-flex justify-content-between align-items-center">
-                <small>Precio: <span class="fw-bold">$@item.Price</span></small>
-                </div>
-                </li>
-                </ul>
-                </div>
-                </div>
-                }
-                </div>
-                </div>*@
+                                            <div class="mb-2">
+                                                <small class="card-text text-secondary">Código</small>
+                                                <h4>@item.Code</h4>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <small class="card-text text-secondary">@item.SellTypeName</small>
+                                                <h4 class="text-danger">RD$ @item.Price</h4>
+                                            </div>
+
+                                            <div class="d-flex mb-2 border border-top border-secondary">
+                                                <div class="me-2">
+                                                    <i class="fa-light fa-bed-empty"></i>
+                                                    <small class="card-text text-secondary">@item.BedroomQuantity</small>
+                                                </div>
+                                                <div class="me-2">
+                                                    <i class="fa-light fa-bath"></i>
+                                                    <small class="card-text text-secondary">@item.BathroomQuantity</small>
+                                                </div>
+                                                <div class="me-2">
+                                                    <i class="fa-light fa-ruler-horizontal"></i>
+                                                    <small class="card-text text-secondary">@item.Meters mt</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
                 }
             </div>
         </div>

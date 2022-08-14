@@ -15,7 +15,6 @@ namespace RealtyApp.Presentation.WebApp.Controllers
     {
         private readonly IImmovableAssetService _immovableAssetService;
         private readonly IImmovableAssetTypeService _immovableAssetTypeService;
-        private readonly ISellTypeService _sellTypeService;
 
 
         public HomeController(IImmovableAssetService immovableAssetService, IImmovableAssetTypeService immovableAssetTypeService)
@@ -26,6 +25,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
         public async Task<IActionResult> Index(FilterViewModel vm)
         {
+            ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
             ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             var model = await _immovableAssetService.GetAllViewModelWithFilters(vm);
