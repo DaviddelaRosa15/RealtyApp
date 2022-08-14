@@ -25,7 +25,7 @@ namespace RealtyApp.Core.Application.Services
 
         public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters)
         {
-            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "Category" });
+            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });
 
             var listViewModels = assetList.Select(asset => new ImmovableAssetViewModel
             {
@@ -109,7 +109,7 @@ namespace RealtyApp.Core.Application.Services
 
         public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithIncludes()
         {
-            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "Category" });
+            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });
 
             return assetList.Select(asset => new ImmovableAssetViewModel
             {

@@ -23,7 +23,7 @@ namespace RealtyApp.Core.Application.Services
 
         public async Task<List<SellTypeViewModel>> GetAllViewModelWithIncludes()
         {
-            var sellTypes = await _repository.GetAllWithIncludeAsync(new List<string>() { "ImmovableAssets"});
+            var sellTypes = await _repository.GetAllWithIncludeAsync(new List<string>() { "ImmovableAssets" });
 
             List<SellTypeViewModel> sellTypesViews = _mapper.Map<List<SellTypeViewModel>>(sellTypes);
 

@@ -24,7 +24,7 @@ namespace RealtyApp.Core.Application.Services
         public async Task<List<ImmovableAssetTypeViewModel>> GetAllViewModelWithIncludes()
         {
 
-            var immovableAssetTypes = await _typeRepository.GetAllWithIncludeAsync(new List<string>() { "ImmovableAsset" });
+            var immovableAssetTypes = await _typeRepository.GetAllWithIncludeAsync(new List<string>() { "ImmovableAssets" });
 
             List<ImmovableAssetTypeViewModel> immovableAssetTypesViewModels = 
                                                                     _mapper.Map<List<ImmovableAssetTypeViewModel>>(immovableAssetTypes);

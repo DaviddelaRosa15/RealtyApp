@@ -42,7 +42,8 @@ namespace RealtyApp.Infrastructure.Persistence
             services.AddTransient<IFavoriteImmovableRepository, FavoriteImmovableRepository>();
             services.AddTransient<IImprovementRepository, ImprovementRepository>();
             services.AddTransient<IImmovableAssetTypeRepository, ImmovableAssetTypeRepository>();
-
+            services.AddTransient<ISellTypeRepository, SellTypeRepository>();
+            services.AddTransient<IImprovement_ImmovableRepository, Improvement_ImmovableRepository>();
             #endregion
         }
     }
