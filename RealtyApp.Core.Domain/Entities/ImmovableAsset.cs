@@ -18,8 +18,9 @@ namespace RealtyApp.Core.Domain.Entities
         public string UrlImage03 { get; set; }
         public string UrlImage04 { get; set; }
         public double Meters { get; set; }
-        public double BedroomQuantity { get; set; }
-        public double BathroomQuantity { get; set; }
+        public int BedroomQuantity { get; set; }
+        public int BathroomQuantity { get; set; }
+        public string AgentId { get; set; }
 
         //Navigation Properties
         public ImmovableAssetType ImmovableAssetType { get; set; }

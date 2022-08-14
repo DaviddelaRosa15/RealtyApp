@@ -130,5 +130,18 @@ namespace RealtyApp.Core.Application.Services
                 SellTypeName = asset.SellType.Name
             }).ToList();
         }
+
+        public async Task<DataFilterViewModel> GetDataFilterViewModel()
+        {
+            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });
+
+            return assetList.Select(asset => new DataFilterViewModel
+            {
+                MinPrice = assetList.Max(x => x.Price),
+                MaxPrice = assetList.Min(x => x.Price),
+                MaxBedroomQuantity = assetList.Max(x => x.BedroomQuantity),
+                MaxBathroomQuantity = assetList.Max(x => x.BathroomQuantity)
+            }).FirstOrDefault();             
+        }
     }
 }
