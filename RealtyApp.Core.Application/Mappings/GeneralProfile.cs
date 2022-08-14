@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RealtyApp.Core.Application.Dtos.Account;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAssetType;
 using RealtyApp.Core.Application.ViewModels.FavoriteImmovable;
 using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
@@ -182,6 +183,28 @@ namespace RealtyApp.Core.Application.Mappings
                 .ForMember(dest => dest.CreatedBy, options => options.Ignore())
                 .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
             #endregion
+
+            #region DTOs
+
+                #region ImmovableAssetType
+
+                    CreateMap<ImmovableAssetTypeDTO, ImmovableAssetType>()
+                        .ForMember(dest => dest.Created, options => options.Ignore())
+                        .ForMember(dest => dest.LastModified, options => options.Ignore())
+                        .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                        .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
+
+                    CreateMap<ImmovableAssetTypeSaveDTO, ImmovableAssetType>()
+                        .ForMember(dest => dest.Created, options => options.Ignore())
+                        .ForMember(dest => dest.LastModified, options => options.Ignore())
+                        .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                        .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                        .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
+                #endregion
+
+            #endregion
+
+
         }
     }
 }
