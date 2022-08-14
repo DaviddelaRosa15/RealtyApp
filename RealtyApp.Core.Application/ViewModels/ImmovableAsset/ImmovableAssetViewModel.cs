@@ -8,6 +8,7 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
 {
    public class ImmovableAssetViewModel
    {
+        public int Id { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
@@ -19,7 +20,9 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
         public double BedroomQuantity { get; set; }
         public double BathroomQuantity { get; set; }
         public int ImmovableAssetTypeId { get; set; }
+        public string ImmovableAssetTypeName { get; set; }
         public int SellTypeId { get; set; }
         public string IdUser { get; set; }
+        public string SellTypeName { get; set; }
     }
 }

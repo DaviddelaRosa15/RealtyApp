@@ -24,6 +24,8 @@ namespace RealtyApp.Infrastructure.Persistence
             services.AddTransient<IImmovableAssetService, ImmovableAssetService>();
             services.AddTransient<IImprovementService, ImprovementService>();
             services.AddTransient<IImmovableAssetTypeService, ImmovableAssetTypeService>();
+            services.AddTransient<ISellTypeService, SellTypeService>();
+            services.AddTransient<IImprovement_ImmovableService, Improvement_ImmovableService>();
             #endregion
 
         }
