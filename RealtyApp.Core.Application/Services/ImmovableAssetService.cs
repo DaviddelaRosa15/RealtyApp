@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RealtyApp.Core.Application.Services
 {
-   public class ImmovableAssetService : GenericService<SaveImmovableAssetViewModel, ImmovableAssetViewModel, ImmovableAsset>, IImmovableAssetService
+    public class ImmovableAssetService : GenericService<SaveImmovableAssetViewModel, ImmovableAssetViewModel, ImmovableAsset>, IImmovableAssetService
     {
         private readonly IImmovableAssetRepository _immovableAssetRepository;
         private readonly IMapper _mapper;
@@ -25,13 +25,14 @@ namespace RealtyApp.Core.Application.Services
 
         public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters)
         {
+            List<ImmovableAssetViewModel> filterListViewModels = new();
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });
 
             var listViewModels = assetList.Select(asset => new ImmovableAssetViewModel
             {
                 Id = asset.Id,
                 Code = asset.Code,
-                Description = asset.Description,                
+                Description = asset.Description,
                 Price = asset.Price,
                 UrlImage01 = asset.UrlImage01,
                 UrlImage02 = asset.UrlImage02,
@@ -40,71 +41,38 @@ namespace RealtyApp.Core.Application.Services
                 Meters = asset.Meters,
                 BedroomQuantity = asset.BedroomQuantity,
                 BathroomQuantity = asset.BathroomQuantity,
+                AgentId = asset.AgentId,
                 ImmovableAssetTypeId = asset.ImmovableAssetType.Id,
                 ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
                 SellTypeId = asset.SellType.Id,
                 SellTypeName = asset.SellType.Name
             }).ToList();
 
-            #region aplicar filtros
-            //if (filters.CategoryId != null)
-            //{
-            //    foreach (int item in filters.CategoryId)
-            //    {
-            //        var filterListViewModels = articleList.Where(article => article.UserId != userViewModel.Id).Select(article => new ArticleViewModel
-            //        {
-            //            Name = article.Name,
-            //            Description = article.Description,
-            //            Id = article.Id,
-            //            Price = article.Price,
-            //            ImageUrlOne = article.ImageUrlOne,
-            //            ImageUrlTwo = article.ImageUrlTwo,
-            //            ImageUrlThree = article.ImageUrlThree,
-            //            ImageUrlFour = article.ImageUrlFour,
-            //            CategoryName = article.Category.Name,
-            //            CategoryId = article.Category.Id
-            //        }).ToList();
+            #region Aplicar filtros
+            if (filters.ImmovableAssetTypeId != null && filters.ImmovableAssetTypeId != 0)
+            {
+                filterListViewModels = listViewModels.Where(x => x.ImmovableAssetTypeId == filters.ImmovableAssetTypeId).ToList();
+            }
+            if (filters.Code != null)
+            {
+                filterListViewModels = filterListViewModels.Where(x => x.Code == filters.Code).ToList();
+            }
+            if (filters.MaxPrice != 0)
+            {
+                filterListViewModels = filterListViewModels.Where(x => x.Price >= filters.MinPrice && x.Price <= filters.MaxPrice).ToList();
+            }
+            if (filters.BedroomQuantity != 0)
+            {
+                filterListViewModels = filterListViewModels.Where(x => x.BedroomQuantity == filters.BedroomQuantity).ToList();
+            }
+            if (filters.BathroomQuantity != 0)
+            {
+                filterListViewModels = filterListViewModels.Where(x => x.BathroomQuantity == filters.BathroomQuantity).ToList();
+            }
 
-            //        filterListViewModels = filterListViewModels.Where(article => article.CategoryId == item).ToList();
-
-            //        foreach (ArticleViewModel article in filterListViewModels)
-            //        {
-            //            filterList.Add(new ArticleViewModel()
-            //            {
-            //                Name = article.Name,
-            //                Description = article.Description,
-            //                Id = article.Id,
-            //                Price = article.Price,
-            //                ImageUrlOne = article.ImageUrlOne,
-            //                ImageUrlTwo = article.ImageUrlTwo,
-            //                ImageUrlThree = article.ImageUrlThree,
-            //                ImageUrlFour = article.ImageUrlFour,
-            //                CategoryName = article.CategoryName,
-            //                CategoryId = article.CategoryId
-            //            });
-            //        }
-
-            //    }
-            //    if (filters.CategoryId[0] == 0)
-            //    {
-            //        listViewModels = listViewModels.OrderBy(article => article.Name).ToList();
-            //        return listViewModels.ToList();
-            //    }
-            //    else
-            //    {
-            //        filterList = filterList.OrderBy(article => article.Name).ToList();
-            //        return filterList.ToList();
-            //    }
-            //}
-            //else if (filters.ArticleName != null)
-            //{
-            //    listViewModels = listViewModels.Where(article => article.Name.Contains(filters.ArticleName)).ToList();
-            //}
-
-            //listViewModels = listViewModels.OrderBy(article => article.Name).ToList();
             #endregion
 
-            return listViewModels;
+            return filterListViewModels == null || filterListViewModels.Count == 0 ? listViewModels : filterListViewModels;
         }
 
         public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithIncludes()
@@ -141,7 +109,7 @@ namespace RealtyApp.Core.Application.Services
                 MaxPrice = assetList.Min(x => x.Price),
                 MaxBedroomQuantity = assetList.Max(x => x.BedroomQuantity),
                 MaxBathroomQuantity = assetList.Max(x => x.BathroomQuantity)
-            }).FirstOrDefault();             
+            }).FirstOrDefault();
         }
     }
 }
