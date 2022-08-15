@@ -15,12 +15,13 @@ namespace RealtyApp.Presentation.WebApp.Controllers
     {
         private readonly IImmovableAssetService _immovableAssetService;
         private readonly IImmovableAssetTypeService _immovableAssetTypeService;
+        private readonly IUserService _userService;
 
-
-        public HomeController(IImmovableAssetService immovableAssetService, IImmovableAssetTypeService immovableAssetTypeService)
+        public HomeController(IImmovableAssetService immovableAssetService, IImmovableAssetTypeService immovableAssetTypeService, IUserService userService)
         {
             _immovableAssetService = immovableAssetService;
             _immovableAssetTypeService = immovableAssetTypeService;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Index(FilterViewModel vm)
@@ -29,6 +30,18 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             var model = await _immovableAssetService.GetAllViewModelWithFilters(vm);
+            return View(model);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await _immovableAssetService.GetDetailsViewModel(id);
+            return View(model);
+        }
+
+        public async Task<IActionResult> Agents()
+        {
+            var model = await _userService.GetAllUserAgentAsync();
             return View(model);
         }
     }

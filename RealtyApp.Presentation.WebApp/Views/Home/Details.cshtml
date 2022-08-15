@@ -1,0 +1,141 @@
+﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAsset
+@model DetailsViewModel
+@{
+    ViewData["Title"] = "Detalle del producto";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+            <div class="mb-4">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        @if (Model.UrlImage02 != null)
+                        {
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        }
+                        @if (Model.UrlImage03 != null)
+                        {
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        }
+                        @if (Model.UrlImage04 != null)
+                        {
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        }
+                    </div>
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+                            <img src="@Model.UrlImage01" class="d-block w-100 img-product-size-details" alt="...">
+                        </div>
+
+                        @if (@Model.UrlImage02 != null)
+                        {
+                            <div class="carousel-item">
+                                <img src="@Model.UrlImage02" class="d-block w-100 img-product-size-details" alt="...">
+                            </div>
+                        }
+                        @if (@Model.UrlImage03 != null)
+                        {
+                            <div class="carousel-item">
+                                <img src="@Model.UrlImage03" class="d-block w-100 img-product-size-details" alt="...">
+                            </div>
+                        }
+                        @if (@Model.UrlImage04 != null)
+                        {
+                            <div class="carousel-item">
+                                <img src="@Model.UrlImage04" class="d-block w-100 img-product-size-details" alt="...">
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-5">
+                            <small class="border border-secondary text-secondary bg-white">Código: <b>@Model.Code</b></small>
+                            <h3 class="card-title mt-2">@Model.ImmovableAssetTypeName</h3>
+                        </div>
+                        <hr />
+                        <div class="mb-3">
+                            <small class="text-secondary">@Model.SellTypeName</small>
+                            <h3 class="text-danger">RD$ @Model.Price</h3>
+                        </div>
+                        <hr />
+                        <div class="d-flex mb-2">
+                            <div class="me-2 text-dark bg-secondary">
+                                <i class="fa-thin fa-bed-empty"></i>
+                                <small class="card-text">@Model.BedroomQuantity Habitación(es)</small>
+                            </div>
+                            <div class="me-2 text-dark bg-secondary">
+                                <i class="fa-thin fa-bath"></i>
+                                <small class="card-text text-secondary">@Model.BathroomQuantity Baño(s)</small>
+                            </div>
+                            <div class="me-2 text-dark bg-secondary">
+                                <i class="fa-thin fa-ruler-horizontal"></i>
+                                <small class="card-text text-secondary">@Model.Meters mt</small>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="mb-5">
+                            <h3 class="">Descripción</h3>
+                            <textarea class="mt-1 text-secondary" disabled>@Model.Description</textarea>
+                        </div>
+                        <div class="mb-5">
+                            <h3 class="">Mejoras</h3>
+                            <div class="d-flex">
+                                @if (Model.ImprovementNames != null && Model.ImprovementNames.Count > 0)
+                                {
+                                    @foreach (string item in Model.ImprovementNames)
+                                    {
+                                        <div class="bg-secondary ms-3 text-dark">
+                                            <i class="fa-thin fa-circle-check"></i>
+                                            <span>@item</span>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <h6 class="text-danger">Espere, estamos solucionando los errores de las mejoras de este inmueble</h6>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-text">Información de agente</h4>
+                    <hr />
+                    <div class="mb-2">
+                        <img src="@Model.AgentImgUrl" class="avatar-img rounded-circle" />
+                        <h6 class="">@Model.AgentName</h6>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fa-thin fa-mobile-screen"></i>
+                        <small class="text-secondary">Celular</small>
+                        <h6 class="text-primary">@Model.AgentPhone</h6>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fa-thin fa-envelope"></i>
+                        <small class="text-secondary">Email</small>
+                        <h6><a>@Model.AgentEmail</a></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

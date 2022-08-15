@@ -291,15 +291,15 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             return sv;
         }
-        #endregion
-
 
         public async Task DeleteAsync(string id)
         {
             ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
             await _userManager.DeleteAsync(applicationUser);
         }
-        #region countUser
+        #endregion
+
+        #region CountUser
         public async Task<CountUser> CountClient()
         {
             CountUser countClient = new();
@@ -355,7 +355,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
         #region Get users
 
-
         public async Task<List<UserViewModel>> GetAllUserAdminAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync(Roles.Administrator.ToString());
@@ -373,7 +372,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                         CardIdentification = user.CardIdentification,
                         Email = user.Email,
                         IsVerified = user.EmailConfirmed,
-                        Username = user.UserName
+                        Username = user.UserName,
+                        ImageUrl = user.UrlImage
                     });
                 }
             }
@@ -397,12 +397,14 @@ namespace RealtyApp.Infrastructure.Identity.Services
                         CardIdentification = user.CardIdentification,
                         Email = user.Email,
                         IsVerified = user.EmailConfirmed,
-                        Username = user.UserName
+                        Username = user.UserName,
+                        ImageUrl = user.UrlImage
                     });
                 }
             }
             return userViewModel;
         }
+       
         public async Task<List<UserViewModel>> GetAllUserAgentAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync(Roles.Agent.ToString());
@@ -420,11 +422,12 @@ namespace RealtyApp.Infrastructure.Identity.Services
                         CardIdentification = user.CardIdentification,
                         Email = user.Email,
                         IsVerified = user.EmailConfirmed,
-                        Username = user.UserName
+                        Username = user.UserName,
+                        ImageUrl = user.UrlImage
                     });
                 }
             }
-            return userViewModel;
+            return userViewModel.OrderBy(x => x.FirstName).ToList();
         }
 
         public async Task<SaveUserViewModel> GetUserByIdAsync(string id)
@@ -439,7 +442,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 Email = user.Email,
                 IsVerified = user.EmailConfirmed,
                 Username = user.UserName,
-                Phone = user.PhoneNumber
+                Phone = user.PhoneNumber,
+                ImageUrl = user.UrlImage
             };
 
             return userVm;
@@ -634,6 +638,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
         #endregion
 
+        #region ManageStatusUser
+        
         public async Task<string> ConfirmAccountAsync(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -677,6 +683,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
 
         }
+        
+        #endregion
 
         #region PrivateMethods
         private string MakeEmailForConfirm(string verificationUri)
