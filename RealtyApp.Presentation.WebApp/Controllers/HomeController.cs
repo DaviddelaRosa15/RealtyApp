@@ -32,12 +32,9 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int id)
         {
-            ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
-            ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
-            ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
-            var model = await _immovableAssetService.GetAllViewModelWithFilters(vm);
+            var model = await _immovableAssetService.GetDetailsViewModel(id);
             return View(model);
         }
     }
