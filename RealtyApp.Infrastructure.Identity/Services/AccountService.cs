@@ -291,15 +291,15 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             return sv;
         }
-        #endregion
-
 
         public async Task DeleteAsync(string id)
         {
             ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
             await _userManager.DeleteAsync(applicationUser);
         }
-        #region countUser
+        #endregion
+
+        #region CountUser
         public async Task<CountUser> CountClient()
         {
             CountUser countClient = new();
@@ -638,6 +638,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
         #endregion
 
+        #region ManageStatusUser
+        
         public async Task<string> ConfirmAccountAsync(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -681,6 +683,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
 
         }
+        
+        #endregion
 
         #region PrivateMethods
         private string MakeEmailForConfirm(string verificationUri)
