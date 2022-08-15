@@ -427,7 +427,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                     });
                 }
             }
-            return userViewModel;
+            return userViewModel.OrderBy(x => x.FirstName).ToList();
         }
 
         public async Task<SaveUserViewModel> GetUserByIdAsync(string id)
