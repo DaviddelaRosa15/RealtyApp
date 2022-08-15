@@ -18,12 +18,6 @@ a {
   border-color: #1861ac;
 }
 
-.dropdown > .dropdown-item:hover {
-    /*Modifica lo que quieras*/
-    background: lightblue;
-    color: white;
-}
-
 .avatar-img {
     width: 100%;
     height: 100%;
