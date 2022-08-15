@@ -1,0 +1,124 @@
+﻿@using RealtyApp.Core.Application.ViewModels.User;
+@model List<UserViewModel>
+@{
+    ViewData["Title"] = "Administrar desarrolladores";
+}
+
+<div class="row mt-5" id="ConUserAdmin">
+
+    @* -----------------------------------> Usuarios agentes activos<------------------------------------- *@
+<div class="card shadow-sm ">
+    <div class="card-header bg-info text-light cont_List_Friend_Title">
+        <h4>Agentes</h4>
+    </div>
+    <h4 class="text-primary">Activos</h4>
+    <table class="table table- table-hover ">
+        <thead>
+            <tr>
+                <th class="table-secondary">Nombre</th>
+                <th class="table-secondary">Apellido</th>
+                <th class="table-secondary">Usuario</th>
+                <th class="table-secondary">Cédula</th>
+                <th class="table-secondary">Correo</th>
+                <th class="table-secondary">----</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var user in Model)
+                {
+                    if (user.IsVerified)
+                    {
+                        <tr>
+                            <td scope="row">@user.FirstName</td>
+                            <td scope="row">@user.LastName</td>
+                            <td scope="row">@user.Username</td>
+                            <td scope="row">@user.CardIdentification</td>
+                            <td scope="row">@user.Email</td>
+                            <td class="btn-group">
+                                <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id"asp-route-type="Agents">Eliminar</a>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
+                            </td>
+                        </tr>
+                        <!-- Modal to confirm action -->
+                        <div class="modal fade" id="desactivar-@user.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">¿Seguro que desea desactivar el usuario @user.FirstName @user.LastName?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="SwithUserStatus" asp-route-id="@user.Id" asp-route-type="Agents">Sí</a>
+                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+            }
+        </tbody>
+    </table>
+
+
+
+
+    @* -----------------------------------> Usuarios agentes inactivos<------------------------------------- *@
+    <h4 class="text-success">Inactivos</h4>
+    <table class="table table- table-hover ">
+        <thead>
+            <tr>
+                <th class="table-secondary">Nombre</th>
+                <th class="table-secondary">Apellido</th>
+                <th class="table-secondary">Usuario</th>
+                <th class="table-secondary">Cédula</th>
+                <th class="table-secondary">Correo</th>
+                <th class="table-secondary">----</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var user in Model)
+                {
+                    if (!user.IsVerified)
+                    {
+                        <tr>
+                            <td scope="row">@user.FirstName</td>
+                            <td scope="row">@user.LastName</td>
+                            <td scope="row">@user.Username</td>
+                            <td scope="row">@user.CardIdentification</td>
+                            <td scope="row">@user.Email</td>
+                            <td class="btn-group">
+                                <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" asp-route-type="Agents">Eliminar</a>
+
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Activar</button>
+                            </td>
+                        </tr>
+                        <!-- Modal to confirm action -->
+                        <div class="modal fade" id="desactivar-@user.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Seguro que desea desactivar el usuario?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="SwithUserStatus" asp-route-id="@user.Id" asp-route-type="Agents">Sí</a>
+                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+</div>

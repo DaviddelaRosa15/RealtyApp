@@ -12,6 +12,9 @@ namespace RealtyApp.Core.Application.Interfaces.Services
     {
         Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters);
         Task<List<ImmovableAssetViewModel>> GetAllViewModelWithIncludes();
+
+        Task<int> CountImmovobleAsset();
         Task<DataFilterViewModel> GetDataFilterViewModel();
+
     }
 }

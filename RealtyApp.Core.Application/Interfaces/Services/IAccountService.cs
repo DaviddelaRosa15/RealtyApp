@@ -1,4 +1,5 @@
 ﻿using RealtyApp.Core.Application.Dtos.Account;
+using RealtyApp.Core.Application.Helpers;
 using RealtyApp.Core.Application.ViewModels.User;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,8 +19,13 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<SaveUserViewModel> UpdateAsync(SaveUserViewModel vm);
         Task SignOutAsync();
         Task<List<UserViewModel>> GetAllUserAdminAsync();
+        Task<List<UserViewModel>> GetAllUserAgentAsync();
         Task<List<UserViewModel>> GetAllUserDeveloperAsync();
         Task<SaveUserViewModel> GetUserByIdAsync(string id);
         Task<bool> ChangeUserStatusAsync(string id);
+        Task<CountUser> CountClient();
+        Task<CountUser> CountAgent();
+        Task<CountUser> CountDeveloper();
+
     }
 }

@@ -1,8 +1,37 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="container">
+
+    <div class="text-dark cont_List_Friend_Title">
+        <h4>Edicion de usuario</h4>
+    </div>
+
+    <div class="row">
+        <div class="card shadow-sm contCardEditAdmiGeneric">
+            <h1>
+                Las cantidades de propiedades registradas en el sistema:@ViewBag.countImmovable
+            </h1>
+        </div>
+        <div class="card shadow-sm contCardEditAdmiGeneric">
+            <h1>
+                La cantidad de agentes activos:@ViewBag.agent.countActive y los inactivos:@ViewBag.agent.countDesactive
+            </h1>
+        </div>
+        <div class="card shadow-sm contCardEditAdmiGeneric">
+            <h1>
+                La cantidad de clientes activos:@ViewBag.client.countActive y los inactivos:@ViewBag.client.countActive
+            </h1>
+        </div>
+        <div class="card shadow-sm contCardEditAdmiGeneric">
+            <h1>
+                La cantidad de desarrolladores activos:@ViewBag.developer.countActive y los inactivos:@ViewBag.developer.countActive
+            </h1>
+        </div>
+    </div>
+
 </div>
+

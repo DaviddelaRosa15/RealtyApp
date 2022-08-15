@@ -10,6 +10,7 @@ namespace RealtyApp.Core.Domain.Entities
     public class ImmovableAsset : AuditableBaseEntity
     {
         public string Code { get; set; }
+        public string IdUser { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }

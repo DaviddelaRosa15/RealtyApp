@@ -9,6 +9,6 @@ namespace RealtyApp.Core.Application.Interfaces.Repositories
 {
    public interface IImmovableAssetRepository:IGenericRepository<ImmovableAsset>
    {
-
-   }
+        Task<int> CountImmovobleAsset();
+    }
 }
