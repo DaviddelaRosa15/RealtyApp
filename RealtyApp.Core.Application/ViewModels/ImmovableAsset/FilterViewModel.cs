@@ -10,8 +10,8 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
     {
         public string Code { get; set; }
         public int? ImmovableAssetTypeId { get; set; }
-        public int? MinPrice { get; set; }
-        public int? MaxPrice { get; set; }
+        public double? MinPrice { get; set; }
+        public double? MaxPrice { get; set; }
         public int? BathroomQuantity { get; set; }
         public int? BedroomQuantity { get; set; }
     }
