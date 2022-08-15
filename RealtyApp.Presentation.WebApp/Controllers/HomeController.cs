@@ -37,5 +37,11 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             var model = await _immovableAssetService.GetDetailsViewModel(id);
             return View(model);
         }
+
+        public async Task<IActionResult> Agents()
+        {
+            var model = await _immovableAssetService.GetDetailsViewModel(id);
+            return View(model);
+        }
     }
 }
