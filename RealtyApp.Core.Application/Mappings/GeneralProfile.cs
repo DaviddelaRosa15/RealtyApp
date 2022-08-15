@@ -198,7 +198,10 @@ namespace RealtyApp.Core.Application.Mappings
                                     .ForMember(dest => dest.Created, options => options.Ignore())
                                     .ForMember(dest => dest.LastModified, options => options.Ignore())
                                     .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                                    .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
+                                    .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                                    .ForMember(dest=> dest.ImmovableAssets, option=> option.Ignore())
+                                    .ReverseMap()
+                                    .ForMember(src => src.ImmovableAssets, option => option.Ignore());
 
                         CreateMap<ImmovableAssetTypeSaveDTO, ImmovableAssetType>()
                             .ForMember(dest => dest.Created, options => options.Ignore())
@@ -221,14 +224,16 @@ namespace RealtyApp.Core.Application.Mappings
                                     .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
                                     .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
 
-                        CreateMap<UpdateAssetTypeResponse, ImmovableAssetType>()
-                                   .ForMember(dest => dest.Created, options => options.Ignore())
-                                   .ForMember(dest => dest.LastModified, options => options.Ignore())
-                                   .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                                   .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
-                                   .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
+                        //Here something is happending.
+                        CreateMap<ImmovableAssetType, UpdateAssetTypeResponse>()
+                                   .ReverseMap()
+                                   .ForMember(src => src.Created, options => options.Ignore())
+                                   .ForMember(src => src.LastModified, options => options.Ignore())
+                                   .ForMember(src => src.CreatedBy, options => options.Ignore())
+                                   .ForMember(src => src.LastModifiedBy, options => options.Ignore())
+                                   .ForMember(src => src.ImmovableAssets, options => options.Ignore());
 
-            #endregion
+                 #endregion
 
                 #region Improvement
 
@@ -261,7 +266,7 @@ namespace RealtyApp.Core.Application.Mappings
 
             #endregion
 
-            #region Improvement_Immovable
+                #region Improvement_Immovable
             CreateMap<Improvement_ImmovableDTO, Improvement_Immovable>()
                        .ForMember(dest => dest.Created, options => options.Ignore())
                        .ForMember(dest => dest.LastModified, options => options.Ignore())
