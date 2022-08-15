@@ -22,9 +22,4 @@
     <ProjectReference Include="..\RealtyApp.Core.Domain\RealtyApp.Core.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\ImmovableAssetType\Commands\DeleteAssetType\" />
-    <Folder Include="Features\ImmovableAssetType\Commands\UpdateAssetType\" />
-  </ItemGroup>
-
 </Project>
