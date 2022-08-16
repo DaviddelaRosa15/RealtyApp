@@ -106,10 +106,17 @@ namespace RealtyApp.Core.Application.Mappings
             #region FavoriteImmovable
             CreateMap<FavoriteImmovable, FavoriteImmovableViewModel>()
                .ReverseMap()
-               .ForMember(opt => opt.ImmovableAsset, opt => opt.Ignore());
+               .ForMember(dest => dest.Created, options => options.Ignore())
+                .ForMember(dest => dest.LastModified, options => options.Ignore())
+                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
+
             CreateMap<FavoriteImmovable, SaveFavoriteImmovableViewModel>()
               .ReverseMap()
-              .ForMember(opt => opt.ImmovableAsset, opt => opt.Ignore());
+              .ForMember(dest => dest.Created, options => options.Ignore())
+                .ForMember(dest => dest.LastModified, options => options.Ignore())
+                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
             #endregion
 
             #region  ImmovableAsset

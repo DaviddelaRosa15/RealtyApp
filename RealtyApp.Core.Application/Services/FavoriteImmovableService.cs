@@ -22,5 +22,21 @@ namespace RealtyApp.Core.Application.Services
             _favoriteImmRepository = favoriteImmRepository;
             _mapper = mapper;
         }
+
+        public async Task ManageFavoriteImmovable(SaveFavoriteImmovableViewModel vm)
+        {
+            var stock = await GetAllViewModel();
+
+            if (stock.Any(x => x.ImmovableAssetId == vm.ImmovableAssetId && x.ClientId == vm.ClientId))
+            {
+                foreach (var item in stock)
+                {
+                    if (item.ImmovableAssetId == vm.ImmovableAssetId && item.ClientId == vm.ClientId)
+                    {
+                        await Delete(item.Id);
+                    }
+                }
+            }
+        }
     }
 }
