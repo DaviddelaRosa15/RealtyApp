@@ -62,7 +62,7 @@
                                 </li>
                             }
 
-                            @*if (isAdmin)
+                            if (isAdmin)
             {
                 <li class="nav-item">
                     <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
@@ -81,7 +81,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Tipo de propiedades</a>
+                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="ImmovableType" asp-action="Index">Tipo de propiedades</a>
                 </li>
 
                 <li class="nav-item">
@@ -91,7 +91,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Mejoras</a>
                 </li>
-            }*@
+            }
 
                             <li class="nav-item align-item-end justify-content-end">
                                 <div class="dropdown">
@@ -104,7 +104,7 @@
                                 </div>
                             </li>
                         }
-                        @*else
+                        else
         {
             <li class="nav-item">
                 <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -121,45 +121,9 @@
             <li class="nav-item">
                 <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Index">Iniciar sesión</a>
             </li>
-        }*@
+        }
 
-                        @* Codigo provicionla *@
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Index">Iniciar sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Register">Unete a la App!</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Agents">Agentes</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Administrators">Administradores</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Developers">Desarrolladores</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Tipo de propiedades</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Tipo de ventas</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Mejoras</a>
-                        </li>
-                        @* Codigo provicionla *@
-
+                       
                     </ul>
                 </div>
             </div>

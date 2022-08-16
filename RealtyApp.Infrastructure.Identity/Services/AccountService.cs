@@ -523,7 +523,10 @@ namespace RealtyApp.Infrastructure.Identity.Services
         public async Task<RegisterResponse> RegisterDeveloperUserAsync(RegisterRequest request)
         {
             RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
-
+            if (response.HasError)
+            {
+                return response;
+            }
             var user = new ApplicationUser
             {
                 Email = request.Email,
@@ -555,7 +558,10 @@ namespace RealtyApp.Infrastructure.Identity.Services
         public async Task<RegisterResponse> RegisterAdministratorUserAsync(RegisterRequest request)
         {
             RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
-
+            if (response.HasError)
+            {
+                return response;
+            }
             //We could use AutoMaper here!
             var user = new ApplicationUser
             {

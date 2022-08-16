@@ -1,0 +1,41 @@
+﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
+@model ImmovableAssetTypeSaveViewModel
+@{
+    ViewData["Title"] = "Creacion de tipo de propiedades";
+
+}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="card shadow-sm ">
+
+            <div class="card-body contCard">               
+
+                <form method="post" asp-controller="ImmovableType" asp-action="Create" class="form p-4">
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Nombre: </label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Descripcion: </label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    
+
+                    <div class="btn-group w-100">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a asp-controller="ImmovableType" asp-action="Index" class="btn btn-warning">Volver atras</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>

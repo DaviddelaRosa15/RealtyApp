@@ -1,0 +1,32 @@
+﻿
+@using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
+@model List<ImmovableAssetTypeViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container-fluid">
+    <div class="cont_btn_createGeneric">
+        <a class="btn btn-outline-primary btn_createGeneric " asp-controller="ImmovableType" asp-action="Create" >Crea nuevo tipo de propiedad</a>
+    </div>
+    <div class="row">
+        @foreach (ImmovableAssetTypeViewModel immType in Model)
+        {
+            <div class="col-3">
+                <div class="card shadow">
+                    <div class="card-header text-dark text-center">
+                        <h4>propiedad</h4>
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body text-dark">
+                            <h4 class="card-title mb-2 text-center">Nombre: @immType.Name</h4>
+                            <h4 class="card-title mb-2 text-center">Descripcion: @immType.Description</h4>
+                            <h4 class="card-title mb-2 text-center">Cantidad de propiedades con este tipo:23</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
