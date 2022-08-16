@@ -127,19 +127,34 @@ namespace RealtyApp.Core.Application.Mappings
               .ForMember(opt => opt.ImmovableAssetType, opt => opt.Ignore())
               .ForMember(opt => opt.SellType, opt => opt.Ignore())
               .ForMember(opt => opt.FavoriteImmovables, opt => opt.Ignore())
-              .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore());
+              .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore())
+              .ForMember(dest => dest.Created, options => options.Ignore())
+              .ForMember(dest => dest.LastModified, options => options.Ignore())
+              .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+              .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
 
             CreateMap<ImmovableAsset, SaveImmovableAssetViewModel>()
              .ReverseMap()
              .ForMember(opt => opt.ImmovableAssetType, opt => opt.Ignore())
              .ForMember(opt => opt.SellType, opt => opt.Ignore())
              .ForMember(opt => opt.FavoriteImmovables, opt => opt.Ignore())
-             .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore());
+             .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore())
+              .ForMember(dest => dest.Created, options => options.Ignore())
+              .ForMember(dest => dest.LastModified, options => options.Ignore())
+              .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+              .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
             #endregion
 
             #region ImmovableAssetType
 
             CreateMap<ImmovableAssetTypeViewModel, ImmovableAssetType>()
+                .ForMember(dest => dest.Created, options => options.Ignore())
+                .ForMember(dest => dest.LastModified, options => options.Ignore())
+                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
+
+            CreateMap<ImmovableAssetType, ImmovableAssetTypeViewModel>()
+                .ReverseMap()
                 .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
                 .ForMember(dest => dest.CreatedBy, options => options.Ignore())
