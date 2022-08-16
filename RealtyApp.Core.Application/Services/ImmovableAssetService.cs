@@ -53,26 +53,28 @@ namespace RealtyApp.Core.Application.Services
                     SellTypeName = asset.SellType.Name
                 }).ToList();
             }
-            
-            listViewModels = assetList.Select(asset => new ImmovableAssetViewModel
+            else
             {
-                Id = asset.Id,
-                Code = asset.Code,
-                Description = asset.Description,
-                Price = asset.Price,
-                UrlImage01 = asset.UrlImage01,
-                UrlImage02 = asset.UrlImage02,
-                UrlImage03 = asset.UrlImage03,
-                UrlImage04 = asset.UrlImage04,
-                Meters = asset.Meters,
-                BedroomQuantity = asset.BedroomQuantity,
-                BathroomQuantity = asset.BathroomQuantity,
-                AgentId = asset.AgentId,
-                ImmovableAssetTypeId = asset.ImmovableAssetType.Id,
-                ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
-                SellTypeId = asset.SellType.Id,
-                SellTypeName = asset.SellType.Name
-            }).ToList();
+                listViewModels = assetList.Select(asset => new ImmovableAssetViewModel
+                {
+                    Id = asset.Id,
+                    Code = asset.Code,
+                    Description = asset.Description,
+                    Price = asset.Price,
+                    UrlImage01 = asset.UrlImage01,
+                    UrlImage02 = asset.UrlImage02,
+                    UrlImage03 = asset.UrlImage03,
+                    UrlImage04 = asset.UrlImage04,
+                    Meters = asset.Meters,
+                    BedroomQuantity = asset.BedroomQuantity,
+                    BathroomQuantity = asset.BathroomQuantity,
+                    AgentId = asset.AgentId,
+                    ImmovableAssetTypeId = asset.ImmovableAssetType.Id,
+                    ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
+                    SellTypeId = asset.SellType.Id,
+                    SellTypeName = asset.SellType.Name
+                }).ToList();
+            }
 
             #region Aplicar filtros
             if (filters.ImmovableAssetTypeId != null && filters.ImmovableAssetTypeId != 0)
