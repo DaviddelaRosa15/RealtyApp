@@ -10,5 +10,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
 {
    public interface IFavoriteImmovableService:IGenericService<SaveFavoriteImmovableViewModel, FavoriteImmovableViewModel, FavoriteImmovable>
    {
+        Task ManageFavoriteImmovable(SaveFavoriteImmovableViewModel vm);
+        Task<bool> IsFavoriteImmovable(int id, string idClient);
    }
 }

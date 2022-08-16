@@ -37,6 +37,22 @@ namespace RealtyApp.Core.Application.Services
                     }
                 }
             }
+            else
+            {
+                await Add(vm);
+            }
+        }
+
+        public async Task<bool> IsFavoriteImmovable(int id, string idClient)
+        {
+            var stock = await GetAllViewModel();
+
+            if (stock.Any(x => x.ImmovableAssetId == id && x.ClientId == idClient))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

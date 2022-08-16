@@ -55,12 +55,12 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> ManageFavoriteImmovable(int id)
+        public async Task<IActionResult> ManageFavoriteImmovable(int id, string idClient)
         {
             SaveFavoriteImmovableViewModel save = new()
             {
                 ImmovableAssetId = id,
-                ClientId = _loggedUser.Id
+                ClientId = idClient
             };
             await _favoriteImmovableService.Add(save);
             return RedirectToRoute(new { controller = "Client", action = "Index"});

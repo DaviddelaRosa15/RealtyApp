@@ -128,7 +128,7 @@ namespace RealtyApp.Core.Application.Mappings
               .ForMember(opt => opt.SellType, opt => opt.Ignore())
               .ForMember(opt => opt.FavoriteImmovables, opt => opt.Ignore())
               .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore());
-            
+
             CreateMap<ImmovableAsset, SaveImmovableAssetViewModel>()
              .ReverseMap()
              .ForMember(opt => opt.ImmovableAssetType, opt => opt.Ignore())
@@ -199,87 +199,87 @@ namespace RealtyApp.Core.Application.Mappings
 
             #region DTOs_CQRS
 
-                #region ImmovableAssetType
+            #region ImmovableAssetType
 
-                        CreateMap<ImmovableAssetTypeDTO, ImmovableAssetType>()
-                                    .ForMember(dest => dest.Created, options => options.Ignore())
-                                    .ForMember(dest => dest.LastModified, options => options.Ignore())
-                                    .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                                    .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
-                                    .ForMember(dest=> dest.ImmovableAssets, option=> option.Ignore())
-                                    .ReverseMap()
-                                    .ForMember(src => src.ImmovableAssets, option => option.Ignore());
+            CreateMap<ImmovableAssetTypeDTO, ImmovableAssetType>()
+                        .ForMember(dest => dest.Created, options => options.Ignore())
+                        .ForMember(dest => dest.LastModified, options => options.Ignore())
+                        .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                        .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                        .ForMember(dest => dest.ImmovableAssets, option => option.Ignore())
+                        .ReverseMap()
+                        .ForMember(src => src.ImmovableAssets, option => option.Ignore());
 
-                        CreateMap<ImmovableAssetTypeSaveDTO, ImmovableAssetType>()
-                            .ForMember(dest => dest.Created, options => options.Ignore())
-                            .ForMember(dest => dest.LastModified, options => options.Ignore())
-                            .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                            .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
-                            .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
+            CreateMap<ImmovableAssetTypeSaveDTO, ImmovableAssetType>()
+                .ForMember(dest => dest.Created, options => options.Ignore())
+                .ForMember(dest => dest.LastModified, options => options.Ignore())
+                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
 
-                        CreateMap<CreateAssetTypeCommand, ImmovableAssetType>()
-                               .ForMember(dest => dest.Created, options => options.Ignore())
-                               .ForMember(dest => dest.LastModified, options => options.Ignore())
-                               .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                               .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
-                               .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
+            CreateMap<CreateAssetTypeCommand, ImmovableAssetType>()
+                   .ForMember(dest => dest.Created, options => options.Ignore())
+                   .ForMember(dest => dest.LastModified, options => options.Ignore())
+                   .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                   .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                   .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
 
-                        CreateMap<UpdateAssetTypeCommand, ImmovableAssetType>()
-                                    .ForMember(dest => dest.Created, options => options.Ignore())
-                                    .ForMember(dest => dest.LastModified, options => options.Ignore())
-                                    .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                                    .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
-                                    .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
+            CreateMap<UpdateAssetTypeCommand, ImmovableAssetType>()
+                        .ForMember(dest => dest.Created, options => options.Ignore())
+                        .ForMember(dest => dest.LastModified, options => options.Ignore())
+                        .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                        .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                        .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
 
-                        //Here something is happending.
-                        CreateMap<ImmovableAssetType, UpdateAssetTypeResponse>()
-                                   .ReverseMap()
-                                   .ForMember(src => src.Created, options => options.Ignore())
-                                   .ForMember(src => src.LastModified, options => options.Ignore())
-                                   .ForMember(src => src.CreatedBy, options => options.Ignore())
-                                   .ForMember(src => src.LastModifiedBy, options => options.Ignore())
-                                   .ForMember(src => src.ImmovableAssets, options => options.Ignore());
-
-                 #endregion
-
-                #region Improvement
-
-                    CreateMap<ImprovementDTO, Improvement>()
-                      .ForMember(dest => dest.Created, options => options.Ignore())
-                      .ForMember(dest => dest.LastModified, options => options.Ignore())
-                      .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                      .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
-
-                    CreateMap<CreateImprovementCommand, Improvement>()
-                      .ForMember(dest => dest.Created, options => options.Ignore())
-                      .ForMember(dest => dest.LastModified, options => options.Ignore())
-                      .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                      .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
-                      .ForMember(dest => dest.Improvement_Immovables, options => options.Ignore());
-
-                    CreateMap<UpdateImprovementResponse, Improvement>()
-                             .ForMember(dest => dest.Created, options => options.Ignore())
-                             .ForMember(dest => dest.LastModified, options => options.Ignore())
-                             .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                             .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
-                             .ForMember(dest => dest.Improvement_Immovables, options => options.Ignore());
-
-                    CreateMap<UpdateImprovementCommand, Improvement>()
-                             .ForMember(dest => dest.Created, options => options.Ignore())
-                             .ForMember(dest => dest.LastModified, options => options.Ignore())
-                             .ForMember(dest => dest.CreatedBy, options => options.Ignore())
-                             .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
-                             .ForMember(dest => dest.Improvement_Immovables, options => options.Ignore());
+            //Here something is happending.
+            CreateMap<ImmovableAssetType, UpdateAssetTypeResponse>()
+                       .ReverseMap()
+                       .ForMember(src => src.Created, options => options.Ignore())
+                       .ForMember(src => src.LastModified, options => options.Ignore())
+                       .ForMember(src => src.CreatedBy, options => options.Ignore())
+                       .ForMember(src => src.LastModifiedBy, options => options.Ignore())
+                       .ForMember(src => src.ImmovableAssets, options => options.Ignore());
 
             #endregion
 
-                #region Improvement_Immovable
+            #region Improvement
+
+            CreateMap<ImprovementDTO, Improvement>()
+              .ForMember(dest => dest.Created, options => options.Ignore())
+              .ForMember(dest => dest.LastModified, options => options.Ignore())
+              .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+              .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
+
+            CreateMap<CreateImprovementCommand, Improvement>()
+              .ForMember(dest => dest.Created, options => options.Ignore())
+              .ForMember(dest => dest.LastModified, options => options.Ignore())
+              .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+              .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+              .ForMember(dest => dest.Improvement_Immovables, options => options.Ignore());
+
+            CreateMap<UpdateImprovementResponse, Improvement>()
+                     .ForMember(dest => dest.Created, options => options.Ignore())
+                     .ForMember(dest => dest.LastModified, options => options.Ignore())
+                     .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                     .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                     .ForMember(dest => dest.Improvement_Immovables, options => options.Ignore());
+
+            CreateMap<UpdateImprovementCommand, Improvement>()
+                     .ForMember(dest => dest.Created, options => options.Ignore())
+                     .ForMember(dest => dest.LastModified, options => options.Ignore())
+                     .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                     .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                     .ForMember(dest => dest.Improvement_Immovables, options => options.Ignore());
+
+            #endregion
+
+            #region Improvement_Immovable
             CreateMap<Improvement_ImmovableDTO, Improvement_Immovable>()
                        .ForMember(dest => dest.Created, options => options.Ignore())
                        .ForMember(dest => dest.LastModified, options => options.Ignore())
                        .ForMember(dest => dest.CreatedBy, options => options.Ignore())
                        .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
-                #endregion
+            #endregion
 
             #endregion
 

@@ -1,8 +1,15 @@
 ﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 @using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
+@using Microsoft.AspNetCore.Http
+@using RealtyApp.Core.Application.Dtos.Account
+@using RealtyApp.Core.Application.Helpers;
+@using RealtyApp.Core.Application.Interfaces.Services;
+@inject IHttpContextAccessor httpContextAccessor
+@inject IFavoriteImmovableService favoriteImmovableService
 @model List<ImmovableAssetViewModel>
 @{
     ViewData["Title"] = "Home Page";
+    var Client = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
     DataFilterViewModel filterVm = ViewBag.DataFilterViewModel;
 }
 
@@ -113,7 +120,14 @@
                                 <div class="col-6 mb-3">
                                     <div class="card shadow rounded" style="max-width: 400px">
                                         <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id"><img src="@item.UrlImage01" class="card-img-top" /></a>
-                                        <a asp-controller="Client" asp-action="" asp-route-id="@item.Id" class="top-50"><i class="fa-regular fa-heart text-danger"></i></a>
+                                        @if (await favoriteImmovableService.IsFavoriteImmovable(@item.Id, Client.Id))
+                                        {
+                                            <a asp-controller="Client" asp-action="" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class="top-50"><i class="fa-solid fa-heart text-danger"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Client" asp-action="" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class="top-50"><i class="fa-regular fa-heart text-danger"></i></a>
+                                        }
 
                                         <div class="card-body">
                                             <div class="mb-2">
