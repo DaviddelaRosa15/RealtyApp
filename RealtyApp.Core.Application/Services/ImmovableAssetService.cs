@@ -25,12 +25,36 @@ namespace RealtyApp.Core.Application.Services
             _userService = userService;
         }
 
-        public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters)
+        public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters, string id)
         {
             List<ImmovableAssetViewModel> filterListViewModels = new();
+            List<ImmovableAssetViewModel> listViewModels = new();
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });
 
-            var listViewModels = assetList.Select(asset => new ImmovableAssetViewModel
+            if (id != null)
+            {
+                listViewModels = assetList.Where(x => x.AgentId == id).Select(asset => new ImmovableAssetViewModel
+                {
+                    Id = asset.Id,
+                    Code = asset.Code,
+                    Description = asset.Description,
+                    Price = asset.Price,
+                    UrlImage01 = asset.UrlImage01,
+                    UrlImage02 = asset.UrlImage02,
+                    UrlImage03 = asset.UrlImage03,
+                    UrlImage04 = asset.UrlImage04,
+                    Meters = asset.Meters,
+                    BedroomQuantity = asset.BedroomQuantity,
+                    BathroomQuantity = asset.BathroomQuantity,
+                    AgentId = asset.AgentId,
+                    ImmovableAssetTypeId = asset.ImmovableAssetType.Id,
+                    ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
+                    SellTypeId = asset.SellType.Id,
+                    SellTypeName = asset.SellType.Name
+                }).ToList();
+            }
+            
+            listViewModels = assetList.Select(asset => new ImmovableAssetViewModel
             {
                 Id = asset.Id,
                 Code = asset.Code,

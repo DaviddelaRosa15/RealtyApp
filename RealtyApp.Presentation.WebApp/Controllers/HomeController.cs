@@ -24,12 +24,12 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             _userService = userService;
         }
 
-        public async Task<IActionResult> Index(FilterViewModel vm)
+        public async Task<IActionResult> Index(FilterViewModel vm, string id = null)
         {
             ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
             ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
-            var model = await _immovableAssetService.GetAllViewModelWithFilters(vm);
+            var model = await _immovableAssetService.GetAllViewModelWithFilters(vm, id);
             return View(model);
         }
 
