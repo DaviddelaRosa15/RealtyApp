@@ -44,5 +44,12 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             var model = await _userService.GetAllUserAgentAsync();
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Agents(string agentName)
+        {
+            var model = await _userService.GetUserAgentByName(agentName);
+            return View(model);
+        }
     }
 }

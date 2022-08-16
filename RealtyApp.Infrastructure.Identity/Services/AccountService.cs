@@ -429,7 +429,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
             return userViewModel.OrderBy(x => x.FirstName).ToList();
         }
-
+              
         public async Task<SaveUserViewModel> GetUserByIdAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -447,6 +447,31 @@ namespace RealtyApp.Infrastructure.Identity.Services
             };
 
             return userVm;
+        }
+
+        public async Task<List<UserViewModel>> GetUserAgentByNameAsync(string name)
+        {
+            var users = await _userManager.GetUsersInRoleAsync(Roles.Agent.ToString());
+            List<UserViewModel> userViewModel = new();
+            if (users != null)
+            {
+                foreach (var user in users.Where(x => x.FirstName == name).ToList())
+                {
+
+                    userViewModel.Add(new UserViewModel()
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        CardIdentification = user.CardIdentification,
+                        Email = user.Email,
+                        IsVerified = user.EmailConfirmed,
+                        Username = user.UserName,
+                        ImageUrl = user.UrlImage
+                    });
+                }
+            }
+            return userViewModel.OrderBy(x => x.FirstName).ToList();
         }
         #endregion
 
