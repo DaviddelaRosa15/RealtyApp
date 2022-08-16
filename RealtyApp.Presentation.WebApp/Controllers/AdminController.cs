@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RealtyApp.Presentation.WebApp.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
@@ -132,10 +132,19 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             return RedirectToRoute(new {Controller = "Admin", Action = "Developers"});
         }
 
-
+        public async Task<IActionResult> Delete(string id, string type)
+        {
+           SaveUserViewModel user =await _userService.GetUserById(id);
+            user.TypeUser = type;
+            return View(user);
+        }
         public async Task<IActionResult> DeleteUser(string id, string type)
         {
             await _userService.DeleteAsync(id);
+            if (type == "Agent")
+            {
+                await _immovableAssetService.DeleteByIdAgent(id);
+            }
             string basePath = $"/Images/User/{type}/{id}";
             string path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot{basePath}");
 
@@ -154,7 +163,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
                 Directory.Delete(path);
             }
-            return RedirectToRoute(new { controller = "Admin", action =type+"s" });
+            return RedirectToRoute(new { controller = "Admin", action = $"{type}s"});
         }
     }
 }

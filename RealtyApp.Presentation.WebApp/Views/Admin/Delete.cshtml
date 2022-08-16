@@ -1,0 +1,25 @@
+﻿@using RealtyApp.Core.Application.ViewModels.User;
+@model SaveUserViewModel
+@{
+    ViewData["Title"] = "Eliminar categoria";
+}
+
+<div class="row">
+
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-danger text-light">
+                <h4>
+                    ¿Está seguro que desea eliminar este agente:<b>@Model.FirstName?</b> y todas sus
+                    propiedades? 
+                </h4>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@Model.Id" asp-route-type="@Model.TypeUser" class="btn btn-danger">Eliminar</a>
+                <a asp-controller="Admin" asp-action="Agents" class="btn btn-warning">Cancelar</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+

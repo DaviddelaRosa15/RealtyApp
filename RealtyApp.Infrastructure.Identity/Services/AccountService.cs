@@ -157,6 +157,13 @@ namespace RealtyApp.Infrastructure.Identity.Services
         }
 
         #region Update
+        public async Task UpdateUserImageAsync(SaveUserViewModel vm)
+        {
+            ApplicationUser appliUser = await _userManager.FindByIdAsync(vm.Id);
+            appliUser.UrlImage = vm.ImageUrl;
+            await _userManager.UpdateAsync(appliUser);
+
+        }
         public async Task<SaveUserViewModel> UpdateAsync(SaveUserViewModel vm)
         {
             ApplicationUser appliUser = await _userManager.FindByIdAsync(vm.Id);
@@ -444,7 +451,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 Username = user.UserName,
                 Phone = user.PhoneNumber,
                 ImageUrl = user.UrlImage
-            };
+        };
 
             return userVm;
         }

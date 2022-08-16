@@ -22,9 +22,14 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
 
         public async Task<int> CountImmovobleAsset()
         {
-
           var countImmovable  =  await _dbContext.Set<ImmovableAsset>().ToListAsync();
           return countImmovable.Count;
+        }
+        public async Task DeleteByIdAgent(string id)
+        {
+            List<ImmovableAsset> immovableAssets = await _dbContext.Set<ImmovableAsset>().ToListAsync();
+             _dbContext.RemoveRange(immovableAssets.Where(immo=> immo.AgentId==id));
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

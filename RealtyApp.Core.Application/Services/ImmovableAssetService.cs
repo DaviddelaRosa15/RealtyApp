@@ -171,5 +171,10 @@ namespace RealtyApp.Core.Application.Services
                 MaxBathroomQuantity = assetList.Max(x => x.BathroomQuantity)
             }).FirstOrDefault();
         }
+
+        public async Task DeleteByIdAgent(string id)
+        {
+            await _immovableAssetRepository.DeleteByIdAgent(id);
+        }
     }
 }

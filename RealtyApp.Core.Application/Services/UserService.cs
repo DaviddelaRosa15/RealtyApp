@@ -73,6 +73,10 @@ namespace RealtyApp.Core.Application.Services
             vm.Id = id;
             return await _accountService.UpdateAsync(vm);
         }
+        public async Task UpdateUserImageAsync(SaveUserViewModel vm)
+        {
+            await _accountService.UpdateUserImageAsync(vm);
+        }
 
         public async Task DeleteAsync(string id)
         {
@@ -129,6 +133,6 @@ namespace RealtyApp.Core.Application.Services
             return await _accountService.CountDeveloper();
         }
 
-        
+      
     }
 }

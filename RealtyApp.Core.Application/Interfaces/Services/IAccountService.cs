@@ -27,6 +27,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<CountUser> CountClient();
         Task<CountUser> CountAgent();
         Task<CountUser> CountDeveloper();
+        Task UpdateUserImageAsync(SaveUserViewModel vm);
 
     }
 }
