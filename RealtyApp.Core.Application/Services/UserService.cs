@@ -98,6 +98,11 @@ namespace RealtyApp.Core.Application.Services
             return await _accountService.GetUserByIdAsync(id);
         }
 
+        public async Task<List<UserViewModel>> GetUserAgentByName(string name)
+        {
+            return await _accountService.GetUserAgentByNameAsync(name);
+        }
+
         public async Task<bool> ChangeUserStatus(string id)
         {
             var operationStatus = await _accountService.ChangeUserStatusAsync(id);

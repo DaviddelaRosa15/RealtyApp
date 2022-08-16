@@ -1,0 +1,50 @@
+﻿@using RealtyApp.Core.Application.ViewModels.User;
+@model List<UserViewModel>
+@{
+    ViewData["Title"] = "Agentes";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mx-0">
+                <div class="card-header mb-0 text-light">
+                    <h2 class="text-lg-center mb-2">!Encuentra el agente!</h2>
+                    <form method="post" asp-controller="Home" asp-action="Agents">
+                        <div class="input-group mb-1">
+                            <a asp-controller="Home" asp-action="Agents" class="btn btn-danger">Mostrar todos</a>
+                            <input type="search" class="form-control rounded" name="agentName" id="agentName" placeholder="Escribe el nombre del agente que quieres encontrar" aria-label="Escribe el nombre del agente que quieres encontrar" aria-describedby="search-addon" />
+                            <button type="submit" class="btn btn-success">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+                @if (Model == null || Model.Count == 0)
+                {
+                    <h3 class="text-lg-center mb-3">No hay agentes</h3>
+                }
+                else
+                {
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                @foreach (UserViewModel item in Model)
+                                {
+                                    <div class="col-4 mb-3">
+                                        <div class="card shadow rounded bg-white" style="max-width: 400px">
+
+                                            <div class="card-body">
+                                                <a asp-controller="Home" asp-action="Index" asp-route-id="@item.Id"><img src="@item.ImageUrl" class="avatar-img rounded.circle" /></a>
+                                                <a asp-controller="Home" asp-action="Index" asp-route-id="@item.Id" class="text-decoration-none"><h5>@item.FirstName @item.LastName</h5></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
