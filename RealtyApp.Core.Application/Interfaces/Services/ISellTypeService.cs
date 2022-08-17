@@ -12,6 +12,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
     {
         //Custome Functionality
         public Task<List<SellTypeViewModel>> GetAllViewModelWithIncludes();
+        Task<List<SellTypeViewModel>> GetAllWithSellType();
 
     }
 }

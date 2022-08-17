@@ -15,10 +15,14 @@ namespace RealtyApp.Core.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IImmovableAssetTypeRepository _typeRepository;
-        public ImmovableAssetTypeService(IImmovableAssetTypeRepository repository, IMapper mapper) : base(repository, mapper)
+        private readonly IImmovableAssetRepository _ImmovableService;
+        public ImmovableAssetTypeService(IImmovableAssetTypeRepository repository, 
+            IMapper mapper,
+            IImmovableAssetRepository ImmovableService) : base(repository, mapper)
         {
             this._mapper = mapper;
             this._typeRepository = repository;
+            this._ImmovableService = ImmovableService;
         }
 
         public async Task<List<ImmovableAssetTypeViewModel>> GetAllViewModelWithIncludes()
@@ -30,6 +34,23 @@ namespace RealtyApp.Core.Application.Services
                                                                     _mapper.Map<List<ImmovableAssetTypeViewModel>>(immovableAssetTypes);
 
             return immovableAssetTypesViewModels;
+        }
+        public async Task<List<ImmovableAssetTypeViewModel>> GetAllWithCountTypeImmovableUse()
+        {
+            List<ImmovableAssetTypeViewModel> immovableAssetTypeViewModels = new();
+            var immovableTypes= await _typeRepository.GetAllAsync();
+            foreach (var immovable in immovableTypes)
+            {
+                immovableAssetTypeViewModels.Add(new ImmovableAssetTypeViewModel()
+                {
+                    Id = immovable.Id,
+                    Name = immovable.Name,
+                    Description = immovable.Description,
+                    CountUseType =await _ImmovableService.CountImmovableTypeById(immovable.Id)
+
+                }) ;
+            }
+            return immovableAssetTypeViewModels;
         }
 
     }

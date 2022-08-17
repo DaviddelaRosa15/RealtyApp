@@ -148,6 +148,7 @@ namespace RealtyApp.Core.Application.Mappings
             #region ImmovableAssetType
 
             CreateMap<ImmovableAssetType, ImmovableAssetTypeViewModel>()
+                 .ForMember(dest => dest.CountUseType, options => options.Ignore())
                 .ReverseMap()
                 .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
@@ -166,13 +167,15 @@ namespace RealtyApp.Core.Application.Mappings
             #endregion
 
             #region Improvement
-            CreateMap<ImprovementViewModel, Improvement>()
+            CreateMap<Improvement,ImprovementViewModel>()
+                .ReverseMap()
                 .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
                 .ForMember(dest => dest.CreatedBy, options => options.Ignore())
                 .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
 
-            CreateMap<ImprovementSaveViewModel, Improvement>()
+            CreateMap<Improvement,ImprovementSaveViewModel>()
+                .ReverseMap()
                 .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
                 .ForMember(dest => dest.CreatedBy, options => options.Ignore())
@@ -195,13 +198,16 @@ namespace RealtyApp.Core.Application.Mappings
             #endregion
 
             #region SellType
-            CreateMap<SellTypeViewModel, SellType>()
+            CreateMap<SellType,SellTypeViewModel>()
+                .ForMember(dest => dest.CountUseType, options => options.Ignore())
+                .ReverseMap()
                 .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
                 .ForMember(dest => dest.CreatedBy, options => options.Ignore())
                 .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
 
-            CreateMap<SaveSellTypeViewModel, SellType>()
+            CreateMap<SellType,SaveSellTypeViewModel>()
+                .ReverseMap()
                 .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
                 .ForMember(dest => dest.CreatedBy, options => options.Ignore())

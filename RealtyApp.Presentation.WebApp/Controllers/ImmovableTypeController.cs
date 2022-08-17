@@ -19,11 +19,11 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         
         public async Task< IActionResult> Index()
         {          
-            return View(await _immovableAssetType.GetAllViewModel());
+            return View(await _immovableAssetType.GetAllWithCountTypeImmovableUse());
         }
         public async Task<IActionResult> Create()
-        {
-            return View();
+        {            
+            return View(new ImmovableAssetTypeSaveViewModel ());
         }
 
         [HttpPost]
@@ -36,5 +36,35 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             await _immovableAssetType.Add(vm);
             return RedirectToRoute(new { controller = "ImmovableType", action = "Index" });
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            ImmovableAssetTypeSaveViewModel immoTypeSaveViewModel = await _immovableAssetType.GetByIdSaveViewModel(id);
+         
+            return View("Create",immoTypeSaveViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(ImmovableAssetTypeSaveViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Create",vm);
+            }
+            await _immovableAssetType.Update(vm, vm.Id);
+            return RedirectToRoute(new { controller = "ImmovableType", action = "Index" });
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            ImmovableAssetTypeSaveViewModel immoTypeSaveViewModel = await _immovableAssetType.GetByIdSaveViewModel(id);
+
+            return View( immoTypeSaveViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(ImmovableAssetTypeSaveViewModel vm)
+        {
+            await _immovableAssetType.Delete(vm.Id);
+            return RedirectToRoute(new { controller = "ImmovableType", action = "Index" });
+        }
+
     }
 }

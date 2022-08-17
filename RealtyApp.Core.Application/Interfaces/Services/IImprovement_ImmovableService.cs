@@ -12,6 +12,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
     {
         //Custome Functionality
         public Task<List<Improvement_ImmovableViewModel>> GetAllViewModelWithIncludes();
+       
 
     }
 }

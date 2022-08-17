@@ -1,4 +1,5 @@
-﻿using RealtyApp.Core.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using RealtyApp.Core.Application.Interfaces.Repositories;
 using RealtyApp.Core.Domain.Entities;
 using RealtyApp.Infrastructure.Persistence.Contexts;
 using System;
@@ -17,6 +18,7 @@ namespace RealtyApp.Infrastructure.Persistence.Repository
         {
             this._dbContext = dbContext;
         }
+        
 
 
     }

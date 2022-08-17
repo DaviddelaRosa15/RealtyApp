@@ -15,12 +15,13 @@ namespace RealtyApp.Core.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IImprovementRepository _repository;
-        public ImprovementService(IImprovementRepository repository, IMapper mapper) : base(repository, mapper)
+        public ImprovementService(IImprovementRepository repository,
+            IMapper mapper,
+            IImprovement_ImmovableService improvement_ImmovableService) : base(repository, mapper)
         {
             this._mapper = mapper;
             this._repository = repository;
         }
-
         public async Task<List<ImprovementViewModel>> GetAllViewModelWithIncludes()
         {
             var improvements = await _repository.GetAllWithIncludeAsync(new List<string>() { "Improvement_Immovable" });
@@ -29,6 +30,7 @@ namespace RealtyApp.Core.Application.Services
 
             return improvementViews;
         }
+        
 
     }
 }

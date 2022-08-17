@@ -1,0 +1,34 @@
+﻿@using RealtyApp.Core.Application.ViewModels.SellType;
+@model List<SellTypeViewModel>
+@{
+    ViewData["Title"] = "Tipo de ventas";
+}
+<div class="container-fluid">
+    <div class="cont_btn_createGeneric">
+        <a class="btn btn-outline-primary btn_createGeneric " asp-controller="SellType" asp-action="Create">Crear nuevo tipo de venta</a>
+    </div>
+    <div class="row">
+        @foreach (SellTypeViewModel sellType in Model)
+        {
+            <div class="col-3">
+                <div class="card shadow">
+                    <div class="card-header text-dark text-center">
+                        <h4>Tipo de venta</h4>
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body text-dark">
+                            <h4 class="card-title mb-2 text-center">Nombre: @sellType.Name</h4>
+                            <h4 class="card-title mb-2 text-center">Descripcion: @sellType.Description</h4>
+                            <h4 class="card-title mb-2 text-center">Cantidad de propiedades con este tipo:@sellType.CountUseType</h4>
+                            <div class="btn-group">
+                                <a asp-controller="SellType" asp-action="Edit" asp-route-id="@sellType.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                <a asp-controller="SellType" asp-action="Delete" asp-route-id="@sellType.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

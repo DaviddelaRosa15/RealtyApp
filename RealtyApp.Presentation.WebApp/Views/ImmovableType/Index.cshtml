@@ -14,14 +14,19 @@
             <div class="col-3">
                 <div class="card shadow">
                     <div class="card-header text-dark text-center">
-                        <h4>propiedad</h4>
+                        <h4>Tipo de propiedad</h4>
                     </div>
                     <div class="col-9">
                         <div class="card-body text-dark">
                             <h4 class="card-title mb-2 text-center">Nombre: @immType.Name</h4>
                             <h4 class="card-title mb-2 text-center">Descripcion: @immType.Description</h4>
-                            <h4 class="card-title mb-2 text-center">Cantidad de propiedades con este tipo:23</h4>
+                            <h4 class="card-title mb-2 text-center">Cantidad de propiedades con este tipo: @immType.CountUseType</h4>
+                            <div class="btn-group">
+                                <a asp-controller="ImmovableType" asp-action="Edit" asp-route-id="@immType.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                <a asp-controller="ImmovableType" asp-action="Delete" asp-route-id="@immType.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

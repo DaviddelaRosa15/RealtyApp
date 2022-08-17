@@ -1,0 +1,28 @@
+﻿@using RealtyApp.Core.Application.ViewModels.SellType;
+@model SaveSellTypeViewModel
+@{
+    ViewData["Title"] = "Eliminar tipo de propiedad";
+}
+
+<div class="row">
+
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-danger text-light">
+                <h4>Esta seguro que desea eliminar el tipo de venta: <b> @Model.Name</b>?</h4>
+            </div>
+            <div class="card-body">
+
+                <form method="post" asp-controller="SellType" asp-action="Delete">
+
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-controller="SellType" asp-action="Index" class="btn btn-warning">Cancelar</a>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

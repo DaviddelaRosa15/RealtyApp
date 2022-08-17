@@ -16,6 +16,8 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<int> CountImmovobleAsset();
         Task DeleteByIdAgent(string id);
         Task<DataFilterViewModel> GetDataFilterViewModel();
+        Task<int> CountImmovableTypeById(int id);
+        Task<int> CountSellTypeById(int id);
 
     }
 }

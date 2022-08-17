@@ -12,6 +12,8 @@ namespace RealtyApp.Core.Application.Interfaces.Services
     {
         //Custome Functionalities
         public Task<List<ImmovableAssetTypeViewModel>> GetAllViewModelWithIncludes();
+        Task<List<ImmovableAssetTypeViewModel>> GetAllWithCountTypeImmovableUse();
+
 
     }
 }

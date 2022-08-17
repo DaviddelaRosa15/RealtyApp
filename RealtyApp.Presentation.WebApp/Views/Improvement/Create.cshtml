@@ -1,7 +1,7 @@
-﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
-@model ImmovableAssetTypeSaveViewModel
+﻿@using RealtyApp.Core.Application.ViewModels.Improvement;
+@model ImprovementSaveViewModel
 @{
-    ViewData["Title"] = "Creacion de tipo de propiedades";
+    ViewData["Title"] = "Creacion mejoras";
 
     bool editing = Model.Id==0 ? false : true;
 }
@@ -14,9 +14,9 @@
 
             <div class="card-body contCard">
                 <div class="card-header bg-dark text-light">
-                    <h4>@(editing ? $"Editando el tipo de propiedad: {Model.Name}" : "Creando un nuevo tipo de propiedad")</h4>
+                    <h4>@(editing ? $"Editando la mejora: {Model.Name}" : "Creando una nueva mejora")</h4>
                 </div>
-                <form method="post" asp-controller="ImmovableType" asp-action="@(editing?"Edit":"Create")" class="form p-4">
+                <form method="post" asp-controller="Improvement" asp-action="@(editing?"Edit":"Create")" class="form p-4">
 
                     <div class="mb-3">
                         <label asp-for="Name" class="form-label">Nombre: </label>
@@ -33,7 +33,7 @@
 
                     <div class="btn-group w-100">
                         <button type="submit" class="btn btn-success">Guardar</button>
-                        <a asp-controller="ImmovableType" asp-action="Index" class="btn btn-warning">Volver atras</a>
+                        <a asp-controller="Improvement" asp-action="Index" class="btn btn-warning">Volver atras</a>
                     </div>
                 </form>
 

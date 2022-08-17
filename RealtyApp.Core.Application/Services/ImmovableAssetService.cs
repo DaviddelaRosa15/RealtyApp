@@ -176,5 +176,14 @@ namespace RealtyApp.Core.Application.Services
         {
             await _immovableAssetRepository.DeleteByIdAgent(id);
         }
+
+        public async Task<int> CountImmovableTypeById(int id)
+        {
+            return await _immovableAssetRepository.CountImmovableTypeById(id);
+        }
+        public async Task<int> CountSellTypeById(int id)
+        {
+            return await _immovableAssetRepository.CountSellTypeById(id);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace RealtyApp.Core.Application.Interfaces.Repositories
 {
     public interface IImprovement_ImmovableRepository : IGenericRepository<Improvement_Immovable>
     {
+      
     }
 }

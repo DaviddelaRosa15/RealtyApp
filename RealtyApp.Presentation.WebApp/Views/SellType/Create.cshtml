@@ -1,5 +1,5 @@
-﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
-@model ImmovableAssetTypeSaveViewModel
+﻿@using RealtyApp.Core.Application.ViewModels.SellType;
+@model SaveSellTypeViewModel
 @{
     ViewData["Title"] = "Creacion de tipo de propiedades";
 
@@ -14,9 +14,9 @@
 
             <div class="card-body contCard">
                 <div class="card-header bg-dark text-light">
-                    <h4>@(editing ? $"Editando el tipo de propiedad: {Model.Name}" : "Creando un nuevo tipo de propiedad")</h4>
+                    <h4>@(editing ? $"Editando el tipo de venta: {Model.Name}" : "Creando un nuevo tipo de venta")</h4>
                 </div>
-                <form method="post" asp-controller="ImmovableType" asp-action="@(editing?"Edit":"Create")" class="form p-4">
+                <form method="post" asp-controller="SellType" asp-action="@(editing?"Edit":"Create")" class="form p-4">
 
                     <div class="mb-3">
                         <label asp-for="Name" class="form-label">Nombre: </label>
@@ -33,7 +33,7 @@
 
                     <div class="btn-group w-100">
                         <button type="submit" class="btn btn-success">Guardar</button>
-                        <a asp-controller="ImmovableType" asp-action="Index" class="btn btn-warning">Volver atras</a>
+                        <a asp-controller="SellType" asp-action="Index" class="btn btn-warning">Volver atras</a>
                     </div>
                 </form>
 

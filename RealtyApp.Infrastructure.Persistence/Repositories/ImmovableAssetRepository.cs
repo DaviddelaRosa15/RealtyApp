@@ -31,5 +31,19 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
              _dbContext.RemoveRange(immovableAssets.Where(immo=> immo.AgentId==id));
             await _dbContext.SaveChangesAsync();
         }
+        public async Task<int> CountImmovableTypeById(int id)
+        {
+            var countImmovable = await _dbContext.Set<ImmovableAsset>()
+                .Where(imm_Improm => imm_Improm.ImmovableAssetTypeId == id)
+                .ToListAsync();
+            return countImmovable.Count;
+        }
+        public async Task<int> CountSellTypeById(int id)
+        {
+            var countImmovable = await _dbContext.Set<ImmovableAsset>()
+                .Where(imm_Improm => imm_Improm.SellTypeId == id)
+                .ToListAsync();
+            return countImmovable.Count;
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAssetType
     public class ImmovableAssetTypeViewModel
     {
         public int Id { get; set; }
+        public int CountUseType { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
