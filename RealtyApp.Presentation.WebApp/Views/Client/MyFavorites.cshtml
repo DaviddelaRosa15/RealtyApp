@@ -1,4 +1,5 @@
 ﻿@using RealtyApp.Core.Application.ViewModels.FavoriteImmovable;
+@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 @using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
 @using Microsoft.AspNetCore.Http
 @using RealtyApp.Core.Application.Dtos.Account
@@ -115,7 +116,7 @@
                 {
                     <div class="card-body">
                         <div class="row">
-                            @foreach (ImmovableAssetViewModel item in Model)
+                            @foreach (FavoriteImmovableAssetViewModel item in Model)
                             {
                                 <div class="col-6 mb-3">
                                     <div class="card shadow rounded" style="max-width: 400px">
