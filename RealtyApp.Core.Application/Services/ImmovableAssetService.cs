@@ -159,6 +159,7 @@ namespace RealtyApp.Core.Application.Services
         {
             return await _immovableAssetRepository.CountImmovobleAsset();
         }
+
         public async Task<DataFilterViewModel> GetDataFilterViewModel()
         {
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });

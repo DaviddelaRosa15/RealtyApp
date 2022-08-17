@@ -1,4 +1,4 @@
-﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
+﻿@using RealtyApp.Core.Application.ViewModels.FavoriteImmovable;
 @using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
 @using Microsoft.AspNetCore.Http
 @using RealtyApp.Core.Application.Dtos.Account
@@ -6,7 +6,7 @@
 @using RealtyApp.Core.Application.Interfaces.Services;
 @inject IHttpContextAccessor httpContextAccessor
 @inject IFavoriteImmovableService favoriteImmovableService
-@model List<ImmovableAssetViewModel>
+@model List<FavoriteImmovableAssetViewModel>
 @{
     ViewData["Title"] = "Home Page";
     var Client = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-body text-dark">
 
-                    <form method="post" asp-action="Index">
+                    <form method="post" asp-action="MyFavorites">
 
                         <h4 class="card-title mb-2 text-center">Tipos de propiedad</h4>
 
@@ -100,7 +100,7 @@
             <div class="card mx-0">
                 <div class="card-header mb-0 text-light">
                     <h2 class="text-lg-center mb-2">!Encuentra la propiedad!</h2>
-                    <form method="post" asp-action="Index">
+                    <form method="post" asp-action="MyFavorites">
                         <div class="input-group mb-1">
                             <input type="search" class="form-control rounded" name="Code" id="CodeTxt" placeholder="Escribe el código de la propiedad que quieres encontrar" aria-label="Escribe el código de la propiedad que quieres encontrar" aria-describedby="search-addon" />
                             <button type="submit" class="btn btn-success">Buscar</button>

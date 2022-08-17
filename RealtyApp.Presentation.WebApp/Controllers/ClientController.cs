@@ -63,7 +63,16 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                 ClientId = idClient
             };
             await _favoriteImmovableService.Add(save);
-            return RedirectToRoute(new { controller = "Client", action = "Index"});
+            return RedirectToRoute(new { controller = "Client", action = "Index" });
+        }
+
+        public async Task<IActionResult> MyFavorites(FilterViewModel vm)
+        {
+            ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
+            ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
+            ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
+            var model = await _favoriteImmovableService.GetAllFavoritesWithFilters(vm, _loggedUser.Id);
+            return View(model);
         }
     }
 }
