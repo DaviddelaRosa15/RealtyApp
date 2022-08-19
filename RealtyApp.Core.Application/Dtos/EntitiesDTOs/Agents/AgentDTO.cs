@@ -9,11 +9,12 @@ namespace RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent
 {
     public class AgentDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int PropertiesQuantity { get; set; }
         public string Email { get; set; }
+        public string CardIdentification { get; set; }
         public string Phone { get; set; }
     }
 }

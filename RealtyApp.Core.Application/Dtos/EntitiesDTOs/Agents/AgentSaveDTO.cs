@@ -9,7 +9,7 @@ namespace RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent
 {
     public class AgentSaveDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "Debe de especificar el un nombre para este agente.")]
         public string FirstName { get; set; }
@@ -19,6 +19,9 @@ namespace RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent
 
         [Required(ErrorMessage = "Debe de especificar el correo para este agente.")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Debe de especificar la cedula para este agente.")]
+        public string CardIdentification { get; set; }
 
         [Required(ErrorMessage = "Debe de especificar el telefono para este agente.")]
         public string Phone { get; set; }

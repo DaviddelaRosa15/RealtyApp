@@ -380,7 +380,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                         Email = user.Email,
                         IsVerified = user.EmailConfirmed,
                         Username = user.UserName,
-                        ImageUrl = user.UrlImage
+                        ImageUrl = user.UrlImage,
+                        Phone = user.PhoneNumber
                     });
                 }
             }
@@ -405,7 +406,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                         Email = user.Email,
                         IsVerified = user.EmailConfirmed,
                         Username = user.UserName,
-                        ImageUrl = user.UrlImage
+                        ImageUrl = user.UrlImage,
+                        Phone = user.PhoneNumber
                     });
                 }
             }
@@ -430,7 +432,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                         Email = user.Email,
                         IsVerified = user.EmailConfirmed,
                         Username = user.UserName,
-                        ImageUrl = user.UrlImage
+                        ImageUrl = user.UrlImage,
+                        Phone = user.PhoneNumber
                     });
                 }
             }
@@ -474,7 +477,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                         Email = user.Email,
                         IsVerified = user.EmailConfirmed,
                         Username = user.UserName,
-                        ImageUrl = user.UrlImage
+                        ImageUrl = user.UrlImage,
+                        Phone = user.PhoneNumber
                     });
                 }
             }
@@ -698,11 +702,27 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
         }
 
-        public async Task<bool> ChangeUserStatusAsync(string id)
+        public async Task<bool> ChangeUserStatusAsync(string id, string status = null)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(id);
+            
             if (user != null)
             {
+                if (status != null)
+                {
+                    switch (status)
+                    {
+                        case "true":
+                            user.EmailConfirmed = true;
+                            break;
+                        case "false":
+                            user.EmailConfirmed = false;
+                            break;
+                        default:
+                            return false;
+                    }
+                }
+
                 if (user.EmailConfirmed == false)
                 {
                     user.EmailConfirmed = true;

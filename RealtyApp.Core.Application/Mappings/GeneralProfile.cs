@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RealtyApp.Core.Application.Dtos.Account;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAssetType;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Improvement;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Improvement_Immovable;
@@ -169,6 +170,10 @@ namespace RealtyApp.Core.Application.Mappings
             #endregion
 
             #region DTOs_CQRS
+
+            #region Agent
+
+            #endregion
 
             #region ImmovableAssetType
 
