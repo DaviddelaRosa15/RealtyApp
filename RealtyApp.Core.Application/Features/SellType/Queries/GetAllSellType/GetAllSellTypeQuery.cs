@@ -45,7 +45,7 @@ namespace RealtyApp.Core.Application.Features.SellType.Queries.GetAllSellType
         private async Task<List<SellTypeDTO>> GetAllDTOsWithIncludes()
         {
 
-            var sellTypes = await _sellTypeRepository.GetAllWithIncludeAsync(new List<string>() { "" });
+            var sellTypes = await _sellTypeRepository.GetAllWithIncludeAsync(new List<string>() { });
 
             List<SellTypeDTO> sellTypesDtos = _mapper.Map<List<SellTypeDTO>>(sellTypes);
 

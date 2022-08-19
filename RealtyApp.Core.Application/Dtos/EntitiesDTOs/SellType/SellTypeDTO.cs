@@ -11,10 +11,6 @@ namespace RealtyApp.Core.Application.Dtos.EntitiesDTOs.SellType
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-
-        //Navigation Properties
-        public ICollection<Improvement_ImmovableDTO> Improvement_Immovables { get; set; }
-
+        public string Description { get; set; }       
     }
 }
