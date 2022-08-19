@@ -3,10 +3,13 @@ using RealtyApp.Core.Application.Dtos.Account;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAssetType;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Improvement;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Improvement_Immovable;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.SellType;
 using RealtyApp.Core.Application.Features.ImmovableAssetType.Commands.CreateAssetType;
 using RealtyApp.Core.Application.Features.ImmovableAssetType.Commands.UpdateAssetType;
 using RealtyApp.Core.Application.Features.Improvement.Commands.CreateImprovement;
 using RealtyApp.Core.Application.Features.Improvement.Commands.UpdateImprovement;
+using RealtyApp.Core.Application.Features.SellType.Commands.CreateSellType;
+using RealtyApp.Core.Application.Features.SellType.Commands.UpdateSellType;
 using RealtyApp.Core.Application.ViewModels.FavoriteImmovable;
 using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
@@ -50,59 +53,7 @@ namespace RealtyApp.Core.Application.Mappings
                 .ReverseMap();
             #endregion
 
-            #region FeaturesCqrs
-            //CreateMap<GetAllProductsQuery, GetAllProductsParameter>()            
-            //   .ReverseMap();
-
-            //CreateMap<CreateProductCommand, Product>()
-            //    .ForMember(x => x.Category, opt => opt.Ignore())
-            //    .ForMember(x => x.Created, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModified, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
-            //    .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-            //    .ReverseMap();
-
-            //CreateMap<UpdateProductCommand, Product>()
-            //    .ForMember(x => x.Category, opt => opt.Ignore())
-            //    .ForMember(x => x.Created, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModified, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
-            //    .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-            //    .ReverseMap();
-
-            //CreateMap<ProductUpdateResponse, Product>()
-            //  .ForMember(x => x.Category, opt => opt.Ignore())
-            //  .ForMember(x => x.Created, opt => opt.Ignore())
-            //  .ForMember(x => x.LastModified, opt => opt.Ignore())
-            //  .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
-            //  .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-            //  .ReverseMap();
-
-            //CreateMap<CreateCategoryCommand, Category>()
-            //.ForMember(x => x.Products, opt => opt.Ignore())
-            //.ForMember(x => x.Created, opt => opt.Ignore())
-            //.ForMember(x => x.CreatedBy, opt => opt.Ignore())
-            //.ForMember(x => x.LastModified, opt => opt.Ignore())
-            //.ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
-            //.ReverseMap();
-
-            //CreateMap<UpdateCategoryCommand, Category>()
-            //    .ForMember(x => x.Products, opt => opt.Ignore())
-            //    .ForMember(x => x.Created, opt => opt.Ignore())
-            //    .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModified, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
-            //    .ReverseMap();
-
-            //CreateMap<CategoryUpdateResponse, Category>()
-            // .ForMember(x => x.Products, opt => opt.Ignore())
-            // .ForMember(x => x.Created, opt => opt.Ignore())
-            // .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-            // .ForMember(x => x.LastModified, opt => opt.Ignore())
-            // .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
-            // .ReverseMap();
-            #endregion
-
+            #region ViewModels
             #region FavoriteImmovable
             CreateMap<FavoriteImmovable, FavoriteImmovableViewModel>()
                .ReverseMap()
@@ -215,6 +166,7 @@ namespace RealtyApp.Core.Application.Mappings
                 .ForMember(dest => dest.CreatedBy, options => options.Ignore())
                 .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
             #endregion
+            #endregion
 
             #region DTOs_CQRS
 
@@ -308,8 +260,44 @@ namespace RealtyApp.Core.Application.Mappings
                        .ReverseMap();
             #endregion
 
+            #region SellType
+
+            CreateMap<SellTypeDTO, SellType>()
+              .ForMember(dest => dest.Created, options => options.Ignore())
+              .ForMember(dest => dest.LastModified, options => options.Ignore())
+              .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+              .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+              .ForMember(dest => dest.ImmovableAssets, options => options.Ignore())
+              .ReverseMap();
+
+            CreateMap<CreateSellTypeCommand, SellType>()
+              .ForMember(dest => dest.Created, options => options.Ignore())
+              .ForMember(dest => dest.LastModified, options => options.Ignore())
+              .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+              .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+              .ForMember(dest => dest.Id, options => options.Ignore())
+              .ForMember(dest => dest.ImmovableAssets, options => options.Ignore())
+              .ReverseMap();
+
+            CreateMap<UpdateSellTypeResponse, SellType>()
+                     .ForMember(dest => dest.Created, options => options.Ignore())
+                     .ForMember(dest => dest.LastModified, options => options.Ignore())
+                     .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                     .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                     .ForMember(dest => dest.ImmovableAssets, options => options.Ignore())
+                     .ReverseMap();
+
+            CreateMap<UpdateSellTypeCommand, SellType>()
+                     .ForMember(dest => dest.Created, options => options.Ignore())
+                     .ForMember(dest => dest.LastModified, options => options.Ignore())
+                     .ForMember(dest => dest.CreatedBy, options => options.Ignore())
+                     .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
+                     .ForMember(dest => dest.ImmovableAssets, options => options.Ignore())
+                     .ReverseMap();
+
             #endregion
 
+            #endregion
 
         }
     }
