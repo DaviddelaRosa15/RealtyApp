@@ -1,16 +1,13 @@
-﻿@using RealtyApp.Core.Application.ViewModels.FavoriteImmovable;
-@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
+﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 @using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
-@using Microsoft.AspNetCore.Http
-@using RealtyApp.Core.Application.Dtos.Account
+@using Microsoft.AspNetCore.Http;
+@using RealtyApp.Core.Application.Dtos.Account;
 @using RealtyApp.Core.Application.Helpers;
 @using RealtyApp.Core.Application.Interfaces.Services;
-@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 @inject IHttpContextAccessor httpContextAccessor
-@inject IFavoriteImmovableService favoriteImmovableService
-@model List<FavoriteImmovableAssetViewModel>
+@model List<ImmovableAssetViewModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Agent Home";
     var Client = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
     DataFilterViewModel filterVm = ViewBag.DataFilterViewModel;
 }
@@ -24,7 +21,7 @@
                 </div>
                 <div class="card-body text-dark">
 
-                    <form method="post" asp-action="MyFavorites">
+                    <form method="post" asp-action="Index">
 
                         <h4 class="card-title mb-2 text-center">Tipos de propiedad</h4>
 
@@ -102,7 +99,7 @@
             <div class="card mx-0">
                 <div class="card-header mb-0 text-light">
                     <h2 class="text-lg-center mb-2">!Encuentra la propiedad!</h2>
-                    <form method="post" asp-action="MyFavorites">
+                    <form method="post" asp-action="Index">
                         <div class="input-group mb-1">
                             <input type="search" class="form-control rounded" name="Code" id="CodeTxt" placeholder="Escribe el código de la propiedad que quieres encontrar" aria-label="Escribe el código de la propiedad que quieres encontrar" aria-describedby="search-addon" />
                             <button type="submit" class="btn btn-success">Buscar</button>
@@ -113,25 +110,22 @@
                 {
                     <h3 class="text-lg-center mb-3">No hay articulos</h3>
                 }
-                @*else
+                else
                 {
                     <div class="card-body">
                         <div class="row">
-                            @foreach (FavoriteImmovableAssetViewModel item in Model)
+                            @foreach (ImmovableAssetViewModel item in Model)
                             {
                                 <div class="col-6 mb-3">
+                                    
                                     <div class="card shadow rounded" style="max-width: 400px">
-                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id"><img src="@item.UrlImage01" class="card-img-top" /></a>
-                                        @if (await favoriteImmovableService.IsFavoriteImmovable(@item.Id, Client.Id))
-                                        {
-                                            <a asp-controller="Client" asp-action="ManageFavoriteImmovable" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class="top-50"><i class="fa-solid fa-heart text-danger"></i></a>
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="Client" asp-action="ManageFavoriteImmovable" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class="top-50"><i class="fa-regular fa-heart text-danger"></i></a>
-                                        }
-
+                                        
+                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                            <img src="@item.UrlImage01" class="card-img-top" />
+                                        </a>
+                                        
                                         <div class="card-body">
+
                                             <div class="mb-2">
                                                 <a class="text-decoration-none text-dark details-hov" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id"><h4>@item.ImmovableAssetTypeName</h4></a>
                                                 <small class="card-text text-secondary">@item.Address</small>
@@ -164,12 +158,13 @@
 
                                         </div>
                                     </div>
+                                
                                 </div>
 
                             }
                         </div>
                     </div>
-                }*@
+                }
             </div>
         </div>
     </div>

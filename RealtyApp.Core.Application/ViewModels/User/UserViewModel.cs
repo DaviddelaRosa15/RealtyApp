@@ -17,6 +17,7 @@ namespace RealtyApp.Core.Application.ViewModels.User
         public string CardIdentification { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
+        public string Phone { get; set; }
         public bool IsVerified { get; set; }
         public int CountImmovable { get; set; }
     }

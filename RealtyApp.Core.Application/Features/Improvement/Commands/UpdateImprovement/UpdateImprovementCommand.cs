@@ -19,6 +19,7 @@ namespace RealtyApp.Core.Application.Features.Improvement.Commands.UpdateImprove
     public class UpdateImprovementCommand : IRequest<UpdateImprovementResponse>
     {
         [SwaggerParameter(Description = "Es el identificador o codigo de la mejora inmobiliaria.")]
+        [Required]
         public int Id { get; set; }
 
         [SwaggerParameter(Description = "Es el nuevo nombre que contendra nuestra mejora inmobiliaria", Required = true)]

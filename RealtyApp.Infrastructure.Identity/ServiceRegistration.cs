@@ -19,10 +19,53 @@ using System.Text;
 namespace RealtyApp.Infrastructure.Identity
 {
     //Extension Method - Decorator
-    public static class ServiceRegistrationWebAPI
+    public static class ServiceRegistration
     {
+        public static void AddIdentityInfrastructureWebAPP(this IServiceCollection services, IConfiguration configuration)
+        {
+            #region Contexts
+
+                if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+                {
+                    services.AddDbContext<IdentityContext>(options => options.UseInMemoryDatabase("IdentityDb"));
+                }
+                else
+                {
+                    services.AddDbContext<IdentityContext>(options =>
+                    {
+                        options.EnableSensitiveDataLogging();
+                        options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"),
+                        m => m.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName));
+                    });
+                }
+
+            #endregion
+
+            #region Identity
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/User";
+                options.AccessDeniedPath = "/User/AccessDenied";
+            });
+
+            
+            services.AddAuthentication();
+
+            #endregion
+
+            #region Services
+                services.AddTransient<IAccountService, AccountService>();
+            #endregion
+
+        }
+
         public static void AddIdentityInfrastructureWebAPI(this IServiceCollection services, IConfiguration configuration)
-        { 
+        {
 
             #region Contexts
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
@@ -84,7 +127,7 @@ namespace RealtyApp.Infrastructure.Identity
                         return c.Response.WriteAsync(result);
                     },
                     OnForbidden = c =>
-                    {                        
+                    {
                         c.Response.StatusCode = 403;
                         c.Response.ContentType = "application/json";
                         var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "You are not Authorized to access this resource" });
@@ -96,7 +139,7 @@ namespace RealtyApp.Infrastructure.Identity
             #endregion
 
             #region Services
-                services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountService, AccountService>();
             #endregion
         }
     }

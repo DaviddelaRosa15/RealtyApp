@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
 {
    public class SaveImmovableAssetViewModel
    {
+        public int Id { get; set; }
         public string Code { get; set; }
         [Required(ErrorMessage = "Coloque la dirección de la propiedad.")]
         public string Address { get; set; }
@@ -21,6 +23,22 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
         public string UrlImage02 { get; set; }
         public string UrlImage03 { get; set; }
         public string UrlImage04 { get; set; }
+
+        //Falta la option para los improvements.
+
+        [DataType(DataType.Upload)]
+        public IFormFile FileImg01 { get; set; }
+
+        [DataType(DataType.Upload)]
+        public IFormFile FileImg02 { get; set; }
+
+        [DataType(DataType.Upload)]
+        public IFormFile FileImg03 { get; set; }
+        
+        [DataType(DataType.Upload)]
+        public IFormFile FileImg04 { get; set; }
+
+
         [Required(ErrorMessage = "Coloque la cantidad de metros de la propiedad.")]
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad de metros debe ser mayor a 0.")]
         public double Meters { get; set; }
@@ -34,12 +52,6 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
         public int SellTypeId { get; set; }
         public string AgentId { get; set; }
 
-        //Navigation Properties
-        //public ImmovableAssetType ImmovableAssetType { get; set; }
-        //public int ImmovableAssetTypeId { get; set; }
-        //public SellType SellType { get; set; }
-        //public int SellTypeId { get; set; }
-        //public ICollection<FavoriteImmovable> FavoriteImmovables { get; set; }
-        //public ICollection<Improvement_Immovable> Improvement_Immovables { get; set; }
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using RealtyApp.Core.Application.Dtos.Account;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent;
 using RealtyApp.Core.Application.Helpers;
 using RealtyApp.Core.Application.ViewModels.User;
 using System.Collections.Generic;
@@ -22,7 +23,9 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<List<UserViewModel>> GetAllUsersDeveloper();
         Task<SaveUserViewModel> GetUserById(string id);
         Task<List<UserViewModel>> GetUserAgentByName(string name);
-        Task<bool> ChangeUserStatus(string id);
+        Task<List<AgentDTO>> GetAllAgents();
+        Task<AgentDTO> GetAgentById(string id);
+        Task<bool> ChangeUserStatus(string id, string status = null);
         Task<CountUser> CountClient();
         Task<CountUser> CountAgent();
         Task<CountUser> CountDeveloper();
