@@ -18,7 +18,7 @@ namespace RealtyApp.Core.Application.Services
         //private readonly IImmovableAssetService _immovableService;
         private readonly IMapper _mapper;
 
-        public UserService(IAccountService accountService, IMapper mapper /*,IImmovableAssetService immovableService*/)
+        public UserService(IAccountService accountService, IMapper mapper/*, IImmovableAssetService immovableService*/)
         {
             _accountService = accountService;
             _mapper = mapper;
@@ -47,6 +47,8 @@ namespace RealtyApp.Core.Application.Services
         //    return new RegisterResponse();
 
         //}
+
+        #region Registers
         public async Task<RegisterResponse> RegisterAgentUser(SaveUserViewModel vm)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
@@ -70,7 +72,9 @@ namespace RealtyApp.Core.Application.Services
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
             return await _accountService.RegisterAdministratorUserAsync(registerRequest);
         }
+        #endregion
 
+        #region ManageUsers
         public async Task<SaveUserViewModel> Update(SaveUserViewModel vm, string id)
         {
             vm.Id = id;
@@ -85,7 +89,9 @@ namespace RealtyApp.Core.Application.Services
         {
             await _accountService.DeleteAsync(id);
         }
+        #endregion
 
+        #region Gets
         public async Task<List<UserViewModel>> GetAllUsersAdmin()
         {
             return await _accountService.GetAllUserAdminAsync();
@@ -153,7 +159,9 @@ namespace RealtyApp.Core.Application.Services
 
             return agent;
         }
+        #endregion
 
+        #region ManageStatus
         public async Task<bool> ChangeUserStatus(string id, string status = null)
         {
             var operationStatus = await _accountService.ChangeUserStatusAsync(id, status);
@@ -164,7 +172,9 @@ namespace RealtyApp.Core.Application.Services
         {
             return await _accountService.ConfirmAccountAsync(userId, token);
         }
+        #endregion
 
+        #region Counts
         public async Task<CountUser> CountClient()
         {
             return await _accountService.CountClient();
@@ -179,7 +189,6 @@ namespace RealtyApp.Core.Application.Services
         {
             return await _accountService.CountDeveloper();
         }
-
-
+        #endregion
     }
 }
