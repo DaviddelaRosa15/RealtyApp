@@ -18,6 +18,7 @@ using System.Security.Cryptography;
 using RealtyApp.Core.Application.DTOs.Email;
 using RealtyApp.Core.Application.ViewModels.User;
 using RealtyApp.Core.Application.Helpers;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent;
 
 namespace RealtyApp.Infrastructure.Identity.Services
 {

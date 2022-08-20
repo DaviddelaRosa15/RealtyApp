@@ -23,8 +23,8 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<List<UserViewModel>> GetAllUsersDeveloper();
         Task<SaveUserViewModel> GetUserById(string id);
         Task<List<UserViewModel>> GetUserAgentByName(string name);
-        Task<List<AgentDTO>> GetAllAgents();
         Task<AgentDTO> GetAgentById(string id);
+        Task<List<AgentDTO>> GetAllAgents();
         Task<bool> ChangeUserStatus(string id, string status = null);
         Task<CountUser> CountClient();
         Task<CountUser> CountAgent();

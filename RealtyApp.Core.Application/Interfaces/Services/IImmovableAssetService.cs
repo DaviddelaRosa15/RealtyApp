@@ -14,6 +14,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<List<ImmovableAssetViewModel>> GetAllViewModelWithIncludes();
         Task<DetailsViewModel> GetDetailsViewModel(int id);
         Task<int> CountImmovobleAsset();
+        Task<int> CountImmovablesByAgent(string id);
         Task DeleteByIdAgent(string id);
         Task<DataFilterViewModel> GetDataFilterViewModel();
         Task<int> CountImmovableTypeById(int id);

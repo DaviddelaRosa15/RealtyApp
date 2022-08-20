@@ -24,10 +24,12 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetAllAgent
     {
 
         private readonly IUserService _userService;
+        private readonly IImmovableAssetService _immovableService;
 
-        public GetAllAgentQueryHandler(IUserService userService)
+        public GetAllAgentQueryHandler(IUserService userService, IImmovableAssetService immovableService)
         {
             _userService = userService;
+            _immovableService = immovableService;
         }
 
         public async Task<IEnumerable<AgentDTO>> Handle(GetAllAgentQuery request, CancellationToken cancellationToken)
@@ -42,9 +44,8 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetAllAgent
 
         private async Task<List<AgentDTO>> GetAllDTOs()
         {
-
             var agents = await _userService.GetAllAgents();
-
+            agents.ForEach(async agents => agents.PropertiesQuantity = await _immovableService.CountImmovablesByAgent(agents.Id));
             return agents;
         }
 
