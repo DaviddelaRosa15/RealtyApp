@@ -25,19 +25,22 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetByIdAgent
     public class GetAgentByIdHandler : IRequestHandler<GetAgentByIdQuery, AgentDTO>
     {
         private readonly IUserService _userService;
+        private readonly IImmovableAssetService _immovableService;
 
-        public GetAgentByIdHandler(IUserService userService)
+        public GetAgentByIdHandler(IUserService userService, IImmovableAssetService immovableService)
         {
             _userService = userService;
+            _immovableService = immovableService;
         }
 
         public async Task<AgentDTO> Handle(GetAgentByIdQuery request, CancellationToken cancellationToken)
         {
             var result = await GetAgentDTOById(request.Id);
-            
+
             if (result == null)
-                 throw new Exception($"Agent not found.");
+                throw new Exception($"Agent not found.");
             else
+                result.PropertiesQuantity = await _immovableService.CountImmovablesByAgent(result.Id);
                 return result;
         }
 

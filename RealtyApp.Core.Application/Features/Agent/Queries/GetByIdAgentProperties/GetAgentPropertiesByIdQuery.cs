@@ -16,7 +16,7 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetByIdAgentProperti
     // Permite obtener las propiedades del agente deseado mediante el ID.
     //</summary>
 
-    public class GetAgentPropertiesByIdQuery : IRequest<AgentDTO>
+    public class GetAgentPropertiesByIdQuery : IRequest<int>
     {
         [SwaggerParameter(Description = "El id del agente del que desea obtener las propiedades.")]
         public string Id { get; set; }

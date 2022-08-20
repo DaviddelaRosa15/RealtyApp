@@ -19,13 +19,13 @@ namespace RealtyApp.Infrastructure.Persistence
            
             #region Services
             services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IFavoriteImmovableService, FavoriteImmovableService>();
             services.AddTransient<IImmovableAssetService, ImmovableAssetService>();
             services.AddTransient<IImprovementService, ImprovementService>();
             services.AddTransient<IImmovableAssetTypeService, ImmovableAssetTypeService>();
             services.AddTransient<ISellTypeService, SellTypeService>();
             services.AddTransient<IImprovement_ImmovableService, Improvement_ImmovableService>();
+            services.AddTransient<IUserService, UserService>();
             #endregion
 
         }

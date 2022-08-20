@@ -130,6 +130,7 @@ namespace RealtyApp.Core.Application.Services
                 BathroomQuantity = asset.BathroomQuantity,
                 ImmovableAssetTypeId = asset.ImmovableAssetType.Id,
                 ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
+                AgentId = asset.AgentId,
                 SellTypeId = asset.SellType.Id,
                 SellTypeName = asset.SellType.Name
             }).ToList();
@@ -245,6 +246,13 @@ namespace RealtyApp.Core.Application.Services
         public async Task<int> CountImmovobleAsset()
         {
             return await _immovableAssetRepository.CountImmovobleAsset();
+        }
+
+        public async Task<int> CountImmovablesByAgent(string id)
+        {
+            var immovables = await GetAllViewModelWithIncludes();
+            int count = immovables.Where(x => x.AgentId == id).Count();
+            return count;
         }
 
         public async Task<DataFilterViewModel> GetDataFilterViewModel()
