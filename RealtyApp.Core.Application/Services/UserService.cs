@@ -15,14 +15,14 @@ namespace RealtyApp.Core.Application.Services
     public class UserService : IUserService
     {
         private readonly IAccountService _accountService;
-        private readonly IImmovableAssetService _immovableService;
+        //private readonly IImmovableAssetService _immovableService;
         private readonly IMapper _mapper;
 
-        public UserService(IAccountService accountService, IMapper mapper, IImmovableAssetService immovableService)
+        public UserService(IAccountService accountService, IMapper mapper /*,IImmovableAssetService immovableService*/)
         {
             _accountService = accountService;
             _mapper = mapper;
-            _immovableService = immovableService;
+            //_immovableService = immovableService;
         }
 
         public async Task<AuthenticationResponse> LoginAsync(LoginViewModel vm)
@@ -113,7 +113,7 @@ namespace RealtyApp.Core.Application.Services
         public async Task<List<AgentDTO>> GetAllAgents()
         {
             var users = await GetAllUserAgentAsync();
-            var immovables = await _immovableService.GetAllViewModel();
+            //var immovables = await _immovableService.GetAllViewModel();
             List<AgentDTO> agents = new();
 
             if (users != null)
@@ -129,7 +129,7 @@ namespace RealtyApp.Core.Application.Services
                         CardIdentification = user.CardIdentification,
                         Email = user.Email,
                         Phone = user.Phone,
-                        PropertiesQuantity = immovables.Where(x => x.AgentId == user.Id).Count()
+                        PropertiesQuantity = 0/*immovables.Where(x => x.AgentId == user.Id).Count()*/
                     });
                 }
             }
@@ -139,7 +139,7 @@ namespace RealtyApp.Core.Application.Services
         public async Task<AgentDTO> GetAgentById(string id)
         {
             var user = await GetUserById(id);
-            var immovables = await _immovableService.GetAllViewModel();
+            //var immovables = await _immovableService.GetAllViewModel();
             AgentDTO agent = new()
             {
                 Id = user.Id,
@@ -148,7 +148,7 @@ namespace RealtyApp.Core.Application.Services
                 CardIdentification = user.CardIdentification,
                 Email = user.Email,
                 Phone = user.Phone,
-                PropertiesQuantity = immovables.Where(x => x.AgentId == user.Id).Count()
+                PropertiesQuantity = 0/*immovables.Where(x => x.AgentId == user.Id).Count()*/
             };
 
             return agent;

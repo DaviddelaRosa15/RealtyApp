@@ -1,0 +1,101 @@
+﻿@using RealtyApp.Core.Application.ViewModels.User;
+@model SaveUserViewModel
+
+@{
+    ViewData["Title"] = "Editar Administrador";
+}
+<div class="container">
+
+    <div class="text-dark cont_List_Friend_Title">
+          <h4>Edicion de usuario @Model.TypeUser</h4>
+    </div>
+
+    <div class="row">
+        <div class="card shadow-sm contCardEditAdmiGeneric">
+
+            @if (Model.HasError)
+            {
+                <h6 class="text-danger m-lg-3">@Model.Error</h6>
+            }
+            <div class="card-body contCard">
+
+                <form class="row" id="forms_Add_User" method="post" asp-controller="Admin" asp-action="Edit" class="form p-4">
+                    
+                    <div class="col-6 p-3">
+
+                        <div class="mb-3 row">
+                            <label asp-for="FirstName" class="form-label">Nombre</label>
+                            <input asp-for="FirstName" class="form-control" id="inputPassword">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Username" class="form-label">Usuario</label>
+                            <input asp-for="Username" class="form-control" id="inputPassword">
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="LastName" class="form-label">Apellido</label>
+                            <input asp-for="LastName" class="form-control" id="inputPassword">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-6 p-3">
+
+                        <div class="mb-3 row">
+                            <label asp-for="CardIdentification" class="form-label">Cédula</label>
+                            <input class="form-control" asp-for="CardIdentification">
+                            <span asp-validation-for="CardIdentification" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="inputPassword" asp-for="Email" class="form-label">Correo</label>
+                            <input asp-for="Email" class="form-control">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="inputPassword" asp-for="Phone" class="form-label">Correo</label>
+                            <input asp-for="Phone" class="form-control">
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 p-3">
+
+                        <input asp-for="TypeUser" type="hidden"/>
+
+                        <div class="mb-3 row">
+                            <label for="inputPassword" asp-for="CurrentPassword" class="form-label">Contraseña actual</label>
+                            <input asp-for="CurrentPassword" class="form-control">
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="inputPassword" asp-for="Password" class="form-label">Contraseña nueva</label>
+                            <input asp-for="Password" class="form-control">
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="inputPassword" asp-for="ConfirmPassword" class="form-label">Confirmar contraseña</label>
+                            <input asp-for="ConfirmPassword" class="form-control">
+                        </div>
+
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success mb-3">Guardar</button>
+                        <a class="btn btn-warning mb-3" asp-controller="Admin" asp-action="@(Model.TypeUser == "Developer" ? "Developers" : "Administrators")">Cancelar</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

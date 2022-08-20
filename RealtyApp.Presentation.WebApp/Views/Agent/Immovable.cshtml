@@ -1,0 +1,135 @@
+﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
+@using RealtyApp.Core.Application.ViewModels.ImmovableAssetType;
+@using RealtyApp.Core.Application.ViewModels.SellType;
+@model SaveImmovableAssetViewModel
+
+@{
+    ViewData["Title"] = "Añadir nuevo inmobiliario";
+    bool editMode = (Model.Id != 0 && Model != null) ? true : false;
+    List<ImmovableAssetTypeViewModel> immovableTypes = ViewBag.ImmovableAssetTypes;
+    List<SellTypeViewModel> sellTypesModels = ViewBag.ImmovableSellTypes; 
+}
+
+<div class="container">
+
+    <div class="text-dark cont_List_Friend_Title">
+          <h4> </h4>
+    </div>
+
+    <div class="row">
+
+        <div class="card shadow-sm contCardEditAdmiGeneric">
+
+
+            <div class="card-body">
+
+                <form class="row" id="forms_Immovable" method="post" asp-controller="Agent" asp-action=@(editMode?"UpdateImmovable":"AddImmovable") class="form p-4">
+                    
+                    <div class="col-6 p-3">
+
+                        <div class="mb-3 row">
+                            <label asp-for="Code" class="form-label">Código:</label>
+                            <input asp-for="Code" class="form-control" id="inputPassword">
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Address" class="form-label">Dirección:</label>
+                            <input asp-for="Address" class="form-control" id="inputPassword">
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Description" class="form-label">Descripción:</label>
+                            <div class="form-group">
+                               <textarea
+                                  class="form-control"
+                                  id="ImmovableDescription"
+                                  rows="3"
+                                  name="Description"
+                               ></textarea>
+                            </div>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-6 p-3">
+
+                        <div class="mb-3 row">
+                            <label asp-for="Meters" class="form-label">Metros:</label>
+                            <input class="form-control" asp-for="Meters" type="number" step="any">
+                            <span asp-validation-for="Meters" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="inputPassword" asp-for="BedroomQuantity" class="form-label">Cant. Baños</label>
+                            <input asp-for="BedroomQuantity" class="form-control">
+                            <span asp-validation-for="BedroomQuantity" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="inputPassword" asp-for="BathroomQuantity" class="form-label">Cant. Habitaciones</label>
+                            <input asp-for="BathroomQuantity" class="form-control">
+                            <span asp-validation-for="BathroomQuantity" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 p-3">
+
+                        <input asp-for="Id" type="hidden"/>
+
+                         <div class="mb-3 row">
+                            <label asp-for="Price" class="form-label">Precio:</label>
+                            <input class="form-control" asp-for="Price" type="number" step="any">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <select asp-items="@(new SelectList(immovableTypes, "Id", "Name"));" asp-for="ImmovableAssetTypeId" class="form-select" aria-label="Seleccione una opcion">
+                            <option value="null">Elige un tipo de inmueble...</option>
+                        </select>
+
+                         <select asp-items="@(new SelectList(sellTypesModels, "Id", "Name"));" asp-for="SellTypeId" class="form-select" aria-label="Seleccione una opcion">
+                            <option value="null">Elige un tipo de venta...</option>
+                        </select>
+
+                    </div>
+
+                     <div class="col-12 p-3">
+
+                        <div class="input-group mb-3">
+                          <input type="file" class="form-control" id="fileImga01">
+                          <label class="input-group-text" asp-for="FileImg01">Image 01</label>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <input type="file" class="form-control" id="fileImga02">
+                          <label class="input-group-text" asp-for="FileImg02">Image 02</label>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <input type="file" class="form-control" id="fileImga03">
+                          <label class="input-group-text" asp-for="FileImg03">Image 03</label>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <input type="file" class="form-control" id="fileImga04">
+                          <label class="input-group-text" asp-for="FileImg04">Image 04</label>
+                        </div>
+
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success mb-3">Guardar</button>
+                        <a class="btn btn-warning mb-3" asp-controller="Agent" asp-action="Index">Cancelar</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

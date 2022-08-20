@@ -8,20 +8,69 @@ using RealtyApp.Presentation.WebApp.Middlewares;
 using System.IO;
 using System;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 
 namespace RealtyApp.Presentation.WebApp.Controllers
 {
+    [Authorize(Roles = "Agent")]
     public class AgentController : Controller
     {
-        public AgentController(IUserService userService)
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly AuthenticationResponse _loggedUser;
+        private readonly IImmovableAssetService _immovableAssetService;
+        private readonly IImmovableAssetTypeService _immovableAssetTypeService;
+        private readonly ISellTypeService _sellTypeService;
+
+        public AgentController(IHttpContextAccessor contextAccessor, IImmovableAssetService immovableAssetService, IImmovableAssetTypeService immovableAssetTypeService, ISellTypeService sellTypeService)
         {
-            
+            _contextAccessor = contextAccessor;
+            _loggedUser = _contextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
+            _immovableAssetService = immovableAssetService;
+            _immovableAssetTypeService = immovableAssetTypeService;
+            _sellTypeService = sellTypeService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> Index(FilterViewModel vm, string id = null)
+        {
+            ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
+            ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
+            ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
+            
+            var model = await _immovableAssetService.GetAllViewModelWithFilters(vm, _loggedUser.Id);
+            return View(model);
+        }
+
+        [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> MyImmovables(FilterViewModel vm, string id = null)
+        {
+            ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
+            ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
+            ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
+
+            var model = await _immovableAssetService.GetAllViewModelWithFilters(vm, _loggedUser.Id);
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> AddImmovable(SaveImmovableAssetViewModel saveImmovableAsset)
+        {
+            ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModel();
+            ViewBag.ImmovableSellTypes = await _sellTypeService.GetAllViewModel();
+
+
+            return View("Immovables",saveImmovableAsset);
+        }
+
+        public IActionResult MyProfile()
         {
             return View();
         }
+
+
     }
 }
 
