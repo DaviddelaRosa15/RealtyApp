@@ -54,44 +54,44 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Agent" asp-action="Index">Mi perfil</a>
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Agent" asp-action="MyImmovables">Propiedades</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Agent" asp-action="Index">Propiedades</a>
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Agent" asp-action="MyProfile">Mi perfil</a>
                                 </li>
                             }
 
                             if (isAdmin)
-            {
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
-                </li>
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
+                                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Agents">Agentes</a>
-                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Agents">Agentes</a>
+                                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Administrators">Administradores</a>
-                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Administrators">Administradores</a>
+                                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Developers">Desarrolladores</a>
-                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Developers">Desarrolladores</a>
+                                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="ImmovableType" asp-action="Index">Tipo de propiedades</a>
-                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="ImmovableType" asp-action="Index">Tipo de propiedades</a>
+                                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="SellType" asp-action="Index">Tipo de ventas</a>
-                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="SellType" asp-action="Index">Tipo de ventas</a>
+                                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Improvement" asp-action="Index">Mejoras</a>
-                </li>
-            }
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Improvement" asp-action="Index">Mejoras</a>
+                                </li>
+                            }
 
                             <li class="nav-item align-item-end justify-content-end">
                                 <div class="dropdown">
@@ -105,25 +105,24 @@
                             </li>
                         }
                         else
-        {
-            <li class="nav-item">
-                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            </li>
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
 
-            <li class="nav-item">
-                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Agents">Agentes</a>
-            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Agents">Agentes</a>
+                            </li>
 
-            <li class="nav-item">
-                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Register">Unete a la App!</a>
-            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Register">Unete a la App!</a>
+                            </li>
 
-            <li class="nav-item">
-                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Index">Iniciar sesión</a>
-            </li>
-        }
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Index">Iniciar sesión</a>
+                            </li>
+                        }
 
-                       
                     </ul>
                 </div>
             </div>
