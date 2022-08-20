@@ -20,6 +20,8 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<int> CountImmovableTypeById(int id);
         Task<int> CountSellTypeById(int id);
         Task<List<DetailsViewModelApi>> GetIncludeDetails();
+        Task<DetailsViewModelApi> GetIncludeDetailsById(int id);
+        Task<DetailsViewModelApi> GetIncludeDetailsByCode(string code);
 
     }
 }

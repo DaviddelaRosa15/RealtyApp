@@ -13,23 +13,24 @@ using System.Threading.Tasks;
 
 namespace RealtyApp.Core.Application.Features.ImmovableAsset.Queries.GetAllImmovableAsset
 {
-   public class GetAllImmovableAssetQuery: IRequest<IEnumerable<ImmovableAssetDTO>>
+
+    /// <summary>
+    /// Obtiene todas las propiedades disponibles en el sistema.
+    /// </summary>
+    public class GetAllImmovableAssetQuery: IRequest<IEnumerable<ImmovableAssetDTO>>
    {
 
    }
 
     public class GetAllImmovableAssetHandler : IRequestHandler<GetAllImmovableAssetQuery, IEnumerable<ImmovableAssetDTO>>
     {
-        private readonly IImmovableAssetRepository _immovableAssetRepository;
-        private readonly IImmovableAssetService _immovableAssetService;
-       
+
+        private readonly IImmovableAssetService _immovableAssetService;       
         private readonly IMapper _mapper;
         public GetAllImmovableAssetHandler(IImmovableAssetRepository immovableAssetRepository
             , IMapper mapper
-            , IImmovableAssetService immovableAssetService,
-            IImprovementRepository improvementRepository)
+            , IImmovableAssetService immovableAssetService)
         {
-            _immovableAssetRepository = immovableAssetRepository;
             _immovableAssetService = immovableAssetService;           
             _mapper = mapper;
         }
