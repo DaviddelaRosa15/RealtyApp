@@ -1,4 +1,5 @@
-﻿using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
+﻿using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAsset;
+using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 using RealtyApp.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<DataFilterViewModel> GetDataFilterViewModel();
         Task<int> CountImmovableTypeById(int id);
         Task<int> CountSellTypeById(int id);
+        Task<List<DetailsViewModelApi>> GetIncludeDetails();
 
     }
 }

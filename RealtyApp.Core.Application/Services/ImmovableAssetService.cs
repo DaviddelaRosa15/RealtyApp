@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAsset;
 using RealtyApp.Core.Application.Interfaces.Repositories;
 using RealtyApp.Core.Application.Interfaces.Services;
 using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
@@ -16,13 +17,16 @@ namespace RealtyApp.Core.Application.Services
         private readonly IImmovableAssetRepository _immovableAssetRepository;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly IImprovementRepository _improvementRepository;
 
-        public ImmovableAssetService(IImmovableAssetRepository ImmovableAssetRepository, IMapper mapper, IUserService userService)
+        public ImmovableAssetService(IImmovableAssetRepository ImmovableAssetRepository, 
+            IMapper mapper, IUserService userService, IImprovementRepository improvementRepository)
         : base(ImmovableAssetRepository, mapper)
         {
             _immovableAssetRepository = ImmovableAssetRepository;
             _mapper = mapper;
             _userService = userService;
+            _improvementRepository = improvementRepository;
         }
 
         public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters, string id)
@@ -153,6 +157,29 @@ namespace RealtyApp.Core.Application.Services
                 SellTypeName = asset.SellType.Name,
                 ImprovementNames = asset.Improvement_Immovables.Select(x => x.Improvement.Name).ToList()
             }).FirstOrDefault();
+        }
+        public async Task<List<DetailsViewModelApi>> GetIncludeDetails()
+        {
+            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType", "Improvement_Immovables" });
+
+            return assetList.Select(asset => new DetailsViewModelApi
+            {
+                Id = asset.Id,
+                Code = asset.Code,
+                Description = asset.Description,
+                Price = asset.Price,
+                Meters = asset.Meters,
+                BedroomQuantity = asset.BedroomQuantity,
+                BathroomQuantity = asset.BathroomQuantity,
+                AgentId = asset.AgentId,
+                ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
+                SellTypeName = asset.SellType.Name,
+                ImprovementNames = _improvementRepository.GetImpromeByIdImmovable(
+                    asset.Improvement_Immovables.Where(x => x.ImmovableAssetId == asset.Id).
+                    Select(x => x.ImprovementId).FirstOrDefault()
+                ).Result
+            }).ToList();
+            //= await _improvementRepository.GetImpromeByIdImmovable()
         }
 
         public async Task<int> CountImmovobleAsset()

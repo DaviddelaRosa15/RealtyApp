@@ -1,4 +1,5 @@
-﻿using RealtyApp.Core.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using RealtyApp.Core.Application.Interfaces.Repositories;
 using RealtyApp.Core.Domain.Entities;
 using RealtyApp.Infrastructure.Persistence.Contexts;
 using RealtyApp.Infrastructure.Persistence.Repository;
@@ -16,6 +17,17 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
         public ImprovementRepository(ApplicationContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
+        }
+        public async Task<List<string>> GetImpromeByIdImmovable(int id)
+        {
+            List<Improvement_Immovable> improvements = await _dbContext.Set<Improvement_Immovable>().Where(x => x.ImprovementId == id).ToListAsync();
+            List<string> Improms = new();
+            foreach(Improvement_Immovable improvement in improvements)
+            {
+                var improveme = await GetByIdAsync(id);
+                Improms.Add(improveme.Name);
+            }
+            return Improms;
         }
     }
 }

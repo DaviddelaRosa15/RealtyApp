@@ -9,5 +9,6 @@ namespace RealtyApp.Core.Application.Interfaces.Repositories
 {
     public interface IImprovementRepository : IGenericRepository<Improvement>
     {
+        Task<List<string>> GetImpromeByIdImmovable(int id);
     }
 }

@@ -4,6 +4,7 @@
 @using RealtyApp.Core.Application.Dtos.Account
 @using RealtyApp.Core.Application.Helpers;
 @using RealtyApp.Core.Application.Interfaces.Services;
+@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 @inject IHttpContextAccessor httpContextAccessor
 @inject IFavoriteImmovableService favoriteImmovableService
 @model List<FavoriteImmovableAssetViewModel>
@@ -111,7 +112,7 @@
                 {
                     <h3 class="text-lg-center mb-3">No hay articulos</h3>
                 }
-                else
+                @*else
                 {
                     <div class="card-body">
                         <div class="row">
@@ -167,7 +168,7 @@
                             }
                         </div>
                     </div>
-                }
+                }*@
             </div>
         </div>
     </div>

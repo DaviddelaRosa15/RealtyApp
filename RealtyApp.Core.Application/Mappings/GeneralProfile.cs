@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RealtyApp.Core.Application.Dtos.Account;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAsset;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAssetType;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Improvement;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Improvement_Immovable;
@@ -51,16 +52,13 @@ namespace RealtyApp.Core.Application.Mappings
             #endregion
 
             #region FeaturesCqrs
-            //CreateMap<GetAllProductsQuery, GetAllProductsParameter>()            
+            //CreateMap<ImmovableAsset, CreateImmovableAssetCommand>()
             //   .ReverseMap();
 
-            //CreateMap<CreateProductCommand, Product>()
-            //    .ForMember(x => x.Category, opt => opt.Ignore())
-            //    .ForMember(x => x.Created, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModified, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
-            //    .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-            //    .ReverseMap();
+            CreateMap<DetailsViewModelApi, ImmovableAssetDTO>();
+                
+
+
 
             //CreateMap<UpdateProductCommand, Product>()
             //    .ForMember(x => x.Category, opt => opt.Ignore())
