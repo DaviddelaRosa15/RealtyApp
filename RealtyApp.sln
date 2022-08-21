@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtyApp.Core.Domain", "RealtyApp.Core.Domain\RealtyApp.Core.Domain.csproj", "{3FE1AF16-DCB1-41E1-A9DA-5AC610A2DEA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtyApp.Core.Domain", "RealtyApp.Core.Domain\RealtyApp.Core.Domain.csproj", "{3FE1AF16-DCB1-41E1-A9DA-5AC610A2DEA2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{927F280E-8A89-415E-9C39-D4C58E623AB6}"
 EndProject
@@ -11,17 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{5F89D423-92E2-45B0-95FD-14E7D7185468}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtyApp.Core.Application", "RealtyApp.Core.Application\RealtyApp.Core.Application.csproj", "{F203E3D8-315F-48BB-A732-CB9F02FC4DFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtyApp.Core.Application", "RealtyApp.Core.Application\RealtyApp.Core.Application.csproj", "{F203E3D8-315F-48BB-A732-CB9F02FC4DFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtyApp.Infrastructure.Identity", "RealtyApp.Infrastructure.Identity\RealtyApp.Infrastructure.Identity.csproj", "{DBE16F0D-331B-4990-8EE7-E31997ABC487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtyApp.Infrastructure.Identity", "RealtyApp.Infrastructure.Identity\RealtyApp.Infrastructure.Identity.csproj", "{DBE16F0D-331B-4990-8EE7-E31997ABC487}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtyApp.Infrastructure.Shared", "RealtyApp.Infrastructure.Shared\RealtyApp.Infrastructure.Shared.csproj", "{41671189-173E-4424-88FD-4A838E09E659}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtyApp.Infrastructure.Shared", "RealtyApp.Infrastructure.Shared\RealtyApp.Infrastructure.Shared.csproj", "{41671189-173E-4424-88FD-4A838E09E659}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtyApp.Infrastructure.Persistence", "RealtyApp.Infrastructure.Persistence\RealtyApp.Infrastructure.Persistence.csproj", "{D358E725-3318-4775-A304-9EC72A11921D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtyApp.Infrastructure.Persistence", "RealtyApp.Infrastructure.Persistence\RealtyApp.Infrastructure.Persistence.csproj", "{D358E725-3318-4775-A304-9EC72A11921D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtyApp.Presentation.WebApi", "RealtyApp.Presentation.WebApi\RealtyApp.Presentation.WebApi.csproj", "{1EF75197-D994-4A8C-8A0F-75F659A613CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtyApp.Presentation.WebApi", "RealtyApp.Presentation.WebApi\RealtyApp.Presentation.WebApi.csproj", "{1EF75197-D994-4A8C-8A0F-75F659A613CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtyApp.Presentation.WebApp", "RealtyApp.Presentation.WebApp\RealtyApp.Presentation.WebApp.csproj", "{1443B710-A03D-4497-86F1-BA087E146A80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtyApp.Presentation.WebApp", "RealtyApp.Presentation.WebApp\RealtyApp.Presentation.WebApp.csproj", "{1443B710-A03D-4497-86F1-BA087E146A80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

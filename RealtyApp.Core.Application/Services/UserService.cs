@@ -34,17 +34,6 @@ namespace RealtyApp.Core.Application.Services
             await _accountService.SignOutAsync();
         }
 
-        //public async Task<RegisterResponse> RegisterAsync(SaveUserViewModel vm, string origin)
-        //{
-        //    RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
-
-        //    //Alex bro, tirarle un ojo al servicio AccountServices, puedes modificar los metodos como te convengan.
-        //    //no le hice mucho solo lo deje definido con la plantilla de quejo david. Ya el BasicNoExiste.
-
-        //    //return await _accountService.RegisterBasicUserAsync(registerRequest, origin);
-        //    return new RegisterResponse();
-
-        //}
 
         #region Registers
         public async Task<RegisterResponse> RegisterAgentUser(SaveUserViewModel vm)
@@ -78,11 +67,17 @@ namespace RealtyApp.Core.Application.Services
             vm.Id = id;
             return await _accountService.UpdateAsync(vm);
         }
+
+        public async Task<SaveUserViewModel> UpdateAgentAsync(SaveUserViewModel vm, string id)
+        {
+            vm.Id = id;
+            return await _accountService.UpdateAgentAsync(vm);
+        }
+
         public async Task UpdateUserImageAsync(SaveUserViewModel vm)
         {
             await _accountService.UpdateUserImageAsync(vm);
         }
-
         public async Task DeleteAsync(string id)
         {
             await _accountService.DeleteAsync(id);
@@ -117,17 +112,22 @@ namespace RealtyApp.Core.Application.Services
         public async Task<AgentDTO> GetAgentById(string id)
         {
             var user = await GetUserById(id);
-            AgentDTO agent = new()
+            if(user != null)
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                CardIdentification = user.CardIdentification,
-                Email = user.Email,
-                Phone = user.Phone
-            };
+                AgentDTO agent = new()
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    CardIdentification = user.CardIdentification,
+                    Email = user.Email,
+                    Phone = user.Phone
+                };
 
-            return agent;
+                return agent;
+            }
+
+            return null;
         }
 
         public async Task<List<AgentDTO>> GetAllAgents()
@@ -150,8 +150,10 @@ namespace RealtyApp.Core.Application.Services
                         Phone = user.Phone
                     });
                 }
+                return agents;
             }
-            return agents;
+
+            return null;
         }
         #endregion
 

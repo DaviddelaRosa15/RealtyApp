@@ -56,10 +56,17 @@ namespace RealtyApp.Infrastructure.Identity.Services
             }
 
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
+            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
             if (!result.Succeeded)
             {
                 response.HasError = true;
                 response.Error = $"Credenciales incorrectas para el correo: {request.Email}, si el problema persiste haga contacto con nuestro soporte técnico";
+                return response;
+            }
+            if (!rolesList.Any(x => x.Equals(Roles.Administrator.ToString()) || x.Equals(Roles.Developer.ToString())))
+            {
+                response.HasError = true;
+                response.Error = $"Usted no tiene permisos para usar la Api de RealtyApp";
                 return response;
             }
             if (!user.EmailConfirmed)
@@ -67,15 +74,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 response.HasError = true;
                 response.Error = $"Su cuenta no está activa, haga contacto con nuestro soporte técnico con";
                 return response;
-            }
-
-            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
-            if (!rolesList.Any(x => x.Equals(Roles.Administrator.ToString()) || x.Equals(Roles.Developer.ToString())))
-            {
-                response.HasError = true;
-                response.Error = $"Usted no tiene permisos para usar la Api de RealtyApp";
-                return response;
-            }
+            }           
 
             JwtSecurityToken jwtSecurityToken = await GenerateJWToken(user);
 
@@ -299,6 +298,44 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             return sv;
         }
+
+        public async Task<SaveUserViewModel> UpdateAgentAsync(SaveUserViewModel vm)
+        {
+            ApplicationUser appliUser = await _userManager.FindByIdAsync(vm.Id);
+            SaveUserViewModel sv = new();
+
+            List<ApplicationUser> user = _userManager.Users.ToList();
+
+            if (appliUser.PhoneNumber != vm.Phone)
+            {
+                try
+                {
+                    var verifyPhone = user.FirstOrDefault(user => user.PhoneNumber == vm.Phone);
+                    if (verifyPhone != null)
+                    {
+                        sv.HasError = true;
+                        sv.Error = $"Este telefono {vm.Phone} ya esta en uso";
+                        return sv;
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    sv.HasError = true;
+                    sv.Error = $"Este telefono {vm.Phone} ya está en uso";
+                    return sv;
+                }
+            }
+
+            appliUser.FirstName = vm.FirstName;
+            appliUser.LastName = vm.LastName;
+            appliUser.PhoneNumber = vm.Phone;
+            appliUser.UrlImage = (string.IsNullOrEmpty(vm.ImageUrl) == true) ? "/Images/User/placeholder_profile_image.png" : vm.ImageUrl;
+
+            await _userManager.UpdateAsync(appliUser);
+
+            return sv;
+        }
+
 
         public async Task DeleteAsync(string id)
         {
@@ -731,15 +768,17 @@ namespace RealtyApp.Infrastructure.Identity.Services
                             return false;
                     }
                 }
-
-                if (user.EmailConfirmed == false)
-                {
-                    user.EmailConfirmed = true;
-                }
                 else
                 {
-                    user.EmailConfirmed = false;
-                }
+                    if (user.EmailConfirmed == false)
+                    {
+                        user.EmailConfirmed = true;
+                    }
+                    else
+                    {
+                        user.EmailConfirmed = false;
+                    }
+                }                
 
                 await _userManager.UpdateAsync(user);
                 return true;

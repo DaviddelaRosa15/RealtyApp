@@ -12,6 +12,7 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
    {
         public int Id { get; set; }
         public string Code { get; set; }
+
         [Required(ErrorMessage = "Coloque la dirección de la propiedad.")]
         public string Address { get; set; }
         [Required(ErrorMessage = "Coloque la descripcion de la propiedad.")]
@@ -19,6 +20,7 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
         [Required(ErrorMessage = "Coloque un precio valido.")]
         [Range(1,int.MaxValue,ErrorMessage = "El precion debe ser mayor a cero.")]
         public double Price { get; set; }
+        
         public string UrlImage01 { get; set; }
         public string UrlImage02 { get; set; }
         public string UrlImage03 { get; set; }
@@ -42,16 +44,27 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
         [Required(ErrorMessage = "Coloque la cantidad de metros de la propiedad.")]
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad de metros debe ser mayor a 0.")]
         public double Meters { get; set; }
+
         [Required(ErrorMessage = "Coloque la cantidad de habitaciones.")]
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad de habitaciones debe ser mayor a 0.")]
         public double BedroomQuantity { get; set; }
+       
         [Required(ErrorMessage = "Coloque la cantidad de baños.")]
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad de baños debe ser mayor a 0.")]
         public double BathroomQuantity { get; set; }
+
+        [Required(ErrorMessage = "Debe de seleccionar al un tipo de inmueble a ofrecer.")]
         public int ImmovableAssetTypeId { get; set; }
+
+        [Required(ErrorMessage = "Debe de seleccionar al un tipo de venta a ofertar.")]
         public int SellTypeId { get; set; }
+
         public string AgentId { get; set; }
 
-        
+        public List<int> Improvements { get; set; }
+
+        public bool HasError { get; set; }
+        public string ErrorMessage { get; set; }
+
     }
 }

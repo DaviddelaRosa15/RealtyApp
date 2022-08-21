@@ -17,6 +17,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<RegisterResponse> RegisterAdministratorUser(SaveUserViewModel vm);
         Task SignOutAsync();
         Task<SaveUserViewModel> Update(SaveUserViewModel vm, string id);
+        Task<SaveUserViewModel> UpdateAgentAsync(SaveUserViewModel vm, string id);
         Task DeleteAsync(string id);
         Task<List<UserViewModel>> GetAllUsersAdmin();
         Task<List<UserViewModel>> GetAllUserAgentAsync();

@@ -37,7 +37,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers
             {
                 if (response.Error == "Usted no tiene permisos para usar la Api de RealtyApp")
                 {
-                    return Forbid(response.Error);
+                    return StatusCode(StatusCodes.Status403Forbidden,response.Error);
                 }
                 return BadRequest(response);                
             }

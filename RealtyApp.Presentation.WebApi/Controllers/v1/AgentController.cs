@@ -64,17 +64,12 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
             try
             {
-                if (id == "string")
+                if (id == null)
                 {
                     return BadRequest();
                 }                    
 
-                var result = await Mediator.Send(new GetAgentByIdQuery() { Id = id });
-
-                if (result == null)
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-                }                    
+                var result = await Mediator.Send(new GetAgentByIdQuery() { Id = id });               
 
                 return Ok(result);
             }
@@ -121,7 +116,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPut("ChangeStatus/{id}")]
+        [HttpPatch("ChangeStatus/{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
