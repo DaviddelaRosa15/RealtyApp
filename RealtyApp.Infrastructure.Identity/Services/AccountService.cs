@@ -299,6 +299,44 @@ namespace RealtyApp.Infrastructure.Identity.Services
             return sv;
         }
 
+        public async Task<SaveUserViewModel> UpdateAgentAsync(SaveUserViewModel vm)
+        {
+            ApplicationUser appliUser = await _userManager.FindByIdAsync(vm.Id);
+            SaveUserViewModel sv = new();
+
+            List<ApplicationUser> user = _userManager.Users.ToList();
+
+            if (appliUser.PhoneNumber != vm.Phone)
+            {
+                try
+                {
+                    var verifyPhone = user.FirstOrDefault(user => user.PhoneNumber == vm.Phone);
+                    if (verifyPhone != null)
+                    {
+                        sv.HasError = true;
+                        sv.Error = $"Este telefono {vm.Phone} ya esta en uso";
+                        return sv;
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    sv.HasError = true;
+                    sv.Error = $"Este telefono {vm.Phone} ya está en uso";
+                    return sv;
+                }
+            }
+
+            appliUser.FirstName = vm.FirstName;
+            appliUser.LastName = vm.LastName;
+            appliUser.PhoneNumber = vm.Phone;
+            appliUser.UrlImage = (string.IsNullOrEmpty(vm.ImageUrl) == true) ? "/Images/User/placeholder_profile_image.png" : vm.ImageUrl;
+
+            await _userManager.UpdateAsync(appliUser);
+
+            return sv;
+        }
+
+
         public async Task DeleteAsync(string id)
         {
             ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);

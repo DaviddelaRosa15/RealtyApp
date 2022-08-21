@@ -24,8 +24,9 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         private readonly IImmovableAssetTypeService _immovableAssetTypeService;
         private readonly ISellTypeService _sellTypeService;
         private readonly IImprovementService _improvementService;
+        private readonly IUserService _userService;
         public AgentController(IHttpContextAccessor contextAccessor, IImmovableAssetService immovableAssetService, 
-            IImmovableAssetTypeService immovableAssetTypeService, ISellTypeService sellTypeService, IImprovementService improvementService)
+                              IImmovableAssetTypeService immovableAssetTypeService, ISellTypeService sellTypeService, IImprovementService improvementService, IUserService userService)
         {
             _contextAccessor = contextAccessor;
             _loggedUser = _contextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
@@ -33,6 +34,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             _immovableAssetTypeService = immovableAssetTypeService;
             _sellTypeService = sellTypeService;
             _improvementService = improvementService;
+            _userService = userService;
         }
 
         #region INDEX
@@ -195,10 +197,37 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
 
         #region MyProfile
-        public IActionResult MyProfile()
+
+        [HttpGet]
+        public async Task<IActionResult> MyProfile()
         {
-            return View();
+            return View(viewName: "MyProfile", model: await _userService.GetUserById(_loggedUser.Id));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> MyProfile(SaveUserViewModel saveUserView)
+        {
+
+            saveUserView.Id = _loggedUser.Id;
+
+            if (ModelState["LastName"].Errors.Count() > 0 || ModelState["FirstName"].Errors.Count() > 0 
+                || ModelState["Phone"].Errors.Count() > 0)
+            {
+                return View(viewName: "MyProfile", model: saveUserView);
+            }
+
+            if(saveUserView.File != null)
+            {
+                saveUserView.ImageUrl = await ImageUpload.FileUpload(saveUserView.File, saveUserView.ImageUrl, saveUserView.Id, "User/Agent", true);
+            }
+
+            await _userService.UpdateAgentAsync(saveUserView, saveUserView.Id);
+
+            return RedirectToRoute(new { controller = "Agent", action = "Index" });
+
+        }
+
+
         #endregion
 
     }

@@ -87,6 +87,49 @@ namespace RealtyApp.Core.Application.Helpers
             return $"{basePath}/{uniqueFileName}"; //The new image url :)!
         }
 
+        public static async Task<string> FileUpload(IFormFile fileForm, string currentsImgUrl, string ItemId, string ContainerName = "Item", bool IsUpdateMode = false)
+        {
+
+            //Get current directory
+            string basePath = $"/{ContainerName}/{ItemId}";
+
+            string servePath = Directory.GetCurrentDirectory();
+
+            string ServerAndBasePath = Path.Combine(servePath, $"wwwroot{basePath}");
+
+            if (!Directory.Exists(ServerAndBasePath))
+            {
+                Directory.CreateDirectory(ServerAndBasePath);
+            }
+
+            FileInfo fileInfo = new FileInfo(fileForm.FileName);
+            Guid guid = Guid.NewGuid();
+
+            string uniqueFileName = guid + fileInfo.Extension;
+
+            string uniqueFileWithBaseServePath = Path.Combine(ServerAndBasePath, uniqueFileName);
+
+            using (FileStream stream = new FileStream(uniqueFileWithBaseServePath, FileMode.Create))
+            {
+                await fileForm.CopyToAsync(stream);
+            }
+
+            //DELETE THE OLD IMAGE
+            if (IsUpdateMode && currentsImgUrl != "/Images/User/placeholder_profile_image.png")
+            {
+                string[] oldImageParts = currentsImgUrl.Split("/");
+                string oldImageFileName = oldImageParts[^1];
+                string completeOldImagePath = Path.Combine(ServerAndBasePath, oldImageFileName);
+
+                if (File.Exists(completeOldImagePath))
+                {
+                    File.Delete(completeOldImagePath);
+                }
+
+            }
+
+            return $"{basePath}/{uniqueFileName}"; //The new image url :)!
+        }
 
         public static async Task<List<string>> FileUpload(IFormFile[] fileForms, int ItemId, string ContainerName = "Item")
         {
