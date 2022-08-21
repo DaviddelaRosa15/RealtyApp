@@ -13,6 +13,7 @@
 }
 
 <div class="container-fluid">
+
     <div class="row">
         <div class="col-3">
             <div class="card shadow">
@@ -95,17 +96,27 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-9">
+            
+
             <div class="card mx-0">
+
                 <div class="card-header mb-0 text-light">
-                    <h2 class="text-lg-center mb-2">!Encuentra la propiedad!</h2>
+                    <h2 class="text-lg-center mb-2 text-dark">!Encuentra la propiedad!</h2>
                     <form method="post" asp-action="Index">
                         <div class="input-group mb-1">
                             <input type="search" class="form-control rounded" name="Code" id="CodeTxt" placeholder="Escribe el código de la propiedad que quieres encontrar" aria-label="Escribe el código de la propiedad que quieres encontrar" aria-describedby="search-addon" />
                             <button type="submit" class="btn btn-success">Buscar</button>
                         </div>
+                        
+                        <div class="row">
+                            <a asp-action="AddImmovable" class="btn btn-success btn-lg"> Añadir una nueva propiedad! </a>
+                        </div>
+
                     </form>
                 </div>
+
                 @if (Model == null || Model.Count == 0)
                 {
                     <h3 class="text-lg-center mb-3">No hay articulos</h3>
@@ -157,6 +168,23 @@
                                             </div>
 
                                         </div>
+
+                                        <div class="card-footer">
+                                              
+                                            <div class="d-flex justify-content-between">
+                                                
+                                                <a asp-controller="Agent" asp-action="ConfirmDelete" asp-route-id="@item.Id"> 
+                                                    <i class="fa-solid fa-circle-trash">⛔</i>
+                                                </a>
+
+                                                <a asp-controller="Agent" asp-action="AddImmovable" asp-route-id="@item.Id"> 
+                                                    <i class="fa-solid fa-arrows-rotate"></i>
+                                                </a>
+
+                                            </div>
+                                            
+                                        </div>
+
                                     </div>
                                 
                                 </div>
@@ -167,5 +195,6 @@
                 }
             </div>
         </div>
+
     </div>
 </div>

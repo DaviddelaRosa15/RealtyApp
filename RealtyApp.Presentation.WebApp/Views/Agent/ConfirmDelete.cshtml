@@ -1,0 +1,73 @@
+﻿@model RealtyApp.Core.Application.ViewModels.ImmovableAsset.SaveImmovableAssetViewModel;
+@{
+    ViewData["title"] = "¿Seguro que quiere eliminar este inmobiliario?";
+}
+
+<div class="container">
+
+
+    <form class="col-12" asp-controller="Agent" asp-action="DeleteImmovable" method="post">
+
+       <input type="hidden" value="@Model.Id" name="Id"/>
+       <div class="p-5 mb-4 bg-light rounded-3">
+          <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">¿Seguro que desea eliminar la siguiente propiedad de código <strong>@Model.Code</strong></h1>
+            <p class="col-md-8 fs-4">@Model.Description</p>
+            <button class="btn btn-danger btn-lg" type="submit">Eliminar</button>
+            <a class="btn btn-warning btn-lg" asp-controller="Agent" asp-action="MyImmovables"> Cancelar </a>
+          </div>
+        </div>
+       
+
+    </form>
+
+
+    <div class="col-12">
+
+       <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+
+          <div class="carousel-inner">
+               @{
+                 if(!string.IsNullOrEmpty(Model.UrlImage01)){
+                    
+                    <div class="carousel-item active" data-bs-interval="10000">
+                       <img src="@Model.UrlImage01" class="d-block w-100" alt="..."> 
+                    </div>      
+                 } 
+                 if(!string.IsNullOrEmpty(Model.UrlImage02)){
+                    <div class="carousel-item active" data-bs-interval="3000">
+                       <img src="@Model.UrlImage02" class="d-block w-100" alt="..."> 
+                    </div>      
+                 }
+                 if(!string.IsNullOrEmpty(Model.UrlImage03)){
+                    <div class="carousel-item active" data-bs-interval="3000">
+                       <img src="@Model.UrlImage03" class="d-block w-100" alt="..."> 
+                    </div>      
+                 }
+                 if(!string.IsNullOrEmpty(Model.UrlImage04)){
+                    <div class="carousel-item active" data-bs-interval="3000">
+                       <img src="@Model.UrlImage04" class="d-block w-100" alt="..."> 
+                    </div>      
+                 } 
+               }
+
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+
+        </div>
+
+       @* END COL12*@
+    </div>
+
+
+
+</div>
