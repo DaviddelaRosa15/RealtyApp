@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
-using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAsset;
 using RealtyApp.Core.Application.Interfaces.Services;
+using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,43 +18,44 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetByIdAgentProperti
     // Permite obtener las propiedades del agente deseado mediante el ID.
     //</summary>
 
-    public class GetAgentPropertiesByIdQuery : IRequest<AgentDTO>
+    public class GetAgentPropertiesByIdQuery : IRequest<IEnumerable<ImmovableAssetDTO>>
     {
         [SwaggerParameter(Description = "El id del agente del que desea obtener las propiedades.")]
         public string Id { get; set; }
     }
 
-    //Lo puse en comentarios hasta que el compañero alexander me hable de su parte de immovable asset
+    public class GetAgentPropertiesByIdHandler : IRequestHandler<GetAgentPropertiesByIdQuery, IEnumerable<ImmovableAssetDTO>>
+    {
+        private readonly IImmovableAssetService _immovableService;
+        private readonly IMapper _maper;
 
-    //public class GetAgentPropertiesByIdHandler : IRequestHandler<GetAgentPropertiesByIdQuery, SellTypeDTO>
-    //{
-    //    private readonly ISellTypeRepository _sellTypeRepository;
-    //    private readonly IMapper _maper;
+        public GetAgentPropertiesByIdHandler(IImmovableAssetService immovableService, IMapper maper)
+        {
+            _immovableService = immovableService;
+            _maper = maper;
+        }
 
-    //    public GetAgentPropertiesByIdHandler(ISellTypeRepository sellTypeRepository, IMapper maper)
-    //    {
-    //        _sellTypeRepository = sellTypeRepository;
-    //        _maper = maper;
-    //    }
+        public async Task<IEnumerable<ImmovableAssetDTO>> Handle(GetAgentPropertiesByIdQuery request, CancellationToken cancellationToken)
+        {
+            var result = await GetAgentPropertiesDTOById(request.Id);
 
-    //    public async Task<SellTypeDTO> Handle(GetSellTypeByIdQuery request, CancellationToken cancellationToken)
-    //    {
-    //        var result = await GetSellTypeDTOById(request.Id);
+            if (result == null)
+                throw new Exception($"Agent Properties not found.");
+            else
+                return result;
+        }
 
-    //        if (result == null)
-    //            throw new Exception($"Immovable Sell type not found.");
-    //        else
-    //            return result;
-    //    }
+        private async Task<IEnumerable<ImmovableAssetDTO>> GetAgentPropertiesDTOById(string id)
+        {
+            FilterViewModel vm = new();
+            var result = await _immovableService.GetAllViewModelWithFilters(vm, id);
 
-    //    private async Task<SellTypeDTO> GetSellTypeDTOById(int id)
-    //    {
-    //        var result = await _sellTypeRepository.GetByIdAsync(id);
-
-    //        if (result == null)
-    //            return null;
-    //        else
-    //            return _maper.Map<SellTypeDTO>(result);
-    //    }
-    //}
+            if (result == null)
+                return null;
+            else
+            {
+                return _maper.Map < IEnumerable<ImmovableAssetDTO>>(result); ;
+            }                
+        }
+    }
 }

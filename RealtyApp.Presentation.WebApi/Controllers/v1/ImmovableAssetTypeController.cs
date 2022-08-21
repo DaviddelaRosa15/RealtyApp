@@ -17,7 +17,6 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
     [SwaggerTag(description:"Controla todas las operaciones de mantenimiento de tipo de inmobiliarios, en el sistema.")]
     public class ImmovableAssetTypeController : BaseApiController
     {
-
         [Authorize(Roles = "Administrator")]
         [HttpPost("Create")]
         [SwaggerOperation(
@@ -50,7 +49,6 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             }
 
         }
-
 
         [Authorize(Roles = "Administrator")]
         [HttpPut("Update/{id}")]
@@ -87,8 +85,6 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
         }
 
-
-
         [Authorize(Roles = "Administrator")]
         [HttpDelete("Delete/{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -121,7 +117,6 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
         }
 
-
         [Authorize(Roles = "Administrator,Developer")]
         [HttpGet("List")]
         [SwaggerOperation(
@@ -152,7 +147,6 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             }
 
         }
-
 
         [Authorize(Roles = "Administrator,Developer")]
         [HttpGet("GetById/{id}")]
@@ -185,8 +179,5 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             }
 
         }
-
-
-
     }
 }

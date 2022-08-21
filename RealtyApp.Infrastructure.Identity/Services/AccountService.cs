@@ -18,6 +18,7 @@ using System.Security.Cryptography;
 using RealtyApp.Core.Application.DTOs.Email;
 using RealtyApp.Core.Application.ViewModels.User;
 using RealtyApp.Core.Application.Helpers;
+using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent;
 
 namespace RealtyApp.Infrastructure.Identity.Services
 {
@@ -443,20 +444,28 @@ namespace RealtyApp.Infrastructure.Identity.Services
         public async Task<SaveUserViewModel> GetUserByIdAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            SaveUserViewModel userVm = new()
+            if (user != null)
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                CardIdentification = user.CardIdentification,
-                Email = user.Email,
-                IsVerified = user.EmailConfirmed,
-                Username = user.UserName,
-                Phone = user.PhoneNumber,
-                ImageUrl = user.UrlImage
-        };
+                SaveUserViewModel userVm = new()
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    CardIdentification = user.CardIdentification,
+                    Email = user.Email,
+                    IsVerified = user.EmailConfirmed,
+                    Username = user.UserName,
+                    Phone = user.PhoneNumber,
+                    ImageUrl = user.UrlImage
+                };
+                return userVm;
+            }
+            else
+            {
+                return null;
+            }
 
-            return userVm;
+
         }
 
         public async Task<List<UserViewModel>> GetUserAgentByNameAsync(string name)

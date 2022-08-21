@@ -22,7 +22,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-danger navbar-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand text-white fw-bold" asp-area="" asp-controller="@(User!= null ? "Home" : "User")" asp-action="Index">RealtyApp</a>
+                <a class="navbar-brand text-white fw-bold" asp-area="" asp-controller="@(User!= null ?(isAdmin?"Admin" : isAgent ? "Agent" : isClient?"Client":"Client") : "User")" asp-action="Index">RealtyApp</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

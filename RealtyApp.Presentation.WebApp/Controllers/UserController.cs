@@ -40,11 +40,20 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             if (userVm != null && userVm.HasError != true)
             {
                 HttpContext.Session.Set<AuthenticationResponse>("user", userVm);
+                var userRole = "";
                 if (userVm.Roles.Contains(Roles.Agent.ToString()))
-                {
-                    return RedirectToRoute(new { controller = "Agent", action = "Index" });
+                {                   
+                    userRole = "Agent";
                 }
-                return RedirectToRoute(new { controller = "Home", action = "Index" });
+                else if (userVm.Roles.Contains(Roles.Administrator.ToString()))
+                {
+                    userRole = "Admin";
+                }
+                else if (userVm.Roles.Contains(Roles.Client.ToString()))
+                {
+                    userRole = "Client";
+                }
+                return RedirectToRoute(new { controller = userRole, action = "Index" });
             }
             else
             {
@@ -93,6 +102,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                     return View(vm);
                 }
                 vm.ImageUrl = UploadFile(vm.File, vm.TypeUser, response.Id);
+                vm.Id = response.Id;
                 await _userService.UpdateUserImageAsync(vm);
             }
             return RedirectToRoute(new { controller = "Home", action = "Index" });
