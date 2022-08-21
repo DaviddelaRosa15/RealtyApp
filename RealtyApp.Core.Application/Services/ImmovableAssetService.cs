@@ -2,12 +2,14 @@
 using RealtyApp.Core.Application.Interfaces.Repositories;
 using RealtyApp.Core.Application.Interfaces.Services;
 using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
+using RealtyApp.Core.Application.ViewModels.Improvement_Immovable;
 using RealtyApp.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Nanoid;
 
 namespace RealtyApp.Core.Application.Services
 {
@@ -16,13 +18,101 @@ namespace RealtyApp.Core.Application.Services
         private readonly IImmovableAssetRepository _immovableAssetRepository;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly IImprovement_ImmovableService _improvement_ImmovableService; 
 
-        public ImmovableAssetService(IImmovableAssetRepository ImmovableAssetRepository, IMapper mapper, IUserService userService)
+        public ImmovableAssetService(IImmovableAssetRepository ImmovableAssetRepository, IMapper mapper, IUserService userService,
+            IImprovement_ImmovableService improvement_ImmovableService)
         : base(ImmovableAssetRepository, mapper)
         {
             _immovableAssetRepository = ImmovableAssetRepository;
             _mapper = mapper;
             _userService = userService;
+            _improvement_ImmovableService = improvement_ImmovableService;
+        }
+
+
+        public override async Task<SaveImmovableAssetViewModel> Add(SaveImmovableAssetViewModel vm)
+        {
+            vm.Code = await Nanoid.Nanoid.GenerateAsync("1234567890abcdef", 6);
+
+            var savedValue = await base.Add(vm);
+
+            if (savedValue != null)
+            {
+
+                vm.Improvements.ForEach(value =>
+                {
+
+                    _improvement_ImmovableService.Add(new SaveImprovement_ImmovableViewModel
+                    {
+                        ImprovementId = value,
+                        ImmovableAssetId = savedValue.Id
+                    });
+
+                });
+
+            }
+
+            return savedValue;
+        }
+      
+        public override async Task Update(SaveImmovableAssetViewModel vm, int id)
+        {
+
+            var immovableBeforeUpdate = await GetByIdSaveViewModel(id);
+            
+            if(vm.Improvements != null)
+            {
+             
+                var improvementsToAdd = vm.Improvements.Except(immovableBeforeUpdate.Improvements); 
+                var improvementsToDelete = immovableBeforeUpdate.Improvements.Except(vm.Improvements);
+
+                if (improvementsToAdd != null || improvementsToAdd.Count() != 0)
+                {
+                    foreach(var improvemenID in improvementsToAdd)
+                    {
+                        await _improvement_ImmovableService.Add(new SaveImprovement_ImmovableViewModel
+                        {
+                            ImprovementId = improvemenID,
+                            ImmovableAssetId = immovableBeforeUpdate.Id
+                        });
+                    }
+
+                }
+
+                //Game change
+
+                if(improvementsToDelete.Count() != 0 || improvementsToDelete != null)
+                {
+                    var matchedImprovementToDeleteId = await _improvement_ImmovableService.GetAllViewModel();
+
+                    matchedImprovementToDeleteId = matchedImprovementToDeleteId
+                        .Where(impr_rows => improvementsToDelete.Contains(impr_rows.Id) && impr_rows.ImprovementId == immovableBeforeUpdate.Id).ToList();
+
+
+                    matchedImprovementToDeleteId.ForEach(async value =>
+                    {
+                        await _improvement_ImmovableService.Delete(value.Id);
+                    }); //JavaScript Boy 😅😎
+
+                }
+
+            }
+
+            await base.Update(vm, id);
+        
+        }
+
+        public override async Task<SaveImmovableAssetViewModel> GetByIdSaveViewModel(int id)
+        {
+            var saveVM = await  base.GetByIdSaveViewModel(id);
+
+            var impro_immovaVM = await _improvement_ImmovableService.GetAllViewModel();
+
+            saveVM.Improvements = impro_immovaVM.Where(x => x.ImmovableAssetId == saveVM.Id)
+                .Select(x => x.ImprovementId).ToList();
+
+            return saveVM;
         }
 
         public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters, string id)
