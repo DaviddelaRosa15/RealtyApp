@@ -45,6 +45,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             }
 
         }
+
         [HttpGet("GetById/{id}")]
         [SwaggerOperation(
            Summary = "Obtiene una propiedad por un id especificado",
@@ -55,7 +56,6 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImmovableAssetDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-       
         public async Task<IActionResult> GetById(int id)
         {
 
@@ -81,6 +81,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             }
 
         }
+
         [HttpGet("GetByCode/{code}")]
         [SwaggerOperation(
            Summary = "Obtiene una propiedad por un código especificado",
@@ -91,7 +92,6 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImmovableAssetDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
         public async Task<IActionResult> GetByCode(string code)
         {
             try
@@ -116,9 +116,5 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             }
 
         }
-
-
-
-
     }
 }
