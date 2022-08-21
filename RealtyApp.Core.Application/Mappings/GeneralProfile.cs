@@ -234,12 +234,6 @@ namespace RealtyApp.Core.Application.Mappings
             #endregion
 
             #region Agent
-            CreateMap<ImmovableAssetDTO, ImmovableAssetViewModel>()
-              .ForMember(opt => opt.AgentId, opt => opt.Ignore())
-              .ForMember(opt => opt.SellTypeId, opt => opt.Ignore())
-              .ForMember(opt => opt.ImmovableAssetTypeId, opt => opt.Ignore())
-              .ForMember(opt => opt.SellTypeId, opt => opt.Ignore())
-              .ReverseMap();
             #endregion
 
             #region ImmovableAssetType

@@ -45,7 +45,9 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetAllAgent
         private async Task<List<AgentDTO>> GetAllDTOs()
         {
             var agents = await _userService.GetAllAgents();
-            agents.ForEach(async agents => agents.PropertiesQuantity = await _immovableService.CountImmovablesByAgent(agents.Id));
+            if(agents != null)
+                agents.ForEach(async agents => agents.PropertiesQuantity = await _immovableService.CountImmovablesByAgent(agents.Id));
+            
             return agents;
         }
 

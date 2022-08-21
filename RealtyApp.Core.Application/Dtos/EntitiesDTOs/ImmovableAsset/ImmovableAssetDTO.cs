@@ -9,7 +9,6 @@ namespace RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAsset
    public class ImmovableAssetDTO
    {
         public int Id { get; set; }
-        public int IdImprovement { get; set; }
         public string Code { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }

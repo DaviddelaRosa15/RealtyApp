@@ -2,7 +2,6 @@
 using MediatR;
 using RealtyApp.Core.Application.Dtos.EntitiesDTOs.ImmovableAsset;
 using RealtyApp.Core.Application.Interfaces.Services;
-using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections;
@@ -39,22 +38,22 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetByIdAgentProperti
         {
             var result = await GetAgentPropertiesDTOById(request.Id);
 
-            if (result == null)
+            if (result == null || result.Count == 0)
                 throw new Exception($"Agent Properties not found.");
             else
                 return result;
         }
 
-        private async Task<IEnumerable<ImmovableAssetDTO>> GetAgentPropertiesDTOById(string id)
+        private async Task<List<ImmovableAssetDTO>> GetAgentPropertiesDTOById(string id)
         {
-            FilterViewModel vm = new();
-            var result = await _immovableService.GetAllViewModelWithFilters(vm, id);
+            var result = await _immovableService.GetIncludeDetails();
 
             if (result == null)
                 return null;
             else
             {
-                return _maper.Map < IEnumerable<ImmovableAssetDTO>>(result); ;
+                var immovables = result.Where(x => x.AgentId == id).ToList();
+                return _maper.Map <List<ImmovableAssetDTO>>(immovables); ;
             }                
         }
     }

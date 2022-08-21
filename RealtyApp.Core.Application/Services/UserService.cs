@@ -117,17 +117,22 @@ namespace RealtyApp.Core.Application.Services
         public async Task<AgentDTO> GetAgentById(string id)
         {
             var user = await GetUserById(id);
-            AgentDTO agent = new()
+            if(user != null)
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                CardIdentification = user.CardIdentification,
-                Email = user.Email,
-                Phone = user.Phone
-            };
+                AgentDTO agent = new()
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    CardIdentification = user.CardIdentification,
+                    Email = user.Email,
+                    Phone = user.Phone
+                };
 
-            return agent;
+                return agent;
+            }
+
+            return null;
         }
 
         public async Task<List<AgentDTO>> GetAllAgents()
@@ -150,8 +155,10 @@ namespace RealtyApp.Core.Application.Services
                         Phone = user.Phone
                     });
                 }
+                return agents;
             }
-            return agents;
+
+            return null;
         }
         #endregion
 
