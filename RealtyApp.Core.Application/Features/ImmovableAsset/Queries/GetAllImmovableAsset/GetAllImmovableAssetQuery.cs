@@ -45,7 +45,7 @@ namespace RealtyApp.Core.Application.Features.ImmovableAsset.Queries.GetAllImmov
         private async Task<List<ImmovableAssetDTO>> GetIncludeDetails()
         {
             List<DetailsViewModelApi> immovableAssetDetails = await _immovableAssetService.GetIncludeDetails();
-            List<ImmovableAssetDTO> immovables = _mapper.Map<List<ImmovableAssetDTO>>(immovableAssetDetails);      
+            List<ImmovableAssetDTO> immovables = _mapper.Map<List<ImmovableAssetDTO>>(immovableAssetDetails);
             return immovables;
         }
     }

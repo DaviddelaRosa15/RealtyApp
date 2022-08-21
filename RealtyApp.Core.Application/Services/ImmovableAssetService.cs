@@ -171,7 +171,7 @@ namespace RealtyApp.Core.Application.Services
             {
                 Id = asset.Id,
                 Code = asset.Code,
-                Address=asset.Address,
+                Address = asset.Address,
                 Description = asset.Description,
                 Price = asset.Price,
                 Meters = asset.Meters,
@@ -181,8 +181,9 @@ namespace RealtyApp.Core.Application.Services
                 AgentId = asset.AgentId,
                 ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
                 SellTypeName = asset.SellType.Name,
-                ImprovementNames = improvementList.Where(x => x.ImmovableAssetId==asset.Id)
-                .Select(x=>x.Improvement.Name).ToList()
+                ImprovementNames = asset.Improvement_Immovables.Select(x => x.Improvement.Name).ToList()
+                //improvementList.Where(x => x.ImmovableAssetId==asset.Id)
+                //.Select(x=>x.Improvement.Name).ToList()
 
             }).ToList();
         }
@@ -207,8 +208,9 @@ namespace RealtyApp.Core.Application.Services
                 viewModelApi.AgentId =assetFilter.AgentId;
                 viewModelApi.ImmovableAssetTypeName = assetFilter.ImmovableAssetType.Name;
                 viewModelApi.SellTypeName = assetFilter.SellType.Name;
-                viewModelApi.ImprovementNames = improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
-                    .Select(x => x.Improvement.Name).ToList();
+                viewModelApi.ImprovementNames = assetFilter.Improvement_Immovables.Select(x => x.Improvement.Name).ToList();
+                    //improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
+                    //.Select(x => x.Improvement.Name).ToList();
                 return viewModelApi;
             }
             else
@@ -237,8 +239,9 @@ namespace RealtyApp.Core.Application.Services
                 viewModelApi.AgentId =assetFilter.AgentId;
                 viewModelApi.ImmovableAssetTypeName = assetFilter.ImmovableAssetType.Name;
                 viewModelApi.SellTypeName = assetFilter.SellType.Name;
-                viewModelApi.ImprovementNames = improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
-                    .Select(x => x.Improvement.Name).ToList();
+                viewModelApi.ImprovementNames = assetFilter.Improvement_Immovables.Select(x => x.Improvement.Name).ToList();
+                    //improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
+                    //.Select(x => x.Improvement.Name).ToList();
                 return viewModelApi;
             }
             else
