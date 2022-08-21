@@ -45,26 +45,8 @@ namespace RealtyApp.Core.Application.Features.ImmovableAsset.Queries.GetAllImmov
         private async Task<List<ImmovableAssetDTO>> GetIncludeDetails()
         {
             List<DetailsViewModelApi> immovableAssetDetails = await _immovableAssetService.GetIncludeDetails();
-            List<ImmovableAssetDTO> immovableAssetTypesViewModels = new();
-            foreach (DetailsViewModelApi asset in immovableAssetDetails)
-            {
-                immovableAssetTypesViewModels.Add(new ImmovableAssetDTO()
-                {
-                    Id = asset.Id,
-                    Code = asset.Code,
-                    Description = asset.Description,
-                    Price = asset.Price,
-                    Meters = asset.Meters,
-                    BedroomQuantity = asset.BedroomQuantity,
-                    BathroomQuantity = asset.BathroomQuantity,
-                    AgentName = asset.AgentId,
-                    ImmovableAssetTypeName = asset.ImmovableAssetTypeName,
-                    SellTypeName = asset.SellTypeName,
-                    ImprovementNames = asset.ImprovementNames
-                });
-            }            
-           
-            return immovableAssetTypesViewModels;
+            List<ImmovableAssetDTO> immovables = _mapper.Map<List<ImmovableAssetDTO>>(immovableAssetDetails);      
+            return immovables;
         }
     }
 

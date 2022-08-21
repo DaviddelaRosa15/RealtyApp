@@ -171,11 +171,13 @@ namespace RealtyApp.Core.Application.Services
             {
                 Id = asset.Id,
                 Code = asset.Code,
+                Address=asset.Address,
                 Description = asset.Description,
                 Price = asset.Price,
                 Meters = asset.Meters,
                 BedroomQuantity = asset.BedroomQuantity,
                 BathroomQuantity = asset.BathroomQuantity,
+                AgentName = _userService.GetUserById(asset.AgentId).Result.FirstName,
                 AgentId = asset.AgentId,
                 ImmovableAssetTypeName = asset.ImmovableAssetType.Name,
                 SellTypeName = asset.SellType.Name,
@@ -195,12 +197,14 @@ namespace RealtyApp.Core.Application.Services
             {
                 viewModelApi.Id = assetFilter.Id;
                 viewModelApi.Code = assetFilter.Code;
+                viewModelApi.Address = assetFilter.Address;
                 viewModelApi.Description = assetFilter.Description;
                 viewModelApi.Price = assetFilter.Price;
                 viewModelApi.Meters = assetFilter.Meters;
                 viewModelApi.BedroomQuantity = assetFilter.BedroomQuantity;
                 viewModelApi.BathroomQuantity = assetFilter.BathroomQuantity;
-                viewModelApi.AgentId = assetFilter.AgentId;
+                viewModelApi.AgentName = _userService.GetUserById(assetFilter.AgentId).Result.FirstName;
+                viewModelApi.AgentId =assetFilter.AgentId;
                 viewModelApi.ImmovableAssetTypeName = assetFilter.ImmovableAssetType.Name;
                 viewModelApi.SellTypeName = assetFilter.SellType.Name;
                 viewModelApi.ImprovementNames = improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
@@ -223,12 +227,14 @@ namespace RealtyApp.Core.Application.Services
             {
                 viewModelApi.Id = assetFilter.Id;
                 viewModelApi.Code = assetFilter.Code;
+                viewModelApi.Address = assetFilter.Address;
                 viewModelApi.Description = assetFilter.Description;
                 viewModelApi.Price = assetFilter.Price;
                 viewModelApi.Meters = assetFilter.Meters;
                 viewModelApi.BedroomQuantity = assetFilter.BedroomQuantity;
                 viewModelApi.BathroomQuantity = assetFilter.BathroomQuantity;
-                viewModelApi.AgentId = assetFilter.AgentId;
+                viewModelApi.AgentName = _userService.GetUserById(assetFilter.AgentId).Result.FirstName;
+                viewModelApi.AgentId =assetFilter.AgentId;
                 viewModelApi.ImmovableAssetTypeName = assetFilter.ImmovableAssetType.Name;
                 viewModelApi.SellTypeName = assetFilter.SellType.Name;
                 viewModelApi.ImprovementNames = improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)

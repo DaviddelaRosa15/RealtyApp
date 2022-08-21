@@ -225,6 +225,10 @@ namespace RealtyApp.Core.Application.Mappings
             #endregion
 
             #region DTOs_CQRS
+            #region ImmovbleAsset
+            CreateMap<ImmovableAssetDTO, DetailsViewModelApi>()
+            .ReverseMap();
+            #endregion
 
             #region Agent
             CreateMap<ImmovableAssetDTO, ImmovableAssetViewModel>()

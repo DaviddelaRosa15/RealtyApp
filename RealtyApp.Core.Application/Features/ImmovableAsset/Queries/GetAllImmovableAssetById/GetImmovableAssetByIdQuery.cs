@@ -45,29 +45,16 @@ namespace RealtyApp.Core.Application.Features.ImmovableAsset.Queries.GetAllImmov
         }
         private async Task<ImmovableAssetDTO> GetIncludeDetailsById(int id)
         {
-            DetailsViewModelApi immovableAssetDetails = await _immovableAssetService.GetIncludeDetailsById(id);
-            ImmovableAssetDTO immovableAssetTypesViewModels = new();
+            DetailsViewModelApi immovableAssetDetails = await _immovableAssetService.GetIncludeDetailsById(id);           
+            ImmovableAssetDTO immovables = _mapper.Map<ImmovableAssetDTO>(immovableAssetDetails);           
             if(immovableAssetDetails != null)
             {
-                immovableAssetTypesViewModels.Id = immovableAssetDetails.Id;
-                immovableAssetTypesViewModels.Code = immovableAssetDetails.Code;
-                immovableAssetTypesViewModels.Description = immovableAssetDetails.Description;
-                immovableAssetTypesViewModels.Price = immovableAssetDetails.Price;
-                immovableAssetTypesViewModels.Meters = immovableAssetDetails.Meters;
-                immovableAssetTypesViewModels.BedroomQuantity = immovableAssetDetails.BedroomQuantity;
-                immovableAssetTypesViewModels.BathroomQuantity = immovableAssetDetails.BathroomQuantity;
-                immovableAssetTypesViewModels.AgentName = immovableAssetDetails.AgentId;
-                immovableAssetTypesViewModels.ImmovableAssetTypeName = immovableAssetDetails.ImmovableAssetTypeName;
-                immovableAssetTypesViewModels.SellTypeName = immovableAssetDetails.SellTypeName;
-                immovableAssetTypesViewModels.ImprovementNames = immovableAssetDetails.ImprovementNames;
-                return immovableAssetTypesViewModels;
+                return immovables;
             }
             else
             {
                 return null;
-            }
-
-            
+            }            
         }
 
 

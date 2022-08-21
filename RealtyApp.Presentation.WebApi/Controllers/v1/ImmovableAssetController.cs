@@ -16,7 +16,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 {
     [SwaggerTag(description: "Nos permite filtrar las propiedades" +
         " de distintas maneras: Todas, por id o por codigo")]
-    [Authorize(Roles = "Administrator,Developer")]
+    //[Authorize(Roles = "Administrator,Developer")]
     public class ImmovableAssetController : BaseApiController
     {       
         [HttpGet("List")]
