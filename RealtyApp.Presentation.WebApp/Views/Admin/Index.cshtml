@@ -2,34 +2,89 @@
 @{
 
 }
+<div class="container cont_Home_Admin">
 
-
-<div class="container">
-
-    <div class="text-dark cont_List_Friend_Title">
-        <h4>Edicion de usuario</h4>
-    </div>
-
-    <div class="row">
-        <div class="card shadow-sm contCardEditAdmiGeneric">
-            <h1>
-                Las cantidades de propiedades registradas en el sistema:@ViewBag.countImmovable
-            </h1>
+   
+    <div class="row container_index_Admin">
+        <div class="text-dark cont_index_Title">
+            <h4>Indicadores</h4>
         </div>
-        <div class="card shadow-sm contCardEditAdmiGeneric">
-            <h1>
-                La cantidad de agentes activos:@ViewBag.agent.countActive y los inactivos:@ViewBag.agent.countDesactive
-            </h1>
+
+        <div class="col-3 contCard cont_Card_Index ">
+            <div class="card shadow contCard_Body">
+                <div class="card-header text-dark text-center">
+                    <h4>Propiedades</h4>
+                </div>
+
+                <div class="card-body text-dark">
+                    <div class="cont_Img_Index_admin">
+                        <img class="bd-placeholder-img card-img-top img_Index_admin" src="~/Images/HomeAdmin/immovable.jpeg" />
+                    </div>
+                    <h4 class="card-title mb-2 text-center">
+                        Cantidad: @ViewBag.countImmovable
+                    </h4>
+                </div>
+
+            </div>
         </div>
-        <div class="card shadow-sm contCardEditAdmiGeneric">
-            <h1>
-                La cantidad de clientes activos:@ViewBag.client.countActive y los inactivos:@ViewBag.client.countDesactive
-            </h1>
+
+        <div class="col-3 contCard cont_Card_Index">
+            <div class="card shadow contCard_Body">
+                <div class="card-header text-dark text-center">
+                    <h4>Agentes</h4>
+                </div>
+                <div class="card-body text-dark">
+                    <div class="cont_Img_Index_admin">
+                        <img class="bd-placeholder-img card-img-top img_Index_admin" src="~/Images/HomeAdmin/agent.jpg" />
+                    </div>
+                    <h4 class="card-title mb-2 text-center">
+                        Activos: @ViewBag.agent.countActive
+                    </h4>
+                    <h4 class="card-title mb-2 text-center">
+                        Desactivos: @ViewBag.agent.countDesactive
+                    </h4>
+                </div>
+            </div>
         </div>
-        <div class="card shadow-sm contCardEditAdmiGeneric">
-            <h1>
-                La cantidad de desarrolladores activos:@ViewBag.developer.countActive y los inactivos:@ViewBag.developer.countActive
-            </h1>
+
+
+        <div class="col-3 contCard cont_Card_Index">
+            <div class="card shadow contCard_Body">
+                <div class="card-header text-dark text-center">
+                    <h4>Clientes</h4>
+                </div>
+                <div class="card-body text-dark">
+                    <div class="cont_Img_Index_admin">
+                        <img class="bd-placeholder-img card-img-top img_Index_admin" src="~/Images/HomeAdmin/client.png" />
+                    </div>
+                    <h4 class="card-title mb-2 text-center">
+                        Activos: @ViewBag.client.countActive
+                    </h4>
+                    <h4 class="card-title mb-2 text-center">
+                        Desactivos: @ViewBag.client.countDesactive
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-3 contCard cont_Card_Index">
+            <div class="card shadow contCard_Body">
+                <div class="card-header text-dark text-center">
+                    <h4>Desarrolladores</h4>
+                </div>
+                <div class="card-body text-dark">
+                    <div class="cont_Img_Index_admin">
+                        <img class="bd-placeholder-img card-img-top img_Index_admin" src="~/Images/HomeAdmin/developer.jpg" />
+                    </div>
+                    <h4 class="card-title mb-2 text-center">
+                        Activos: @ViewBag.developer.countActive
+                    </h4>
+                    <h4 class="card-title mb-2 text-center">
+                        Desactivos: @ViewBag.developer.countDesactive
+                    </h4>
+                </div>
+            </div>
         </div>
     </div>
 

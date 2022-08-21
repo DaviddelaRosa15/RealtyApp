@@ -4,14 +4,14 @@
     ViewData["Title"] = "Administrar desarrolladores";
 }
 
-<div class="row mt-5" id="ConUserAdmin">
+<div class="row mt-5 cont_Table"  id="ConUserAdmin">
 
     @* -----------------------------------> Usuarios agentes activos<------------------------------------- *@
 <div class="card shadow-sm ">
-    <div class="card-header bg-info text-light cont_List_Friend_Title">
+    <div class="card-header title_table text-light cont_List_Friend_Title">
         <h4>Agentes</h4>
     </div>
-    <h4 class="text-primary">Activos</h4>
+    <h4 class="">Activos</h4>
     <table class="table table- table-hover ">
         <thead>
             <tr>
@@ -37,8 +37,8 @@
                             <td scope="row">@user.CardIdentification</td>
                             <td scope="row">@user.Email</td>
                             <td class="btn-group">
-                                <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" asp-route-type="Agent">Eliminar</a>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
+                                <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" asp-route-type="Agent">Eliminar</a>
+                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
                             </td>
                         </tr>
                         <!-- Modal to confirm action -->
@@ -67,7 +67,7 @@
 
 
     @* -----------------------------------> Usuarios agentes inactivos<------------------------------------- *@
-    <h4 class="text-success">Inactivos</h4>
+    <h4 class="">Inactivos</h4>
     <table class="table table- table-hover ">
         <thead>
             <tr>
@@ -93,9 +93,9 @@
                             <td scope="row">@user.CardIdentification</td>
                             <td scope="row">@user.Email</td>
                             <td class="btn-group">
-                                <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" asp-route-type="Agent">Eliminar</a>
+                                <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" asp-route-type="Agent">Eliminar</a>
 
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Activar</button>
+                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Activar</button>
                             </td>
                         </tr>
                         <!-- Modal to confirm action -->

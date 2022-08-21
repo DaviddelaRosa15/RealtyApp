@@ -1,6 +1,8 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
+* {
+   color: #2A3F54;
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -79,4 +81,133 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+/*-------------------------->>>Dashboard styles<<<<--------------------------------*/
+
+.dashboard {
+    margin:-23px 10px 0 -14px;
+    display: block;
+    background-color: #2A3F54;
+    width: 280px;
+    height: 100vh;
+}
+.dashboard-ul-list{
+    list-style:none;
+    margin-top:80px;
+}
+.pb-3
+{
+    display: flex !important;
+}
+.dashboard-cont-link a {
+    display:inline-block;
+    padding: 10px;
+    margin-bottom: 10px;
+    width:100%
+}
+.dashboard-cont-link:hover > a {
+    background-color: rgba(255,255,255,0.75);
+}
+.fa-x 
+{
+     display: block;
+     cursor: pointer;
+     color: white;
+     padding: 10px;
+     font-size: 25px;
+     margin-left: 180px;
+     margin-top:10px;
+}
+.fa-x:hover{
+    color:red;
+}
+.fa-bars {
+    color: #2A3F54;
+    font-size: 30px;
+}
+.fa-bars:hover
+{
+     color: #0d6efd;
+}
+.Cont-btn_Opne {
+     height: 20px;
+     display: none;
+     cursor: pointer;
+     color: white;
+}
+.cont_Welcome{
+    margin-top:10px;
+    margin-bottom:-60px;
+   display:flex;
+   justify-content:center;
+   flex-wrap:wrap;
+   text-align:center;
+}
+.p_welcome{
+    color:white;
+    font-size:20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight:bold;
+    width:100%;
+}
+.p_user {
+    font-style:italic;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+}
+/*Styles Home Admin*/
+.img_Index_admin{  
+    height:150px;
+    margin:auto;
+    object-fit:contain;
+}
+.cont_Img_Index_admin {
+    border: solid #2A3F54 1.4px;
+    border-radius:6px;
+    width: 200px;
+    margin: auto;
+    margin-bottom: 7px;
+}
+.container_index_Admin {
+    display: flex;
+    flex-wrap:wrap;    
+    justify-content:center;
+    width:900px;
+    margin:auto;
+}
+.cont_Card_Index {
+    margin: 10px;
+    width: 350px;
+}
+.contCard_Body{
+    height:310px;
+}
+.cont_index_Title{
+    
+    text-align:center;
+    margin-top:40px;
+    margin-bottom:10px;
+}
+    .cont_index_Title h4 {
+        color: #2A3F54;
+        font-size:37px;
+    }
+
+/*Table Agent styles*/
+.cont_Table {
+    margin: auto;
+}
+.title_table {
+    background-color: #2A3F54;
+}
+/*Table developer styles*/
+.cont_btn_createGeneric{
+    margin-bottom:10px;
+}
+.cont_Card_Register{
+    width:500px;
+}
+.title_Register{
+    text-align:center;
 }

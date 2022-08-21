@@ -5,9 +5,9 @@
 
 }
 
-<div class="container">
+<div class="container cont_Card_Register">
 
-    <div class="text-dark">
+    <div class="text-dark title_Register">
         <h4>Registro de usuario @Model.TypeUser</h4>
     </div>
 
@@ -15,7 +15,7 @@
 
         <div class="card shadow-sm ">
 
-            <div class="card-body contCard">
+            <div class="card-body contCard cont_Card_Register">
                 
                 @if (Model.HasError)
                 {
@@ -71,8 +71,8 @@
                     <input asp-for="TypeUser" type="hidden" />
 
                     <div class="btn-group w-100">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <a asp-controller="Admin" asp-action="@(Model.TypeUser == "Developer" ? "Developers" : "Administrators")" class="btn btn-warning">Volver atras</a>
+                        <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                        <a asp-controller="Admin" asp-action="@(Model.TypeUser == "Developer" ? "Developers" : "Administrators")" class="btn btn-outline-warning">Volver atras</a>
                     </div>
                 </form>
 

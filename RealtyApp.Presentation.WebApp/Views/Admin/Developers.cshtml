@@ -4,17 +4,17 @@
     ViewData["Title"] = "Administrar desarrolladores";
 }
 
-<div class="row mt-5" id="ConUserAdmin">
+<div class="row mt-5 cont_Table" id="ConUserAdmin">
     <div class="cont_btn_createGeneric">
         <a class="btn btn-outline-primary btn_createGeneric " asp-controller="Admin" asp-action="Register" asp-route-type="Developer">Crea nuevo usuario</a>
     </div>
 
     @* -----------------------------------> Usuarios desarrolladores activos<------------------------------------- *@
     <div class="card shadow-sm ">
-        <div class="card-header bg-info text-light cont_List_Friend_Title">
+        <div class="card-header title_table text-light cont_List_Friend_Title">
             <h4>Desarrolladores</h4>
         </div>
-        <h4 class="text-primary">Activos</h4>
+        <h4 class="">Activos</h4>
         <table class="table table- table-hover ">
             <thead>
                 <tr>
@@ -70,7 +70,7 @@
 
 
         @* -----------------------------------> Usuarios desarrolladores inactivos<------------------------------------- *@
-        <h4 class="text-success">Inactivos</h4>
+        <h4 class="">Inactivos</h4>
         <table class="table table- table-hover ">
             <thead>
                 <tr>

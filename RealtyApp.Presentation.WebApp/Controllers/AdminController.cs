@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RealtyApp.Presentation.WebApp.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly IUserService _userService;

@@ -16,7 +16,7 @@
     <title>@ViewData["Title"] - RealtyApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css?1" />
 </head>
 <body>
     <header>
@@ -62,37 +62,6 @@
                                 </li>
                             }
 
-                            if (isAdmin)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Agents">Agentes</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Administrators">Administradores</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Admin" asp-action="Developers">Desarrolladores</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="ImmovableType" asp-action="Index">Tipo de propiedades</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="SellType" asp-action="Index">Tipo de ventas</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Improvement" asp-action="Index">Mejoras</a>
-                                </li>
-                            }
-
                             <li class="nav-item align-item-end justify-content-end">
                                 <div class="dropdown">
                                     <a class="nav-link text-white fw-bold bg-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -122,14 +91,64 @@
                                 <a class="nav-link text-white fw-bold" asp-area="" asp-controller="User" asp-action="Index">Iniciar sesión</a>
                             </li>
                         }
-
-                    </ul>
-                </div>
+                </div>               
+                </ul>
+            </div>
             </div>
         </nav>
     </header>
     <div class="container-fluid">
+
         <main role="main" class="pb-3">
+
+            @if (isAdmin)
+            {
+            <div class="Cont-btn_Opne">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <div class="dashboard">
+
+                <div class="cont_Btn_bar">
+                    <i class="fa-solid fa-x"></i>
+                </div>
+                <div class="cont_Welcome">
+                    <p class="p_welcome">Welcome!</p>
+                    <p class="p_user">Alexander</p>
+                </div>
+                <ul class="dashboard-ul-list">
+                    <li class="nav-item dashboard-cont-link">
+                        <a class="nav-link text-white " asp-area="" asp-controller="Admin" asp-action="Index">Home</a>
+                    </li>
+
+                    <li class="nav-item dashboard-cont-link">
+                        <a class="nav-link text-white " asp-area="" asp-controller="Admin" asp-action="Agents">Agentes</a>
+                    </li>
+
+                    <li class="nav-item dashboard-cont-link">
+                        <a class="nav-link text-white " asp-area="" asp-controller="Admin" asp-action="Administrators">Administradores</a>
+                    </li>
+
+                    <li class="nav-item dashboard-cont-link">
+                        <a class="nav-link text-white " asp-area="" asp-controller="Admin" asp-action="Developers">Desarrolladores</a>
+                    </li>
+
+                    <li class="nav-item dashboard-cont-link">
+                        <a class="nav-link text-white " asp-area="" asp-controller="ImmovableType" asp-action="Index">Tipo de propiedades</a>
+                    </li>
+
+                    <li class="nav-item dashboard-cont-link">
+                        <a class="nav-link text-white " asp-area="" asp-controller="SellType" asp-action="Index">Tipo de ventas</a>
+                    </li>
+
+                    <li class="nav-item dashboard-cont-link">
+                        <a class="nav-link text-white " asp-area="" asp-controller="Improvement" asp-action="Index">Mejoras</a>
+                    </li>
+                </ul>
+
+            </div>}
+
+
             @RenderBody()
         </main>
     </div>
@@ -141,7 +160,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js?1" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

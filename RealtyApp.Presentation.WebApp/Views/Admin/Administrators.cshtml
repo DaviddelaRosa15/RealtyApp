@@ -29,16 +29,16 @@
     <div class="card shadow-sm p-4">
   
         <h4 class="text-success">Activos</h4>
-        <table class="table table-hover ">
+        <table class="table table- table-hover ">
 
-            <thead class="table-dark">
+            <thead>
                 <tr>
-                    <th class="">Nombre</th>
-                    <th class="">Apellido</th>
-                    <th class="">Usuario</th>
-                    <th class="">Cédula</th>
-                    <th class="">Correo</th>
-                    <th class="">----</th>
+                    <th class="table-secondary">Nombre</th>
+                    <th class="table-secondary">Apellido</th>
+                    <th class="table-secondary">Usuario</th>
+                    <th class="table-secondary">Cédula</th>
+                    <th class="table-secondary">Correo</th>
+                    <th class="table-secondary">----</th>
                 </tr>
             </thead>
 
@@ -68,8 +68,8 @@
                                         
                                         <td class="row">
                                             <div class="btn-group">
-                                                <a class="btn btn-warning text-white" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
-                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
+                                                <a class="btn btn-danger text-white" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
+                                                <button type="button" class="btn btn-outline-warning data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
                                             </div>
                                         </td>
                             
@@ -113,12 +113,12 @@
 
                 <thead class="table-dark">
                     <tr>
-                        <th class="">Nombre</th>
-                        <th class="">Apellido</th>
-                        <th class="">Usuario</th>
-                        <th class="">Cédula</th>
-                        <th class="">Correo</th>
-                        <th class="">----</th>
+                        <th class="table-secondary">Nombre</th>
+                        <th class="table-secondary">Apellido</th>
+                        <th class="table-secondary">Usuario</th>
+                        <th class="table-secondary">Cédula</th>
+                        <th class="table-secondary">Correo</th>
+                        <th class="table-secondary">----</th>
                     </tr>
                 </thead>
 
@@ -146,8 +146,8 @@
                                         if(user.Id != sessionUser.Id){
                                             <td class="row">
                                                 <div class="btn-group">
-                                                    <a class="btn btn-warning text-white" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
-                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#activar-@user.Id">Activar</button>
+                                                    <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
+                                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#activar-@user.Id">Activar</button>
                                                 </div>
                                             </td>
                             
