@@ -45,7 +45,9 @@ namespace RealtyApp.Core.Application.Features.Improvement.Queries.GetAllImprovem
 
         private async Task<List<ImprovementDTO>> GetAllImprovementDtoWithIncludes()
         {
-            var improvements = await _improvementRepository.GetAllWithIncludeAsync(new List<string>() { "Improvement_Immovables" });
+            var improvements = await _improvementRepository.GetAllAsync();
+            //var improvements = await _improvementRepository.GetAllWithIncludeAsync(new List<string>() { "Improvement_Immovables" });
+            //Prefiero no entrar en un long cycle.
 
             List<ImprovementDTO> improvementViews = _mapper.Map<List<ImprovementDTO>>(improvements);
 

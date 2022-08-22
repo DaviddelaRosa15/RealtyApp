@@ -15,6 +15,7 @@ using RealtyApp.Presentation.WebApi.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace RealtyApp.Presentation.WebApi
@@ -42,7 +43,10 @@ namespace RealtyApp.Presentation.WebApi
             {
                 options.SuppressInferBindingSourcesForParameters = true;
                 options.SuppressMapClientErrors = true;
-            });
+            })
+            .AddJsonOptions(x =>
+                      x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
             services.AddHealthChecks();
             services.AddSwaggerExtension();
             services.AddApiVersioningExtension();
