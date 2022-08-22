@@ -9,26 +9,22 @@
     var sessionUser = _httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
 }
 
-<div class="container mt-5" id="ConUserAdmin">
-   
-    <div class="row mb-4">
-              
-        <div class="col-4">
-            <h4>Administradores:</h4>
-        </div>
-
-        <div class="col-md-2 offset-md-6">
+<div class="container mt-5" id="ConUserAdmin">   
+        
+        <div class="cont_btn_createGeneric ">
             <a class="btn btn-outline-primary btn_createGeneric " asp-controller="Admin" asp-action="Register" asp-route-type="Administrator">Crea nuevo usuario</a>
         </div>
 
-    </div>
+   
 
 
 
     @* -----------------------------------> Adminstradores activos<------------------------------------- *@
     <div class="card shadow-sm p-4">
-  
-        <h4 class="text-success">Activos</h4>
+        <div class="card-header title_table text-light cont_List_Friend_Title">
+            <h4>Administradores</h4>
+        </div>
+        <h4 class="">Activos</h4>
         <table class="table table- table-hover ">
 
             <thead>
@@ -68,8 +64,8 @@
                                         
                                         <td class="row">
                                             <div class="btn-group">
-                                                <a class="btn btn-danger text-white" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
-                                                <button type="button" class="btn btn-outline-warning data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
+                                                <a class="btn btn-outline-warning " asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
+                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
                                             </div>
                                         </td>
                             
@@ -107,7 +103,7 @@
         </table>
 
          @* -----------------------------------> Usuarios desarrolladores inactivos<------------------------------------- *@
-            <h4 class="text-danger">Inactivos</h4>
+            <h4 class="">Inactivos</h4>
   
             <table class="table table-hover ">
 
@@ -146,7 +142,7 @@
                                         if(user.Id != sessionUser.Id){
                                             <td class="row">
                                                 <div class="btn-group">
-                                                    <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
+                                                    <a class="btn btn-outline-warning" asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" asp-route-type="Administrator">Editar</a>
                                                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#activar-@user.Id">Activar</button>
                                                 </div>
                                             </td>

@@ -8,15 +8,15 @@
 
     <div class="col-6 offset-3">
         <div class="card">
-            <div class="card-header bg-danger text-light">
-                <h4>Esta seguro que desea eliminar el tipo de venta: <b> @Model.Name</b>?</h4>
+            <div class="card-header card_Title text-light">
+                <h4>Esta seguro que desea eliminar el tipo de venta:  @Model.Name?</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body cont_BodyType_Immovable">
 
                 <form method="post" asp-controller="SellType" asp-action="Delete">
 
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                    <a asp-controller="SellType" asp-action="Index" class="btn btn-warning">Cancelar</a>
+                    <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                    <a asp-controller="SellType" asp-action="Index" class="btn btn-outline-warning">Cancelar</a>
 
                 </form>
 

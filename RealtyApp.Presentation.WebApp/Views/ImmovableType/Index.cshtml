@@ -11,22 +11,22 @@
     <div class="row">
         @foreach (ImmovableAssetTypeViewModel immType in Model)
         {
-            <div class="col-3">
-                <div class="card shadow">
-                    <div class="card-header text-dark text-center">
+            <div class="col-3 cont_Card_Type_Immovable">
+                <div class="card shadow cont_Card_Type_Immovable">
+                    <div class="card-header card_Title text-dark text-center">
                         <h4>Tipo de propiedad</h4>
                     </div>
-                    <div class="col-9">
-                        <div class="card-body text-dark">
-                            <h4 class="card-title mb-2 text-center">Nombre: @immType.Name</h4>
-                            <h4 class="card-title mb-2 text-center">Descripcion: @immType.Description</h4>
-                            <h4 class="card-title mb-2 text-center">Cantidad de propiedades con este tipo: @immType.CountUseType</h4>
-                            <div class="btn-group">
-                                <a asp-controller="ImmovableType" asp-action="Edit" asp-route-id="@immType.Id" class="btn btn-sm btn-outline-info">Editar</a>
-                                <a asp-controller="ImmovableType" asp-action="Delete" asp-route-id="@immType.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
-                            </div>
+                    <div class="card-body text-dark cont_BodyType_Immovable">
+                        <div class="cont_Img_Index_admin">
+                            <img class="bd-placeholder-img card-img-top img_Index_admin" src="~/Images/HomeAdmin/immovable.jpeg" />
                         </div>
-                        
+                        <p class="card-title mb-2 text-center"> <b>Nombre:</b>  @immType.Name</p>
+                        <p class="card-title mb-2 text-center"> <b>Descripcion:</b>  @immType.Description</p>
+                        <p class="card-title mb-2 text-center"><b>Propiedades con este tipo:</b>  @immType.CountUseType</p>
+                        <div class="btn-group btn_Type_Immovable">
+                            <a asp-controller="ImmovableType" asp-action="Edit" asp-route-id="@immType.Id" class="btn btn-sm btn-outline-warning">Editar</a>
+                            <a asp-controller="ImmovableType" asp-action="Delete" asp-route-id="@immType.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                        </div>
                     </div>
                 </div>
             </div>
