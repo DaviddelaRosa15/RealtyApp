@@ -271,7 +271,6 @@ namespace RealtyApp.Core.Application.Mappings
                         .ForMember(dest => dest.ImmovableAssets, options => options.Ignore())
                         .ReverseMap();
 
-            //Here something is happending.
             CreateMap<ImmovableAssetType, UpdateAssetTypeResponse>()
                        .ReverseMap()
                        .ForMember(src => src.Created, options => options.Ignore())
