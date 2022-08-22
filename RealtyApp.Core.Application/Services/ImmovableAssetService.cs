@@ -225,8 +225,9 @@ namespace RealtyApp.Core.Application.Services
         public async Task<DetailsViewModel> GetDetailsViewModel(int id)
         {
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType", "Improvement_Immovables" });
+            var improvementList = await _improvement_ImmovableRepository.GetAllWithIncludeAsync(new List<string> { "Improvement" });
 
-            return assetList.Select(asset => new DetailsViewModel
+            return assetList.Where(x => x.Id == id).Select(asset => new DetailsViewModel
             {
                 Id = asset.Id,
                 Code = asset.Code,
