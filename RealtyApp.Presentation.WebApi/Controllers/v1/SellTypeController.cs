@@ -34,7 +34,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest();
+                    return BadRequest("Revise los datos");
                 }                    
 
                 var result = await Mediator.Send(command);
@@ -71,7 +71,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             {
                 if (!ModelState.IsValid || id == 0 || id != command.Id)
                 {
-                    return BadRequest();
+                    return BadRequest("Revise los datos");
                 }                    
 
                 var toReturn = await Mediator.Send(command);
