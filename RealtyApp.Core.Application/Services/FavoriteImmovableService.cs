@@ -29,11 +29,12 @@ namespace RealtyApp.Core.Application.Services
             List<FavoriteImmovableAssetViewModel> filterListViewModels = new();
             var favList = await _favoriteImmRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAsset" });
 
-            var listViewModels = favList.Select(fav => new FavoriteImmovableAssetViewModel
+            var listViewModels = favList.Where(x => x.ClientId == idClient).Select(fav => new FavoriteImmovableAssetViewModel
             {
                 Id = fav.ImmovableAsset.Id,
                 Code = fav.ImmovableAsset.Code,
                 Description = fav.ImmovableAsset.Description,
+                Address = fav.ImmovableAsset.Address,
                 Price = fav.ImmovableAsset.Price,
                 UrlImage01 = fav.ImmovableAsset.UrlImage01,
                 UrlImage02 = fav.ImmovableAsset.UrlImage02,
@@ -48,31 +49,70 @@ namespace RealtyApp.Core.Application.Services
                 SellTypeName = fav.ImmovableAsset.SellType.Name
             }).ToList();
 
+            if (filters.ImmovableAssetTypeId == null && filters.Code == null && filters.MinPrice == null &&
+                filters.MaxPrice == null && filters.BedroomQuantity == null && filters.BathroomQuantity == null)
+            {
+                return listViewModels;
+            }
+
             #region Aplicar filtros
+
+            if (filters.MaxPrice != null && filters.MaxPrice != 0)
+            {
+                filterListViewModels = listViewModels.Where(x => x.Price >= filters.MinPrice && x.Price <= filters.MaxPrice).ToList();
+            }
             if (filters.ImmovableAssetTypeId != null && filters.ImmovableAssetTypeId != 0)
             {
-                filterListViewModels = listViewModels.Where(x => x.ImmovableAssetTypeId == filters.ImmovableAssetTypeId).ToList();
+                if (filterListViewModels.Count == 0)
+                {
+                    filterListViewModels = listViewModels.Where(x => x.ImmovableAssetTypeId == filters.ImmovableAssetTypeId).ToList();
+                }
+                else
+                {
+                    filterListViewModels = filterListViewModels.Where(x => x.ImmovableAssetTypeId == filters.ImmovableAssetTypeId).ToList();
+                }
             }
             if (filters.Code != null)
             {
-                filterListViewModels = filterListViewModels.Where(x => x.Code == filters.Code).ToList();
+                if (filterListViewModels.Count == 0)
+                {
+                    filterListViewModels = listViewModels.Where(x => x.Code == filters.Code).ToList();
+                }
+                else
+                {
+                    filterListViewModels = filterListViewModels.Where(x => x.Code == filters.Code).ToList();
+                }
             }
-            if (filters.MaxPrice != 0)
+
+            if (filters.BedroomQuantity != null && filters.BedroomQuantity != 0)
             {
-                filterListViewModels = filterListViewModels.Where(x => x.Price >= filters.MinPrice && x.Price <= filters.MaxPrice).ToList();
+                if (filterListViewModels.Count == 0)
+                {
+                    filterListViewModels = listViewModels.Where(x => x.BedroomQuantity == filters.BedroomQuantity).ToList();
+                }
+                else
+                {
+                    filterListViewModels = filterListViewModels.Where(x => x.BedroomQuantity == filters.BedroomQuantity).ToList();
+                }
+
             }
-            if (filters.BedroomQuantity != 0)
+            if (filters.BathroomQuantity != null && filters.BathroomQuantity != 0)
             {
-                filterListViewModels = filterListViewModels.Where(x => x.BedroomQuantity == filters.BedroomQuantity).ToList();
+                if (filterListViewModels.Count == 0)
+                {
+                    filterListViewModels = listViewModels.Where(x => x.BathroomQuantity == filters.BathroomQuantity).ToList();
+                }
+                else
+                {
+                    filterListViewModels = filterListViewModels.Where(x => x.BathroomQuantity == filters.BathroomQuantity).ToList();
+                }
+
             }
-            if (filters.BathroomQuantity != 0)
-            {
-                filterListViewModels = filterListViewModels.Where(x => x.BathroomQuantity == filters.BathroomQuantity).ToList();
-            }
+
+            return filterListViewModels;
 
             #endregion
 
-            return filterListViewModels == null || filterListViewModels.Count == 0 ? listViewModels : filterListViewModels;
         }
 
         public async Task ManageFavoriteImmovable(SaveFavoriteImmovableViewModel vm)

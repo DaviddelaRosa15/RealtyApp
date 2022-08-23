@@ -10,7 +10,7 @@
 @inject IFavoriteImmovableService favoriteImmovableService
 @model List<FavoriteImmovableAssetViewModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Mis propiedades favoritas";
     var Client = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
     DataFilterViewModel filterVm = ViewBag.DataFilterViewModel;
 }
@@ -113,7 +113,7 @@
                 {
                     <h3 class="text-lg-center mb-3">No hay articulos</h3>
                 }
-                @*else
+                else
                 {
                     <div class="card-body">
                         <div class="row">
@@ -125,10 +125,6 @@
                                         @if (await favoriteImmovableService.IsFavoriteImmovable(@item.Id, Client.Id))
                                         {
                                             <a asp-controller="Client" asp-action="ManageFavoriteImmovable" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class="top-50"><i class="fa-solid fa-heart text-danger"></i></a>
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="Client" asp-action="ManageFavoriteImmovable" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class="top-50"><i class="fa-regular fa-heart text-danger"></i></a>
                                         }
 
                                         <div class="card-body">
@@ -169,7 +165,7 @@
                             }
                         </div>
                     </div>
-                }*@
+                }
             </div>
         </div>
     </div>

@@ -62,7 +62,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                 ImmovableAssetId = id,
                 ClientId = idClient
             };
-            await _favoriteImmovableService.Add(save);
+            await _favoriteImmovableService.ManageFavoriteImmovable(save);
             return RedirectToRoute(new { controller = "Client", action = "Index" });
         }
 
