@@ -511,7 +511,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             List<UserViewModel> userViewModel = new();
             if (users != null)
             {
-                foreach (var user in users.Where(x => x.FirstName == name).ToList())
+                foreach (var user in users.Where(x => x.FirstName.Contains(name) || x.LastName.Contains(name)).ToList())
                 {
 
                     userViewModel.Add(new UserViewModel()
