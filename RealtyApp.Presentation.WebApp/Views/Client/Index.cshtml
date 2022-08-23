@@ -117,46 +117,53 @@
                         <div class="row">
                             @foreach (ImmovableAssetViewModel item in Model)
                             {
-                                <div class="col-6 mb-3">
-                                    <div class="card shadow rounded" style="max-width: 400px">
-                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id"><img src="@item.UrlImage01" class="card-img-top" /></a>
-                                        @if (await favoriteImmovableService.IsFavoriteImmovable(@item.Id, Client.Id))
-                                        {
-                                            <a asp-controller="Client" asp-action="ManageFavoriteImmovable" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class="top-50"><i class="fa-solid fa-heart text-danger"></i></a>
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="Client" asp-action="ManageFavoriteImmovable" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class="top-50"><i class="fa-regular fa-heart text-danger"></i></a>
-                                        }
+                                <div class="col-6 mb-3" style="height: 550px">
+                                    <div class="card shadow rounded h-100">
 
-                                        <div class="card-body">
+                                        <div class="h-50" style="position:relative">
+                                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                                <img src="@item.UrlImage01" class="card-img h-100" />
+                                            </a>
+                                            <div style="position:absolute; top:0%; right:0%;">
+                                                @if (await favoriteImmovableService.IsFavoriteImmovable(@item.Id, Client.Id))
+                                                {
+                                                    <a asp-controller="Client" asp-action="ManageFavoriteImmovable" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class=""><i class="fa-solid fa-2x fa-heart text-danger"></i></a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="Client" asp-action="ManageFavoriteImmovable" asp-route-id="@item.Id" asp-route-idClient="@Client.Id" class=""><i class="fa-regular fa-2x fa-heart text-danger"></i></a>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body mt-3 h-50">
                                             <div class="mb-2">
                                                 <a class="text-decoration-none text-dark details-hov" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id"><h4>@item.ImmovableAssetTypeName</h4></a>
-                                                <small class="card-text text-secondary">@item.Address</small>
+                                                <small class="card-text text-secondary fs-6">@item.Address</small>
                                             </div>
 
                                             <div class="mb-2">
-                                                <small class="card-text text-secondary">Código</small>
+                                                <small class="card-text text-secondary fs-6">Código</small>
                                                 <h4>@item.Code</h4>
                                             </div>
 
                                             <div class="mb-2">
-                                                <small class="card-text text-secondary">@item.SellTypeName</small>
+                                                <small class="card-text text-secondary fs-6">@item.SellTypeName</small>
                                                 <h4 class="text-danger">RD$ @item.Price</h4>
                                             </div>
 
-                                            <div class="d-flex mb-2 border border-top border-secondary">
-                                                <div class="me-2">
-                                                    <i class="fa-light fa-bed-empty"></i>
+                                            <div class="d-flex mb-2 border-top border-secondary align-items-center justify-content-center fs-5">
+                                                <div class="mt-2">
+                                                    <i class="fa-solid fa-bed"></i>
                                                     <small class="card-text text-secondary">@item.BedroomQuantity</small>
                                                 </div>
-                                                <div class="me-2">
-                                                    <i class="fa-light fa-bath"></i>
+                                                <div class="ms-3 mt-2">
+                                                    <i class="fa-solid fa-bath"></i>
                                                     <small class="card-text text-secondary">@item.BathroomQuantity</small>
                                                 </div>
-                                                <div class="me-2">
-                                                    <i class="fa-light fa-ruler-horizontal"></i>
-                                                    <small class="card-text text-secondary">@item.Meters mt</small>
+                                                <div class="ms-3 mt-2">
+                                                    <i class="fa-solid fa-ruler-horizontal"></i>
+                                                    <small class="card-text text-secondary">@item.Meters mts</small>
                                                 </div>
                                             </div>
 

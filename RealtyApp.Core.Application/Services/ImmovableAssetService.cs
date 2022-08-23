@@ -133,6 +133,7 @@ namespace RealtyApp.Core.Application.Services
                     Code = asset.Code,
                     Description = asset.Description,
                     Price = asset.Price,
+                    Address = asset.Address,
                     UrlImage01 = asset.UrlImage01,
                     UrlImage02 = asset.UrlImage02,
                     UrlImage03 = asset.UrlImage03,
@@ -155,6 +156,7 @@ namespace RealtyApp.Core.Application.Services
                     Code = asset.Code,
                     Description = asset.Description,
                     Price = asset.Price,
+                    Address = asset.Address,
                     UrlImage01 = asset.UrlImage01,
                     UrlImage02 = asset.UrlImage02,
                     UrlImage03 = asset.UrlImage03,
@@ -245,6 +247,7 @@ namespace RealtyApp.Core.Application.Services
                 Code = asset.Code,
                 Description = asset.Description,
                 Price = asset.Price,
+                Address = asset.Address,
                 UrlImage01 = asset.UrlImage01,
                 UrlImage02 = asset.UrlImage02,
                 UrlImage03 = asset.UrlImage03,
@@ -271,6 +274,7 @@ namespace RealtyApp.Core.Application.Services
                 Code = asset.Code,
                 Description = asset.Description,
                 Price = asset.Price,
+                Address = asset.Address,
                 UrlImage01 = asset.UrlImage01,
                 UrlImage02 = asset.UrlImage02,
                 UrlImage03 = asset.UrlImage03,
@@ -396,8 +400,8 @@ namespace RealtyApp.Core.Application.Services
 
             return assetList.Select(asset => new DataFilterViewModel
             {
-                MinPrice = assetList.Max(x => x.Price),
-                MaxPrice = assetList.Min(x => x.Price),
+                MaxPrice = assetList.Max(x => x.Price),
+                MinPrice = assetList.Min(x => x.Price),
                 MaxBedroomQuantity = assetList.Max(x => x.BedroomQuantity),
                 MaxBathroomQuantity = assetList.Max(x => x.BathroomQuantity)
             }).FirstOrDefault();
