@@ -46,7 +46,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             
-            var model = await _immovableAssetService.GetAllViewModelWithFilters(vm, _loggedUser.Id);
+            var model = await _immovableAssetService.GetAllViewModelWithFilters(_loggedUser.Id, vm);
             return View(model);
         }
         #endregion
@@ -58,7 +58,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
 
-            var model = await _immovableAssetService.GetAllViewModelWithFilters(vm, _loggedUser.Id);
+            var model = await _immovableAssetService.GetAllViewModelWithFilters(_loggedUser.Id, vm);
             return View(model);
         }
         #endregion

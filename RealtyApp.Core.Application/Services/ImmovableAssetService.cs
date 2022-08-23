@@ -58,21 +58,21 @@ namespace RealtyApp.Core.Application.Services
 
             return savedValue;
         }
-      
+
         public override async Task Update(SaveImmovableAssetViewModel vm, int id)
         {
 
             var immovableBeforeUpdate = await GetByIdSaveViewModel(id);
-            
-            if(vm.Improvements != null)
+
+            if (vm.Improvements != null)
             {
-             
-                var improvementsToAdd = vm.Improvements.Except(immovableBeforeUpdate.Improvements); 
+
+                var improvementsToAdd = vm.Improvements.Except(immovableBeforeUpdate.Improvements);
                 var improvementsToDelete = immovableBeforeUpdate.Improvements.Except(vm.Improvements);
 
                 if (improvementsToAdd != null || improvementsToAdd.Count() != 0)
                 {
-                    foreach(var improvemenID in improvementsToAdd)
+                    foreach (var improvemenID in improvementsToAdd)
                     {
                         await _improvement_ImmovableService.Add(new SaveImprovement_ImmovableViewModel
                         {
@@ -85,7 +85,7 @@ namespace RealtyApp.Core.Application.Services
 
                 //Game change
 
-                if(improvementsToDelete.Count() != 0 || improvementsToDelete != null)
+                if (improvementsToDelete.Count() != 0 || improvementsToDelete != null)
                 {
                     var matchedImprovementToDeleteId = await _improvement_ImmovableService.GetAllViewModel();
 
@@ -103,12 +103,12 @@ namespace RealtyApp.Core.Application.Services
             }
 
             await base.Update(vm, id);
-        
+
         }
 
         public override async Task<SaveImmovableAssetViewModel> GetByIdSaveViewModel(int id)
         {
-            var saveVM = await  base.GetByIdSaveViewModel(id);
+            var saveVM = await base.GetByIdSaveViewModel(id);
 
             var impro_immovaVM = await _improvement_ImmovableService.GetAllViewModel();
 
@@ -119,7 +119,7 @@ namespace RealtyApp.Core.Application.Services
 
         }
 
-        public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(FilterViewModel filters, string id)
+        public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithFilters(string id, FilterViewModel filters)
         {
             List<ImmovableAssetViewModel> filterListViewModels = new();
             List<ImmovableAssetViewModel> listViewModels = new();
@@ -170,31 +170,69 @@ namespace RealtyApp.Core.Application.Services
                 }).ToList();
             }
 
+            if (filters.ImmovableAssetTypeId == null && filters.Code == null && filters.MinPrice == null &&
+                filters.MaxPrice == null && filters.BedroomQuantity == null && filters.BathroomQuantity == null)
+            {
+                return listViewModels;
+            }
+
             #region Aplicar filtros
+
+            if (filters.MaxPrice != null && filters.MaxPrice != 0)
+            {
+                filterListViewModels = listViewModels.Where(x => x.Price >= filters.MinPrice && x.Price <= filters.MaxPrice).ToList();
+            }
             if (filters.ImmovableAssetTypeId != null && filters.ImmovableAssetTypeId != 0)
             {
-                filterListViewModels = listViewModels.Where(x => x.ImmovableAssetTypeId == filters.ImmovableAssetTypeId).ToList();
+                if (filterListViewModels.Count == 0)
+                {
+                    filterListViewModels = listViewModels.Where(x => x.ImmovableAssetTypeId == filters.ImmovableAssetTypeId).ToList();
+                }
+                else
+                {
+                    filterListViewModels = filterListViewModels.Where(x => x.ImmovableAssetTypeId == filters.ImmovableAssetTypeId).ToList();
+                }                
             }
             if (filters.Code != null)
             {
-                filterListViewModels = filterListViewModels.Where(x => x.Code == filters.Code).ToList();
+                if (filterListViewModels.Count == 0)
+                {
+                    filterListViewModels = listViewModels.Where(x => x.Code == filters.Code).ToList();
+                }
+                else
+                {
+                    filterListViewModels = filterListViewModels.Where(x => x.Code == filters.Code).ToList();
+                }
             }
-            if (filters.MaxPrice != 0)
+
+            if (filters.BedroomQuantity != null && filters.BedroomQuantity != 0)
             {
-                filterListViewModels = filterListViewModels.Where(x => x.Price >= filters.MinPrice && x.Price <= filters.MaxPrice).ToList();
+                if (filterListViewModels.Count == 0)
+                {
+                    filterListViewModels = listViewModels.Where(x => x.BedroomQuantity == filters.BedroomQuantity).ToList();
+                }
+                else
+                {
+                    filterListViewModels = filterListViewModels.Where(x => x.BedroomQuantity == filters.BedroomQuantity).ToList();
+                }
+
             }
-            if (filters.BedroomQuantity != 0)
+            if (filters.BathroomQuantity != null && filters.BathroomQuantity != 0)
             {
-                filterListViewModels = filterListViewModels.Where(x => x.BedroomQuantity == filters.BedroomQuantity).ToList();
+                if (filterListViewModels.Count == 0)
+                {
+                    filterListViewModels = listViewModels.Where(x => x.BathroomQuantity == filters.BathroomQuantity).ToList();
+                }
+                else
+                {
+                    filterListViewModels = filterListViewModels.Where(x => x.BathroomQuantity == filters.BathroomQuantity).ToList();
+                }
+
             }
-            if (filters.BathroomQuantity != 0)
-            {
-                filterListViewModels = filterListViewModels.Where(x => x.BathroomQuantity == filters.BathroomQuantity).ToList();
-            }
+
+            return filterListViewModels;
 
             #endregion
-
-            return filterListViewModels == null || filterListViewModels.Count == 0 ? listViewModels : filterListViewModels;
         }
 
         public async Task<List<ImmovableAssetViewModel>> GetAllViewModelWithIncludes()
@@ -250,8 +288,9 @@ namespace RealtyApp.Core.Application.Services
                 ImprovementNames = asset.Improvement_Immovables.Select(x => x.Improvement.Name).ToList()
             }).FirstOrDefault();
         }
-        public async Task<List<DetailsViewModelApi>> GetIncludeDetails()        {
-            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType", "Improvement_Immovables"});
+        public async Task<List<DetailsViewModelApi>> GetIncludeDetails()
+        {
+            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType", "Improvement_Immovables" });
             var improvementList = await _improvement_ImmovableRepository.GetAllWithIncludeAsync(new List<string> { "Improvement" });
 
             return assetList.Select(asset => new DetailsViewModelApi
@@ -292,12 +331,12 @@ namespace RealtyApp.Core.Application.Services
                 viewModelApi.BedroomQuantity = assetFilter.BedroomQuantity;
                 viewModelApi.BathroomQuantity = assetFilter.BathroomQuantity;
                 viewModelApi.AgentName = _userService.GetUserById(assetFilter.AgentId).Result.FirstName;
-                viewModelApi.AgentId =assetFilter.AgentId;
+                viewModelApi.AgentId = assetFilter.AgentId;
                 viewModelApi.ImmovableAssetTypeName = assetFilter.ImmovableAssetType.Name;
                 viewModelApi.SellTypeName = assetFilter.SellType.Name;
                 viewModelApi.ImprovementNames = assetFilter.Improvement_Immovables.Select(x => x.Improvement.Name).ToList();
-                    //improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
-                    //.Select(x => x.Improvement.Name).ToList();
+                //improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
+                //.Select(x => x.Improvement.Name).ToList();
                 return viewModelApi;
             }
             else
@@ -323,19 +362,19 @@ namespace RealtyApp.Core.Application.Services
                 viewModelApi.BedroomQuantity = assetFilter.BedroomQuantity;
                 viewModelApi.BathroomQuantity = assetFilter.BathroomQuantity;
                 viewModelApi.AgentName = _userService.GetUserById(assetFilter.AgentId).Result.FirstName;
-                viewModelApi.AgentId =assetFilter.AgentId;
+                viewModelApi.AgentId = assetFilter.AgentId;
                 viewModelApi.ImmovableAssetTypeName = assetFilter.ImmovableAssetType.Name;
                 viewModelApi.SellTypeName = assetFilter.SellType.Name;
                 viewModelApi.ImprovementNames = assetFilter.Improvement_Immovables.Select(x => x.Improvement.Name).ToList();
-                    //improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
-                    //.Select(x => x.Improvement.Name).ToList();
+                //improvementList.Where(x => x.ImmovableAssetId == assetFilter.Id)
+                //.Select(x => x.Improvement.Name).ToList();
                 return viewModelApi;
             }
             else
             {
                 return null;
             }
-           
+
 
         }
 
