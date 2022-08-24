@@ -90,13 +90,13 @@ namespace RealtyApp.Core.Application.Services
                     var matchedImprovementToDeleteId = await _improvement_ImmovableService.GetAllViewModel();
 
                     matchedImprovementToDeleteId = matchedImprovementToDeleteId
-                        .Where(impr_rows => improvementsToDelete.Contains(impr_rows.Id) && impr_rows.ImprovementId == immovableBeforeUpdate.Id).ToList();
+                        .Where(impr_rows => improvementsToDelete.Contains(impr_rows.ImprovementId) && impr_rows.ImmovableAssetId == immovableBeforeUpdate.Id).ToList();
 
 
-                    matchedImprovementToDeleteId.ForEach(async value =>
+                    foreach(var toDeleteId in matchedImprovementToDeleteId)
                     {
-                        await _improvement_ImmovableService.Delete(value.Id);
-                    }); //JavaScript Boy 😅😎
+                        await _improvement_ImmovableService.Delete(toDeleteId.Id);
+                    }
 
                 }
 

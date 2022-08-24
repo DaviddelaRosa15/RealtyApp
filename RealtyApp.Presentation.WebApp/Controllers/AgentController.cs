@@ -26,7 +26,8 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         private readonly IImprovementService _improvementService;
         private readonly IUserService _userService;
         public AgentController(IHttpContextAccessor contextAccessor, IImmovableAssetService immovableAssetService, 
-                              IImmovableAssetTypeService immovableAssetTypeService, ISellTypeService sellTypeService, IImprovementService improvementService, IUserService userService)
+                              IImmovableAssetTypeService immovableAssetTypeService, ISellTypeService sellTypeService, 
+                              IImprovementService improvementService, IUserService userService)
         {
             _contextAccessor = contextAccessor;
             _loggedUser = _contextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
@@ -183,11 +184,14 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             List<string> currentImages = new() { saveImmovableAsset.UrlImage01, saveImmovableAsset.UrlImage02, saveImmovableAsset.UrlImage03, saveImmovableAsset.UrlImage04 };
             IFormFile[] formFiles = new[] { saveImmovableAsset.FileImg01, saveImmovableAsset.FileImg02, saveImmovableAsset.FileImg03, saveImmovableAsset.FileImg04 };
 
-            List<string> updatedImages = await ImageUpload.FileUpload(formFiles, saveImmovableAsset.Id, true, "Images/ImmovableAssets", currentImages);
-            saveImmovableAsset.UrlImage01 = updatedImages[0];
-            saveImmovableAsset.UrlImage02 = updatedImages[1];
-            saveImmovableAsset.UrlImage03 = updatedImages[2];
-            saveImmovableAsset.UrlImage04 = updatedImages[3];
+            if (formFiles.Count() > 0)
+            {
+                List<string> updatedImages = await ImageUpload.FileUpload(formFiles, saveImmovableAsset.Id, true, "Images/ImmovableAssets", currentImages);
+                saveImmovableAsset.UrlImage01 = updatedImages[0];
+                saveImmovableAsset.UrlImage02 = updatedImages[1];
+                saveImmovableAsset.UrlImage03 = updatedImages[2];
+                saveImmovableAsset.UrlImage04 = updatedImages[3];
+            }
 
             await _immovableAssetService.Update(saveImmovableAsset, saveImmovableAsset.Id);
 
