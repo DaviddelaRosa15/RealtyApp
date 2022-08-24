@@ -197,7 +197,7 @@ namespace RealtyApp.Core.Application.Services
             }
             if (filters.Code != null)
             {
-                if (filterListViewModels.Count == 0)
+                if (filterListViewModels.Count == 0 && (filters.ImmovableAssetTypeId == null || filters.ImmovableAssetTypeId == 0))
                 {
                     filterListViewModels = listViewModels.Where(x => x.Code == filters.Code).ToList();
                 }
@@ -209,7 +209,7 @@ namespace RealtyApp.Core.Application.Services
 
             if (filters.BedroomQuantity != null && filters.BedroomQuantity != 0)
             {
-                if (filterListViewModels.Count == 0)
+                if (filterListViewModels.Count == 0 && (filters.ImmovableAssetTypeId == null || filters.ImmovableAssetTypeId == 0) && filters.Code == null)
                 {
                     filterListViewModels = listViewModels.Where(x => x.BedroomQuantity == filters.BedroomQuantity).ToList();
                 }
@@ -221,7 +221,8 @@ namespace RealtyApp.Core.Application.Services
             }
             if (filters.BathroomQuantity != null && filters.BathroomQuantity != 0)
             {
-                if (filterListViewModels.Count == 0)
+                if (filterListViewModels.Count == 0 && (filters.ImmovableAssetTypeId == null || filters.ImmovableAssetTypeId == 0) 
+                    && filters.Code == null && (filters.BedroomQuantity == null || filters.BedroomQuantity == 0))
                 {
                     filterListViewModels = listViewModels.Where(x => x.BathroomQuantity == filters.BathroomQuantity).ToList();
                 }
