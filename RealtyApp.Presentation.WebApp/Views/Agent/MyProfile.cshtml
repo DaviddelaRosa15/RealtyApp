@@ -11,7 +11,7 @@
           <h1 class="text-lead">@($"Mi Perfil - {Model.FirstName} {Model.LastName}")</h1>
           <small>Edite su información de perfil...</small>
     </div>
-
+    <hr />
     <div class="row">
 
             @if (Model.HasError)
@@ -32,25 +32,25 @@
                     <div class="col-12 p-3">
 
                          <div class="mb-3 row">
-                            <label asp-for="File" class="form-label">Imagen de perfil:</label>
+                            <label asp-for="File" class="form-label"> <i class="fa fa-upload" aria-hidden="true"></i> Imagen de perfil:</label>
                             <input asp-for="File" class="form-control" name="File">
                             <span asp-validation-for="File" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3 row">
-                            <label asp-for="FirstName" class="form-label">Nombre</label>
+                            <label asp-for="FirstName" class="form-label"> <i class="fa fa-user" aria-hidden="true"></i> Nombre</label>
                             <input asp-for="FirstName" class="form-control" id="">
                             <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
   
                         <div class="mb-3 row">
-                            <label asp-for="LastName" class="form-label">Apellido</label>
+                            <label asp-for="LastName" class="form-label"> <i class="fa fa-user" aria-hidden="true"></i> Apellido</label>
                             <input asp-for="LastName" class="form-control" id="">
                             <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="inputPassword" asp-for="Phone" class="form-label">Teléfono</label>
+                            <label for="inputPassword" asp-for="Phone" class="form-label"> <i class="fa fa-mobile" aria-hidden="true"></i> Teléfono</label>
                             <input asp-for="Phone" class="form-control">
                             <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
@@ -58,11 +58,11 @@
                     </div>
 
                     <div class="row">
-                        <button type="submit" class="btn btn-success mb-3">Guardar</button>
+                        <button type="submit"  class="btn mb-3 text-white" style="background-color: #2A3F54;">Guardar</button>
                     </div>
 
                     <div class="mb-3 row">
-                        <a class="btn btn-warning mb-3" asp-controller="Agent" asp-action="Index">Cancelar</a>
+                        <a class="btn btn-warning mb-3 text-white" asp-controller="Agent" asp-action="Index">Cancelar</a>
                     </div>
 
                 </form>

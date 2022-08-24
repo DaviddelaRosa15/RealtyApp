@@ -184,14 +184,12 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             List<string> currentImages = new() { saveImmovableAsset.UrlImage01, saveImmovableAsset.UrlImage02, saveImmovableAsset.UrlImage03, saveImmovableAsset.UrlImage04 };
             IFormFile[] formFiles = new[] { saveImmovableAsset.FileImg01, saveImmovableAsset.FileImg02, saveImmovableAsset.FileImg03, saveImmovableAsset.FileImg04 };
 
-            if (formFiles.Count() > 0)
-            {
-                List<string> updatedImages = await ImageUpload.FileUpload(formFiles, saveImmovableAsset.Id, true, "Images/ImmovableAssets", currentImages);
-                saveImmovableAsset.UrlImage01 = updatedImages[0];
-                saveImmovableAsset.UrlImage02 = updatedImages[1];
-                saveImmovableAsset.UrlImage03 = updatedImages[2];
-                saveImmovableAsset.UrlImage04 = updatedImages[3];
-            }
+            List<string> updatedImages = await ImageUpload.FileUpload(formFiles, saveImmovableAsset.Id, true, "Images/ImmovableAssets", currentImages);
+            saveImmovableAsset.UrlImage01 = updatedImages[0];
+            saveImmovableAsset.UrlImage02 = updatedImages[1];
+            saveImmovableAsset.UrlImage03 = updatedImages[2];
+            saveImmovableAsset.UrlImage04 = updatedImages[3];
+
 
             await _immovableAssetService.Update(saveImmovableAsset, saveImmovableAsset.Id);
 
