@@ -256,3 +256,13 @@ body {
 .carousel-img-size{
     height: 500px;
 }
+
+/*-------------------------->>>Add and Edit Inmovable styles<<<<--------------------------------*/
+
+.img-immovable{
+
+    max-width: 100%;
+    max-height: 485px;
+    background-attachment: fixed;
+    background-position: center;
+}
