@@ -14,21 +14,24 @@
 
 <div class="container-fluid">
     <div class="row">
+
         <div class="col-3">
             <div class="card shadow">
+
                 <div class="card-header text-dark text-center">
                     <h4>Filtros</h4>
                 </div>
+
                 <div class="card-body text-dark">
 
                     <form method="post" asp-action="Index">
 
-                        <h4 class="card-title mb-2 text-center">Tipos de propiedad</h4>
 
                         <div class="mb-2 ms-3">
+                            <h4 class="card-title mb-2">Tipos de propiedad</h4>
                             <div class="form-check">
-                                <input class="form-check-input fs-5" value="0" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-all" />
-                                <label class="form-check-label fs-5" for="immovableAssetType-all">Todas</label>
+                                <input class="form-check-input fs-6" value="0" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-all" />
+                                <label class="form-check-label fs-6" for="immovableAssetType-all">Todas</label>
                             </div>
                         </div>
 
@@ -36,54 +39,160 @@
                         {
                             <div class="mb-2 ms-3">
                                 <div class="form-check">
-                                    <input class="form-check-input fs-5" value="@type.Id" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-@type.Id" />
-                                    <label class="form-check-label fs-5" for="ImmovableAssetType-@type.Id">@type.Name</label>
+                                    <input class="form-check-input fs-6" value="@type.Id" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-@type.Id" />
+                                    <label class="form-check-label fs-6" for="ImmovableAssetType-@type.Id">@type.Name</label>
                                 </div>
                             </div>
                         }
 
-                        <h4 class="card-title mb-2 text-center">Precio minimo y máximo</h4>
 
                         @if (filterVm != null)
                         {
                             <div class="input-group mb-2">
+                                <h4 class="card-title mb-2">Precio minimo y máximo</h4>
                                 <label for="minRange" class="form-label m-0">Precio minimo</label>
                                 <input type="range" class="form-range" name="MinPrice" min="0" max="@filterVm.MinPrice" value="0" id="minRange">
+                                
+                                <b>$ <small id="minvalue">0</small></b>
+
+                                <script >
+
+                                    const $minRange = document.getElementById("minRange"); 
+                                    const $minlabel = document.getElementById("minvalue");
+
+                                    $minRange.addEventListener('change', (e) => {
+                                        $minlabel.textContent = e.target.value;
+                                    });
+
+                                </script>
+
+                            </div>
+
+                            <div class="input-group mb-2">
                                 <label for="maxRange" class="form-label m-0">Precio máximo</label>
                                 <input type="range" class="form-range" name="MaxPrice" min="@filterVm.MinPrice" max="@filterVm.MaxPrice" value="0" id="maxRange">
+                                <b>$ <small id="maxvalue">0</small></b>
+
+                                <script >
+
+                                    const $maxRange = document.getElementById("maxRange"); 
+                                    const $maxlabel = document.getElementById("maxvalue");
+
+                                    $maxRange.addEventListener('change', (e) => {
+                                        $maxlabel.textContent = e.target.value;
+                                    });
+
+                                </script>
                             </div>
 
-                            <h4 class="card-title mb-2 text-center">Cantidad de habitaciones</h4>
 
                             <div class="mb-2">
+                                <h4 class="card-title mb-2">Cantidad de habitaciones</h4>
                                 <input type="range" class="form-range" name="BedroomQuantity" min="0" max="@filterVm.MaxBedroomQuantity" value="0" id="bedroomRange">
+                                <span><i class="fa-solid fa-bed"></i> <small id="bedroomValue">0</small> </span>
+
+                                <script >
+
+                                    const $bedroomRange = document.getElementById("bedroomRange"); 
+                                    const $bedroomValue = document.getElementById("bedroomValue");
+
+                                    $bedroomRange.addEventListener('change', (e) => {
+                                        $bedroomValue.textContent = e.target.value;
+                                    });
+
+                                </script>
                             </div>
 
-                            <h4 class="card-title mb-2 text-center">Cantidad de baños</h4>
 
                             <div class="mb-2">
+                                <h4 class="card-title mb-2">Cantidad de baños</h4>
                                 <input type="range" class="form-range" name="BathroomQuantity" min="0" max="@filterVm.MaxBathroomQuantity" value="0" id="bathroomRange">
+                                <span> <i class="fa-solid fa-bath"></i> <small id="bathroomValue">0</small> </span>
+
+                                <script >
+
+                                    const $bathroomRange = document.getElementById("bathroomRange"); 
+                                    const $bathroomValue = document.getElementById("bathroomValue");
+
+                                    $bathroomRange.addEventListener('change', (e) => {
+                                        $bathroomValue.textContent = e.target.value;
+                                    });
+
+                                </script>
+                            
                             </div>
                         }
                         else
                         {
                             <div class="input-group mb-2">
                                 <label for="minRange" class="form-label m-0">Precio minimo</label>
-                                <input type="range" class="form-range" name="MinPrice" min="0" max="5" value="0" id="minRange">
+                                <input type="range" class="form-range" name="MinPrice" min="0" max="5" value="0" id="minRange">                                
+                                <b>$ <small id="minvalue">0</small></b>
+
+                                <script >
+
+                                    const $minRange = document.getElementById("minRange"); 
+                                    const $minlabel = document.getElementById("minvalue");
+
+                                    $minRange.addEventListener('change', (e) => {
+                                        $minlabel.textContent = e.target.value;
+                                    });
+
+                                </script>
+                            
+                            </div>
+
+                            <div class="input-group mb-2">
                                 <label for="maxRange" class="form-label m-0">Precio máximo</label>
                                 <input type="range" class="form-range" name="MaxPrice" min="5" max="10" value="0" id="maxRange">
+                                <b>$ <small id="maxvalue">0</small></b>
+
+                                <script >
+
+                                    const $maxRange = document.getElementById("maxRange"); 
+                                    const $maxlabel = document.getElementById("maxvalue");
+
+                                    $maxRange.addEventListener('change', (e) => {
+                                        $maxlabel.textContent = e.target.value;
+                                    });
+
+                                </script>
                             </div>
 
-                            <h4 class="card-title mb-2 text-center">Cantidad de habitaciones</h4>
 
                             <div class="mb-2">
+                                <h4 class="card-title mb-2 text-center">Cantidad de habitaciones</h4>
                                 <input type="range" class="form-range" name="BedroomQuantity" min="0" max="5" value="0" id="bedroomRange">
+                                <span><i class="fa-solid fa-bed"></i> <small id="bedroomValue">0</small> </span>
+
+                                <script >
+
+                                    const $bedroomRange = document.getElementById("bedroomRange"); 
+                                    const $bedroomValue = document.getElementById("bedroomValue");
+
+                                    $bedroomRange.addEventListener('change', (e) => {
+                                        $bedroomValue.textContent = e.target.value;
+                                    });
+
+                                </script>
                             </div>
 
-                            <h4 class="card-title mb-2 text-center">Cantidad de baños</h4>
 
                             <div class="mb-2">
+                                <h4 class="card-title mb-2 text-center">Cantidad de baños</h4>
                                 <input type="range" class="form-range" name="BathroomQuantity" min="0" max="5" value="0" id="bathroomRange">
+                                <span> <i class="fa-solid fa-bath"></i> <small id="bathroomValue">0</small> </span>
+
+                                <script >
+
+                                    const $bathroomRange = document.getElementById("bathroomRange"); 
+                                    const $bathroomValue = document.getElementById("bathroomValue");
+
+                                    $bathroomRange.addEventListener('change', (e) => {
+                                        $bathroomValue.textContent = e.target.value;
+                                    });
+
+                                </script>
                             </div>
                         }
 
@@ -95,10 +204,13 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-9">
             <div class="card mx-0">
-                <div class="card-header mb-0 text-light">
-                    <h2 class="text-lg-center mb-2">!Encuentra la propiedad!</h2>
+                <div class="card-header mb-0">
+                     <div class="col-8 my-3">
+                            <h2 class="h2 my-2 text-dark">Encuentra la propiedad deseada:</h2>
+                     </div>
                     <form method="post" asp-action="Index">
                         <div class="input-group mb-1">
                             <input type="search" class="form-control rounded" name="Code" id="CodeTxt" placeholder="Escribe el código de la propiedad que quieres encontrar" aria-label="Escribe el código de la propiedad que quieres encontrar" aria-describedby="search-addon" />

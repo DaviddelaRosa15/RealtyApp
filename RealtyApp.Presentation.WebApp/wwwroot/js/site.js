@@ -21,3 +21,47 @@ btn_Open.addEventListener("click", () => {
     dashboard.style.display = "Block"
 })
 
+
+//This code is for the FormImmovable View.
+const multiSelectInitializer = () => {
+
+    const multiSelect = new IconicMultiSelect({
+        customCss: true,
+        select: "#improvement_list"
+    });
+
+    multiSelect.subscribe(function (evt) {
+
+        switch (evt.action) {
+            case 'ADD_OPTION':
+                for (i = 0; i < multiSelect._selectContainer.options.length; i++) {
+                    if (multiSelect._selectContainer.options[i].value == evt.value) {
+                        multiSelect._selectContainer.options[i].selected = true
+                        multiSelect._selectContainer.options[i].setAttribute("selected", "")
+                    }
+                }
+                break;
+            case 'REMOVE_OPTION':
+                for (i = 0; i < multiSelect._selectContainer.options.length; i++) {
+                    if (multiSelect._selectContainer.options[i].value == evt.value) {
+                        multiSelect._selectContainer.options[i].selected = false
+                        multiSelect._selectContainer.options[i].removeAttribute("selected", "")
+                    }
+                }
+                break;
+        }
+
+    });
+
+    multiSelect.init();
+
+}
+
+//This code is for the FormImmovable View.
+
+const $minRange = document.getElementById("minRange");
+const $minlabel = document.getElementById("minvalue");
+
+$minRange.addEventListener('change', (e) => {
+    $minlabel.textContent = e.target.value;
+});
