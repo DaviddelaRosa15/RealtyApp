@@ -1,7 +1,14 @@
 ﻿@using RealtyApp.Core.Application.ViewModels.ImmovableAsset
+@using Microsoft.AspNetCore.Http
+@using RealtyApp.Core.Application.Dtos.Account
+@using RealtyApp.Core.Application.Helpers;
+@inject IHttpContextAccessor httpContextAccessor
 @model DetailsViewModel
 @{
     ViewData["Title"] = "Detalle del producto";
+    var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
+    var isAgent = User != null ? User.Roles.Any(r => r == "Agent") : false;
+    var isClient = User != null ? User.Roles.Any(r => r == "Client") : false;
 }
 
 <div class="container-fluid">
@@ -44,24 +51,24 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="@Model.UrlImage01" class="d-block w-100" alt="...">
+                            <img src="@Model.UrlImage01" class="d-block w-100 carousel-img-size" alt="...">
                         </div>
                         @if (Model.UrlImage02 != null)
                         {
                             <div class="carousel-item">
-                                <img src="@Model.UrlImage02" class="d-block w-100" alt="...">
+                                <img src="@Model.UrlImage02" class="d-block w-100 carousel-img-size" alt="...">
                             </div>
                         }
                         @if (Model.UrlImage03 != null)
                         {
                             <div class="carousel-item">
-                                <img src="@Model.UrlImage03" class="d-block w-100" alt="...">
+                                <img src="@Model.UrlImage03" class="d-block w-100 carousel-img-size" alt="...">
                             </div>
                         }
                         @if (Model.UrlImage04 != null)
                         {
                             <div class="carousel-item">
-                                <img src="@Model.UrlImage04" class="d-block w-100" alt="...">
+                                <img src="@Model.UrlImage04" class="d-block w-100 carousel-img-size" alt="...">
                             </div>
                         }
                     </div>
@@ -107,7 +114,7 @@
                             <h3 class="">Descripción</h3>
                             <p class="mt-1 text-secondary text-bg-light p-1">@Model.Description</p>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <h3 class="mb-3">Mejoras</h3>
                             <div class="d-flex">
                                 @if (Model.ImprovementNames != null && Model.ImprovementNames.Count > 0)
@@ -127,6 +134,11 @@
 
                             </div>
                         </div>
+                        @if(User != null){
+                            <a asp-controller="@(isClient ? "Client" : "Agent")" asp-action="Index" class="btn btn-danger form-control">Volver al home</a>
+                        }else{
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-danger form-control">Volver al home</a>
+                        }
                     </div>
                 </div>
             </div>
