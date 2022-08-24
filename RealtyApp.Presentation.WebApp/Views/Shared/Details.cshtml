@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-8">
             <div class="mb-4">
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                         @if (Model.UrlImage02 != null)
@@ -17,35 +17,51 @@
                         }
                         @if (Model.UrlImage03 != null)
                         {
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            @if (Model.UrlImage02 == null)
+                            {
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            }
+                            else
+                            {
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            }
                         }
                         @if (Model.UrlImage04 != null)
                         {
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            @if (Model.UrlImage02 == null && Model.UrlImage03 == null)
+                            {
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            }
+                            else if (Model.UrlImage03 == null)
+                            {
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            }
+                            else
+                            {
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            }
                         }
                     </div>
                     <div class="carousel-inner">
-
                         <div class="carousel-item active">
-                            <img src="@Model.UrlImage01" class="d-block w-100 img-product-size-details" alt="...">
+                            <img src="@Model.UrlImage01" class="d-block w-100" alt="...">
                         </div>
-
-                        @if (@Model.UrlImage02 != null)
+                        @if (Model.UrlImage02 != null)
                         {
                             <div class="carousel-item">
-                                <img src="@Model.UrlImage02" class="d-block w-100 img-product-size-details" alt="...">
+                                <img src="@Model.UrlImage02" class="d-block w-100" alt="...">
                             </div>
                         }
-                        @if (@Model.UrlImage03 != null)
+                        @if (Model.UrlImage03 != null)
                         {
                             <div class="carousel-item">
-                                <img src="@Model.UrlImage03" class="d-block w-100 img-product-size-details" alt="...">
+                                <img src="@Model.UrlImage03" class="d-block w-100" alt="...">
                             </div>
                         }
-                        @if (@Model.UrlImage04 != null)
+                        @if (Model.UrlImage04 != null)
                         {
                             <div class="carousel-item">
-                                <img src="@Model.UrlImage04" class="d-block w-100 img-product-size-details" alt="...">
+                                <img src="@Model.UrlImage04" class="d-block w-100" alt="...">
                             </div>
                         }
                     </div>
@@ -62,45 +78,45 @@
             <div class="">
                 <div class="card">
                     <div class="card-body">
-                        <div class="mb-5">
-                            <small class="border border-secondary text-secondary bg-white">Código: <b>@Model.Code</b></small>
+                        <div class="mb-3">
+                            <small class="border border-secondary text-secondary bg-white p-1 fs-6">Código: <b>@Model.Code</b></small>
                             <h3 class="card-title mt-2">@Model.ImmovableAssetTypeName</h3>
                         </div>
                         <hr />
                         <div class="mb-3">
-                            <small class="text-secondary">@Model.SellTypeName</small>
+                            <small class="text-secondary fs-6">@Model.SellTypeName</small>
                             <h3 class="text-danger">RD$ @Model.Price</h3>
                         </div>
                         <hr />
                         <div class="d-flex mb-2">
-                            <div class="me-2 text-dark bg-secondary">
-                                <i class="fa-thin fa-bed-empty"></i>
+                            <div class="me-2 text-dark bg-light p-1">
+                                <i class="fa-solid fa-bed"></i>
                                 <small class="card-text">@Model.BedroomQuantity Habitación(es)</small>
                             </div>
-                            <div class="me-2 text-dark bg-secondary">
-                                <i class="fa-thin fa-bath"></i>
-                                <small class="card-text text-secondary">@Model.BathroomQuantity Baño(s)</small>
+                            <div class="me-2 text-dark bg-light p-1">
+                                <i class="fa-solid fa-bath"></i>
+                                <small class="card-text">@Model.BathroomQuantity Baño(s)</small>
                             </div>
-                            <div class="me-2 text-dark bg-secondary">
-                                <i class="fa-thin fa-ruler-horizontal"></i>
-                                <small class="card-text text-secondary">@Model.Meters mt</small>
+                            <div class="me-2 text-dark bg-light p-1">
+                                <i class="fa-solid fa-ruler-horizontal"></i>
+                                <small class="card-text">@Model.Meters mt</small>
                             </div>
                         </div>
                         <hr />
-                        <div class="mb-5">
+                        <div class="mb-3">
                             <h3 class="">Descripción</h3>
-                            <textarea class="mt-1 text-secondary" disabled>@Model.Description</textarea>
+                            <p class="mt-1 text-secondary text-bg-light p-1">@Model.Description</p>
                         </div>
-                        <div class="mb-5">
-                            <h3 class="">Mejoras</h3>
+                        <div class="mb-3">
+                            <h3 class="mb-3">Mejoras</h3>
                             <div class="d-flex">
                                 @if (Model.ImprovementNames != null && Model.ImprovementNames.Count > 0)
                                 {
                                     @foreach (string item in Model.ImprovementNames)
                                     {
-                                        <div class="bg-secondary ms-3 text-dark">
-                                            <i class="fa-thin fa-circle-check"></i>
-                                            <span>@item</span>
+                                        <div class="d-flex bg-light ms-3 text-dark align-content-center justify-content-center">
+                                            <i class="fa-regular fa-2x fa-circle-check me-1"></i>
+                                            <span class="fs-5">@item</span>
                                         </div>
                                     }
                                 }
@@ -120,19 +136,23 @@
                 <div class="card-body">
                     <h4 class="card-text">Información de agente</h4>
                     <hr />
-                    <div class="mb-2">
-                        <img src="@Model.AgentImgUrl" class="avatar-img rounded-circle" />
+                    <div class="mb-3">
+                        <img src="@Model.AgentImgUrl" class="avatar-img rounded mb-2" />
                         <h6 class="">@Model.AgentName</h6>
                     </div>
-                    <div class="mb-2">
-                        <i class="fa-thin fa-mobile-screen"></i>
-                        <small class="text-secondary">Celular</small>
-                        <h6 class="text-primary">@Model.AgentPhone</h6>
+                    <div class="mb-3">
+                        <div class="d-flex align-content-center">
+                            <i class="fa-solid fa-2x fa-mobile-screen"></i>
+                            <small class="text-secondary fs-5 ms-1">Celular</small>
+                        </div>
+                        <h6 class="text-primary fs-5 ms-1">@Model.AgentPhone</h6>
                     </div>
-                    <div class="mb-2">
-                        <i class="fa-thin fa-envelope"></i>
-                        <small class="text-secondary">Email</small>
-                        <h6><a>@Model.AgentEmail</a></h6>
+                    <div class="mb-1">
+                        <div class="d-flex align-content-center">
+                            <i class="fa-solid fa-2x fa-envelope"></i>
+                            <small class="text-secondary fs-5 ms-1">Email</small>
+                        </div>
+                        <h6 class="fs-5 ms-1"><a>@Model.AgentEmail</a></h6>
                     </div>
                 </div>
             </div>
