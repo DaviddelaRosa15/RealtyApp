@@ -142,10 +142,10 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                 return View("FormImmovable", saveImmovableAsset);
             }
 
-            if(saveImmovableAsset.Improvements.Count == 0 || saveImmovableAsset.Improvements == null)
+            if(saveImmovableAsset.Improvements == null)
             {
                 saveImmovableAsset.HasError = true;
-                saveImmovableAsset.ErrorMessage = "Debe de seleccionar al menos una mejora para su hogar";
+                saveImmovableAsset.ErrorMessage = "Debe de seleccionar al menos una mejora para su hogar.";
                 return View("FormImmovable", saveImmovableAsset);
             }
 
@@ -180,6 +180,13 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
             if (saveImmovableAsset.AgentId != _loggedUser.Id)
                 return RedirectToRoute(new { controller = "Agent", action = "MyImmovables" }); //Access Denied!
+
+            if (saveImmovableAsset.Improvements == null)
+            {
+                saveImmovableAsset.HasError = true;
+                saveImmovableAsset.ErrorMessage = "Debe de seleccionar al menos una mejora para su hogar.";
+                return View("FormImmovable", saveImmovableAsset);
+            }
 
             List<string> currentImages = new() { saveImmovableAsset.UrlImage01, saveImmovableAsset.UrlImage02, saveImmovableAsset.UrlImage03, saveImmovableAsset.UrlImage04 };
             IFormFile[] formFiles = new[] { saveImmovableAsset.FileImg01, saveImmovableAsset.FileImg02, saveImmovableAsset.FileImg03, saveImmovableAsset.FileImg04 };
