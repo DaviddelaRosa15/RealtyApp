@@ -31,6 +31,6 @@ namespace RealtyApp.Core.Application.Services
             return improvementViews;
         }
         
-
+        
     }
 }

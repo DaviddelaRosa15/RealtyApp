@@ -14,9 +14,11 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
     public class ImprovementRepository : GenericRepository<Improvement>, IImprovementRepository
     {
         private readonly ApplicationContext _dbContext;
-        public ImprovementRepository(ApplicationContext dbContext) : base(dbContext)
+        private readonly IImprovement_ImmovableRepository _immovabl_Improvement;
+        public ImprovementRepository(ApplicationContext dbContext, IImprovement_ImmovableRepository repository) : base(dbContext)
         {
             _dbContext = dbContext;
+            _immovabl_Improvement = repository;
         }
         public async Task<List<string>> GetImpromeByIdImmovable(int id)
         {
@@ -29,5 +31,20 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
             }
             return Improms;
         }
+
+        public override async Task DeleteAsync(Improvement entity)
+        {
+
+            var immovable_Improvements =await _immovabl_Improvement.GetAllAsync();
+            var Improvements = immovable_Improvements.Where(x => x.ImprovementId == entity.Id);
+            foreach(var improvement in Improvements)
+            {
+                await _immovabl_Improvement.DeleteAsync(improvement);
+            }
+            await base.DeleteAsync(entity);
+        }
+
+
+
     }
 }

@@ -13,5 +13,7 @@ namespace RealtyApp.Core.Application.Interfaces.Repositories
         Task<int> CountImmovableTypeById(int id);
         Task DeleteByIdAgent(string id);
         Task<int> CountSellTypeById(int id);
-    }
+        Task<int> CountImmovablesByAgent(string id);
+        
+        }
 }

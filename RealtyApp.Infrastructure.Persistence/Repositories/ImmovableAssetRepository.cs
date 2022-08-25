@@ -14,10 +14,13 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
   public  class ImmovableAssetRepository : GenericRepository<ImmovableAsset>, IImmovableAssetRepository
   {
         private readonly ApplicationContext _dbContext;
+        private readonly IImprovement_ImmovableRepository _immovabl_Improvement;
 
-        public ImmovableAssetRepository(ApplicationContext dbContext) : base(dbContext)
+        public ImmovableAssetRepository(ApplicationContext dbContext,
+            IImprovement_ImmovableRepository immovabl_Improvement) : base(dbContext)
         {
             _dbContext = dbContext;
+            _immovabl_Improvement = immovabl_Improvement;
         }
 
         public async Task<int> CountImmovobleAsset()
@@ -44,6 +47,23 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
                 .Where(imm_Improm => imm_Improm.SellTypeId == id)
                 .ToListAsync();
             return countImmovable.Count;
+        }
+        public override async Task DeleteAsync(ImmovableAsset entity)
+        {
+
+            var immovable_Improvements = await _immovabl_Improvement.GetAllAsync();
+            var Improvements = immovable_Improvements.Where(x => x.ImmovableAssetId == entity.Id);
+            foreach (var improvement in Improvements)
+            {
+                await _immovabl_Improvement.DeleteAsync(improvement);
+            }
+            await base.DeleteAsync(entity);
+        }
+        public async Task<int> CountImmovablesByAgent(string id)
+        {
+            var immovables = await GetAllAsync();
+            int count = immovables.Where(x => x.AgentId == id).Count();
+            return count;
         }
     }
 }
