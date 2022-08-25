@@ -105,7 +105,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
                 vm.Id = response.Id;
                 await _userService.UpdateUserImageAsync(vm);
             }
-            return RedirectToRoute(new { controller = "Home", action = "Index" });
+            return RedirectToRoute(new { controller = "User", action = "Index" });
         }
 
         public async Task<IActionResult> LogOut()
