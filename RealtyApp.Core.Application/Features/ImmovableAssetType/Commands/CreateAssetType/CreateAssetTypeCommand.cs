@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using RealtyApp.Core.Domain.Entities;
+using System.Text.Json.Serialization;
 
 namespace RealtyApp.Core.Application.Features.ImmovableAssetType.Commands.CreateAssetType
 {
@@ -18,6 +19,7 @@ namespace RealtyApp.Core.Application.Features.ImmovableAssetType.Commands.Create
     /// </summary>  
     public class CreateAssetTypeCommand : IRequest<int>
     {
+        [JsonIgnore]
          public int Id { get; set; }
 
         /// <example>Casa de alquiler</example>

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace RealtyApp.Core.Application.Dtos.EntitiesDTOs.Improvement
@@ -14,6 +15,7 @@ namespace RealtyApp.Core.Application.Dtos.EntitiesDTOs.Improvement
         public string Description { get; set; }
 
         //Navigation Properties
+        [JsonIgnore]
         public ICollection<Improvement_ImmovableDTO> Improvement_Immovables { get; set; }
 
     }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ namespace RealtyApp.Core.Application.Features.Improvement.Commands.CreateImprove
     /// </summary>
     public class CreateImprovementCommand : IRequest<int>
     {
+        [JsonIgnore]
         [SwaggerParameter(Description = "Opcional autogenerado, es el identificador o codigo para nuestra mejora inmobiliaria.")]
         public int Id { get; set; }
 
