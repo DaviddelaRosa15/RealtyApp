@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RealtyApp.Core.Application.Interfaces.Services;
 using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
+using RealtyApp.Presentation.WebApp.Middlewares;
 using RealtyApp.Presentation.WebApp.Models;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             _userService = userService;
         }
 
+        [ServiceFilter(typeof(HomeAuthorize))]
         public async Task<IActionResult> Index(FilterViewModel vm, string id = null)
         {
             ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
@@ -39,12 +41,14 @@ namespace RealtyApp.Presentation.WebApp.Controllers
             return View(model);
         }
 
+        [ServiceFilter(typeof(HomeAuthorize))]
         public async Task<IActionResult> Agents()
         {
             var model = await _userService.GetAllUserAgentAsync();
             return View(model);
         }
 
+        [ServiceFilter(typeof(HomeAuthorize))]
         [HttpPost]
         public async Task<IActionResult> Agents(string agentName)
         {

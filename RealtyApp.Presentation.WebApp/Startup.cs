@@ -30,6 +30,7 @@ namespace RealtyApp.Presentation.WebApp
 
             services.AddControllersWithViews();
             services.AddScoped<LoginAuthorize>();
+            services.AddScoped<HomeAuthorize>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ValidateUserSession, ValidateUserSession>();
         }

@@ -6,11 +6,11 @@ using RealtyApp.Core.Application.Enums;
 
 namespace RealtyApp.Presentation.WebApp.Middlewares
 {
-    public class LoginAuthorize : IAsyncActionFilter
+    public class HomeAuthorize : IAsyncActionFilter
     {
         private readonly ValidateUserSession _userSession;
 
-        public LoginAuthorize(ValidateUserSession userSession)
+        public HomeAuthorize(ValidateUserSession userSession)
         {
             _userSession = userSession;
         }
@@ -20,7 +20,7 @@ namespace RealtyApp.Presentation.WebApp.Middlewares
             var user = _userSession.HasUser();
             if (user != null)
             {
-                var controller = (UserController)context.Controller;
+                var controller = (HomeController)context.Controller;
                 if (user.Roles.Any(n => n == Roles.Administrator.ToString()))
                 {
                     context.Result = controller.RedirectToAction("index", "Admin");
