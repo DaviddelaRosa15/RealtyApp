@@ -16,11 +16,14 @@ namespace RealtyApp.Core.Application.Services
     {
         private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
+        private readonly IImmovableAssetRepository _immovableAssetRepository;
 
-        public UserService(IAccountService accountService, IMapper mapper)
+        public UserService(IAccountService accountService
+            , IImmovableAssetRepository immovableAssetRepository, IMapper mapper)
         {
             _accountService = accountService;
             _mapper = mapper;
+            _immovableAssetRepository =immovableAssetRepository;
         }
 
         public async Task<AuthenticationResponse> LoginAsync(LoginViewModel vm)
@@ -91,7 +94,17 @@ namespace RealtyApp.Core.Application.Services
         }
         public async Task<List<UserViewModel>> GetAllUserAgentAsync()
         {
-            return await _accountService.GetAllUserAgentAsync();
+            
+            var agents= await _accountService.GetAllUserAgentAsync();
+            List<UserViewModel> userViewModels = new();
+            foreach( var agent in agents)
+            {
+                agent.CountImmovable = await _immovableAssetRepository.CountImmovablesByAgent(agent.Id);
+                userViewModels.Add(agent);
+            }
+            return userViewModels;
+
+
         }
 
         public async Task<List<UserViewModel>> GetAllUsersDeveloper()

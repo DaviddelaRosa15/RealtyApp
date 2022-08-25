@@ -458,6 +458,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             List<UserViewModel> userViewModel = new();
             if (users != null)
             {
+                
                 foreach (var user in users)
                 {
 
@@ -471,7 +472,8 @@ namespace RealtyApp.Infrastructure.Identity.Services
                         IsVerified = user.EmailConfirmed,
                         Username = user.UserName,
                         ImageUrl = user.UrlImage,
-                        Phone = user.PhoneNumber
+                        Phone = user.PhoneNumber,
+                        CountImmovable= 2
                     });
                 }
             }

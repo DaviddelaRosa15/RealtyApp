@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RealtyApp.Core.Application.Interfaces.Services;
 using RealtyApp.Core.Application.ViewModels.Improvement;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace RealtyApp.Presentation.WebApp.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ImprovementController : Controller
     {
         private readonly IImprovementService _improvementService;

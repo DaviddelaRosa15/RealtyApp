@@ -18,8 +18,8 @@
                 <th class="table-secondary">Nombre</th>
                 <th class="table-secondary">Apellido</th>
                 <th class="table-secondary">Usuario</th>
-                <th class="table-secondary">Cédula</th>
                 <th class="table-secondary">Correo</th>
+                <th class="table-secondary">Cantidad de propiedades</th>
                 <th class="table-secondary">----</th>
             </tr>
         </thead>
@@ -30,17 +30,17 @@
                 {
                     if (user.IsVerified)
                     {
-                        <tr>
-                            <td scope="row">@user.FirstName</td>
-                            <td scope="row">@user.LastName</td>
-                            <td scope="row">@user.Username</td>
-                            <td scope="row">@user.CardIdentification</td>
-                            <td scope="row">@user.Email</td>
-                            <td class="btn-group">
-                                <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" asp-route-type="Agent">Eliminar</a>
-                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
-                            </td>
-                        </tr>
+            <tr>
+                <td scope="row">@user.FirstName</td>
+                <td scope="row">@user.LastName</td>
+                <td scope="row">@user.Username</td>
+                <td scope="row">@user.Email</td>
+                <td scope="row">@user.CountImmovable</td>
+                <td class="btn-group">
+                    <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" asp-route-type="Agent">Eliminar</a>
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#desactivar-@user.Id">Desactivar</button>
+                </td>
+            </tr>
                         <!-- Modal to confirm action -->
                         <div class="modal fade" id="desactivar-@user.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -74,8 +74,8 @@
                 <th class="table-secondary">Nombre</th>
                 <th class="table-secondary">Apellido</th>
                 <th class="table-secondary">Usuario</th>
-                <th class="table-secondary">Cédula</th>
                 <th class="table-secondary">Correo</th>
+                <th class="table-secondary">Cantidad de propiedades</th>
                 <th class="table-secondary">----</th>
             </tr>
         </thead>
@@ -91,7 +91,7 @@
                             <td scope="row">@user.LastName</td>
                             <td scope="row">@user.Username</td>
                             <td scope="row">@user.CardIdentification</td>
-                            <td scope="row">@user.Email</td>
+                            <td scope="row">@user.CountImmovable</td>
                             <td class="btn-group">
                                 <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" asp-route-type="Agent">Eliminar</a>
 
