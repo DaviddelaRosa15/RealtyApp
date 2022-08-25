@@ -23,7 +23,7 @@ namespace RealtyApp.Infrastructure.Persistence.Repositories
             _immovabl_Improvement = immovabl_Improvement;
         }
 
-        public async Task<int> CountImmovobleAsset()
+        public async Task<int> CountImmovableAsset()
         {
           var countImmovable  =  await _dbContext.Set<ImmovableAsset>().ToListAsync();
           return countImmovable.Count;

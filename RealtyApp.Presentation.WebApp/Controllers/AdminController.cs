@@ -22,7 +22,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.countImmovable = await _immovableAssetService.CountImmovobleAsset();
+            ViewBag.countImmovable = await _immovableAssetService.CountImmovableAsset();
             ViewBag.client = await _userService.CountClient();
             ViewBag.agent = await _userService.CountAgent();
             ViewBag.developer = await _userService.CountDeveloper();

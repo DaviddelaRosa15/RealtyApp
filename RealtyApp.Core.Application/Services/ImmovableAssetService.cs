@@ -33,7 +33,7 @@ namespace RealtyApp.Core.Application.Services
             _improvement_ImmovableRepository = improvement_ImmovableRepository;
         }
 
-
+        #region ManageEntity
         public override async Task<SaveImmovableAssetViewModel> Add(SaveImmovableAssetViewModel vm)
         {
             vm.Code = await Nanoid.Nanoid.GenerateAsync("1234567890abcdef", 6);
@@ -106,6 +106,13 @@ namespace RealtyApp.Core.Application.Services
 
         }
 
+        public async Task DeleteByIdAgent(string id)
+        {
+            await _immovableAssetRepository.DeleteByIdAgent(id);
+        }
+        #endregion
+
+        #region Gets
         public override async Task<SaveImmovableAssetViewModel> GetByIdSaveViewModel(int id)
         {
             var saveVM = await base.GetByIdSaveViewModel(id);
@@ -264,6 +271,19 @@ namespace RealtyApp.Core.Application.Services
             }).ToList();
         }
 
+        public async Task<DataFilterViewModel> GetDataFilterViewModel()
+        {
+            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });
+
+            return assetList.Select(asset => new DataFilterViewModel
+            {
+                MaxPrice = assetList.Max(x => x.Price),
+                MinPrice = assetList.Min(x => x.Price),
+                MaxBedroomQuantity = assetList.Max(x => x.BedroomQuantity),
+                MaxBathroomQuantity = assetList.Max(x => x.BathroomQuantity)
+            }).FirstOrDefault();
+        }
+
         public async Task<DetailsViewModel> GetDetailsViewModel(int id)
         {
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType", "Improvement_Immovables" });
@@ -293,6 +313,7 @@ namespace RealtyApp.Core.Application.Services
                 ImprovementNames = asset.Improvement_Immovables.Select(x => x.Improvement.Name).ToList()
             }).FirstOrDefault();
         }
+        
         public async Task<List<DetailsViewModelApi>> GetIncludeDetails()
         {
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType", "Improvement_Immovables" });
@@ -318,6 +339,7 @@ namespace RealtyApp.Core.Application.Services
 
             }).ToList();
         }
+        
         public async Task<DetailsViewModelApi> GetIncludeDetailsById(int id)
         {
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType", "Improvement_Immovables" });
@@ -349,6 +371,7 @@ namespace RealtyApp.Core.Application.Services
                 return null;
             }
         }
+        
         public async Task<DetailsViewModelApi> GetIncludeDetailsByCode(string code)
         {
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType", "Improvement_Immovables" });
@@ -382,10 +405,12 @@ namespace RealtyApp.Core.Application.Services
 
 
         }
+        #endregion
 
-        public async Task<int> CountImmovobleAsset()
+        #region Counts
+        public async Task<int> CountImmovableAsset()
         {
-            return await _immovableAssetRepository.CountImmovobleAsset();
+            return await _immovableAssetRepository.CountImmovableAsset();
         }
 
         public async Task<int> CountImmovablesByAgent(string id)
@@ -395,31 +420,15 @@ namespace RealtyApp.Core.Application.Services
             return count;
         }
 
-        public async Task<DataFilterViewModel> GetDataFilterViewModel()
-        {
-            var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });
-
-            return assetList.Select(asset => new DataFilterViewModel
-            {
-                MaxPrice = assetList.Max(x => x.Price),
-                MinPrice = assetList.Min(x => x.Price),
-                MaxBedroomQuantity = assetList.Max(x => x.BedroomQuantity),
-                MaxBathroomQuantity = assetList.Max(x => x.BathroomQuantity)
-            }).FirstOrDefault();
-        }
-
-        public async Task DeleteByIdAgent(string id)
-        {
-            await _immovableAssetRepository.DeleteByIdAgent(id);
-        }
-
         public async Task<int> CountImmovableTypeById(int id)
         {
             return await _immovableAssetRepository.CountImmovableTypeById(id);
         }
+
         public async Task<int> CountSellTypeById(int id)
         {
             return await _immovableAssetRepository.CountSellTypeById(id);
         }
+        #endregion
     }
 }
