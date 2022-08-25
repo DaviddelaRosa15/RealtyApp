@@ -15,6 +15,9 @@ namespace RealtyApp.Core.Application.Helpers
         public static async Task<string> FileUpload(IFormFile fileForm, int ItemId, string ContainerName = "Item")
         {//work with the optionals parametyers
 
+            if (fileForm == null)
+                throw new NullReferenceException();
+
             //Get current directory
             string basePath = $"/{ContainerName}/{ItemId}";
 
@@ -46,6 +49,9 @@ namespace RealtyApp.Core.Application.Helpers
         public static async Task<string> FileUpload(IFormFile fileForm, string currentsImgUrl, int ItemId, string ContainerName = "Item", bool IsUpdateMode = false)
         {
 
+            if (fileForm == null)
+                throw new NullReferenceException();
+
             //Get current directory
             string basePath = $"/{ContainerName}/{ItemId}";
 
@@ -71,7 +77,7 @@ namespace RealtyApp.Core.Application.Helpers
             }
 
             //DELETE THE OLD IMAGE
-            if (IsUpdateMode)
+            if (IsUpdateMode && !string.IsNullOrWhiteSpace(currentsImgUrl))
             {
                 string[] oldImageParts = currentsImgUrl.Split("/");
                 string oldImageFileName = oldImageParts[^1];
@@ -89,6 +95,9 @@ namespace RealtyApp.Core.Application.Helpers
 
         public static async Task<string> FileUpload(IFormFile fileForm, string currentsImgUrl, string ItemId, string ContainerName = "Item", bool IsUpdateMode = false)
         {
+            
+            if (fileForm == null)
+                throw new NullReferenceException();
 
             //Get current directory
             string basePath = $"/{ContainerName}/{ItemId}";
@@ -180,7 +189,7 @@ namespace RealtyApp.Core.Application.Helpers
         public static async Task<List<string>> FileUpload(IFormFile[] fileForms, int ItemId, bool IsUpdateMode = false, string ContainerName = "Item", List<string> currentsImgUrl = null)
         {
 
-            List<string> imgUrl = new List<string>() { }; //Tal vez innecesario.
+            List<string> imgUrl = new List<string>() { };
 
             //Get current directory
             string basePath = $"/{ContainerName}/{ItemId}";
@@ -219,7 +228,7 @@ namespace RealtyApp.Core.Application.Helpers
                         }
 
                         //DELETE THE OLD IMAGE
-                        if (IsUpdateMode)
+                        if (IsUpdateMode && !string.IsNullOrWhiteSpace(currentsImgUrl[index]))
                         {
                             string[] oldImagePart = currentsImgUrl[index].Split("/");
                             string oldImageFileName = oldImagePart[^1];
