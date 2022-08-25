@@ -4,15 +4,18 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="row mt-5">
-    <div class="col-6 offset-3">
+
+    <div class="col-6 offset-3 cont_Login">
         <div class="card shadow-sm" >
             <div class="card-body">
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <div class="cont_Img_Index_admin">
+                    <img class="bd-placeholder-img card-img-top img_Index_admin" src="~/Images/User/registger_Usedr.png" />
+                </div>
+                @Html.ValidationSummary(false, "", new { @class = "text-danger login_Error" })
                 @if (Model.HasError)
                 {
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert"> 
-                        <p>@Model.Error</p>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p class="">@Model.Error</p>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
@@ -23,7 +26,7 @@
                     </div>
                     <div class="mb-3">
                         <label asp-for="Password" class="form-label">Contraseña</label>
-                        <input class="form-control" asp-for="Password">                        
+                        <input class="form-control" asp-for="Password">
                     </div>
 
                     <button type="submit" class="btn btn-outline-primary float-end">Iniciar seción</button>
@@ -32,5 +35,5 @@
             </div>
         </div>
     </div>
-</div>
+
 

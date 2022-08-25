@@ -266,3 +266,21 @@ body {
     background-attachment: fixed;
     background-position: center;
 }
+
+/*Style login*/
+
+.cont_Login{
+    width:30%;
+    min-width:230px;
+    max-width:450px;
+    margin:80px auto;
+    border-radius:5px;
+}
+.login_Error li{
+    font-weight:bold;
+    color:red ;
+}
+.registerUser{
+    width:40%;
+    min-width:340px;
+}
