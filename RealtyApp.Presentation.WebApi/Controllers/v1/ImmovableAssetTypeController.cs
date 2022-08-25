@@ -93,15 +93,11 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             Description = "Maneja el apartado de eliminación, debe de especificar los parametros correspondientes."
         )]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAssetType(int id)
         {
             try
             {
-                if (id == 0)
-                    return BadRequest();
-
                 var result = await Mediator.Send(new DeleteAssetTypeCommand() { Id = id} );
 
                 if (result == 0)
