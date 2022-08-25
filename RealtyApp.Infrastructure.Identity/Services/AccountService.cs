@@ -164,6 +164,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             await _userManager.UpdateAsync(appliUser);
 
         }
+        
         public async Task<SaveUserViewModel> UpdateAsync(SaveUserViewModel vm)
         {
             ApplicationUser appliUser = await _userManager.FindByIdAsync(vm.Id);
@@ -335,7 +336,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
 
             return sv;
         }
-
 
         public async Task DeleteAsync(string id)
         {
@@ -548,7 +548,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             if (userWithSameUserName != null)
             {
                 response.HasError = true;
-                response.Error = $"username '{request.UserName}' is already taken.";
+                response.Error = $"El nombre de usuario '{request.UserName}' ya está siendo usado.";
                 return response;
             }
 
@@ -556,7 +556,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             if (userWithSameEmail != null)
             {
                 response.HasError = true;
-                response.Error = $"Email '{request.Email}' is already registered.";
+                response.Error = $"El correo '{request.Email}' ya está siendo usado.";
                 return response;
             }
 
@@ -599,7 +599,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             else
             {
                 response.HasError = true;
-                response.Error = $"An error occurred trying to register the user. ";
+                response.Error = $"Ocurrió un error tratando de registrar este usuario.";
                 response.Error += result.Errors.ToList()[0].Description;
                 return response;
             }
@@ -614,7 +614,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             {
                 return response;
             }
-            //We could use AutoMaper here!
+
             var user = new ApplicationUser
             {
                 Email = request.Email,
@@ -635,7 +635,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
             else
             {
                 response.HasError = true;
-                response.Error = $"An error occurred trying to register the user. ";
+                response.Error = $"Ocurrió un error tratando de registrar este usuario.";
                 response.Error += result.Errors.ToList()[0].Description;
                 return response;
             }
@@ -651,7 +651,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 return response;
             }
 
-            //We could use AutoMaper here!
             var user = new ApplicationUser
             {
                 Email = request.Email,
@@ -663,7 +662,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 EmailConfirmed = false,
                 UrlImage = request.ImageUrl
             };
-            //Remember the image property
+
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
@@ -690,7 +689,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 return response;
             }
 
-            //We could use AutoMaper here!
             var user = new ApplicationUser
             {
                 Email = request.Email,
@@ -701,6 +699,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
                 PhoneNumber = request.Phone,
                 UrlImage = request.ImageUrl
             };
+
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
@@ -797,7 +796,7 @@ namespace RealtyApp.Infrastructure.Identity.Services
         #region PrivateMethods
         private string MakeEmailForConfirm(string verificationUri)
         {
-            string html = $"Please confirm your account visiting this URL {verificationUri}";
+            string html = $"Por favor confirma tu cuenta visitando está url {verificationUri}";
             return html;
         }
 

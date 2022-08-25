@@ -51,7 +51,7 @@ namespace RealtyApp.Core.Application.Features.SellType.Commands.UpdateSellType
                 var gettingOldModel = await _sellTypeRepository.GetByIdAsync(command.Id);
 
                 if (gettingOldModel == null)
-                    throw new Exception("Tipo de venta no encontrado.");
+                    throw new Exception("No se encontró el tipo de venta.");
 
                 var updatedValues = _mapper.Map<RealtyApp.Core.Domain.Entities.SellType>(command);
 

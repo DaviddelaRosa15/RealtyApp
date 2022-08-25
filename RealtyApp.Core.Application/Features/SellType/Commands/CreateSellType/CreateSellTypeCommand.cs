@@ -50,7 +50,7 @@ namespace RealtyApp.Core.Application.Features.SellType.Commands.CreateSellType
             }
             catch (Exception)
             {
-               throw new Exception("Error at time to create this new Immovable Sell Type.");
+               throw new Exception("Ocurrió un error tratando de crear este tipo de venta.");
             }
         }
 

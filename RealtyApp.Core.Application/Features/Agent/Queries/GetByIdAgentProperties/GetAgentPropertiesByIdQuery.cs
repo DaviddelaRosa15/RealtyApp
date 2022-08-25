@@ -39,7 +39,7 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetByIdAgentProperti
             var result = await GetAgentPropertiesDTOById(request.Id);
 
             if (result == null || result.Count == 0)
-                throw new Exception($"Agent Properties not found.");
+                throw new Exception($"No se encontraron las propiedades del agente...");
             else
                 return result;
         }

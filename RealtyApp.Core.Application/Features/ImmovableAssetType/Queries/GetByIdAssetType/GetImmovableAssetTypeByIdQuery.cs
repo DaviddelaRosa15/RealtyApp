@@ -39,7 +39,7 @@ namespace RealtyApp.Core.Application.Features.ImmovableAssetType.Queries.GetById
             var result = await GetImmovableAssetTypeDTOById(request.Id);
             
             if (result == null)
-                 throw new Exception($"Immovable Asset type not found.");
+                 throw new Exception($"No se encontró el tipo de inmobiliario...");
             else
                 return result;
         }

@@ -32,7 +32,7 @@ namespace RealtyApp.Core.Application.Features.SellType.Commands.DeleteSellType
             var result = await _sellTypeRepository.GetByIdAsync(command.Id);
 
             if (result == null)
-                throw new Exception("No existe dicho tipo de venta.");
+                throw new Exception("No se encontró el tipo de venta...");
 
             await _sellTypeRepository.DeleteAsync(result);
 

@@ -38,7 +38,7 @@ namespace RealtyApp.Core.Application.Features.SellType.Queries.GetByIdSellType
             var result = await GetSellTypeDTOById(request.Id);
             
             if (result == null)
-                 throw new Exception($"Immovable Sell type not found.");
+                 throw new Exception($"No se encontró el tipo de venta...");
             else
                 return result;
         }

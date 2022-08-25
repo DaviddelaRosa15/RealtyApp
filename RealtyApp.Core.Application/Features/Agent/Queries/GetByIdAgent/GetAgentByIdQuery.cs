@@ -38,7 +38,7 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetByIdAgent
             var result = await GetAgentDTOById(request.Id);
 
             if (result == null)
-                throw new Exception($"Agent not found.");
+                throw new Exception($"No se encontró el agente...");
             else
                 result.PropertiesQuantity = await _immovableService.CountImmovablesByAgent(result.Id);
                 return result;

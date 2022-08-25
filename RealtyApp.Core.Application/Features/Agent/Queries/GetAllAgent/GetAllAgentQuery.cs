@@ -37,7 +37,7 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetAllAgent
            var result = await GetAllDTOs();
 
             if (result == null)
-                throw new Exception("Agents not found....");
+                throw new Exception("No se encontraron agentes...");
             else
                 return result;
         }

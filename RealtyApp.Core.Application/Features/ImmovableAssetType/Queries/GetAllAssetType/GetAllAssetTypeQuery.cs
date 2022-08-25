@@ -37,7 +37,7 @@ namespace RealtyApp.Core.Application.Features.ImmovableAssetType.Queries.GetAllA
            var result = await GetAllDTOsWithIncludes();
 
             if (result == null)
-                throw new Exception("Immovables Asset Types not found....");
+                throw new Exception("No se encontraron tipos de inmobiliario...");
             else
                 return result;
         }

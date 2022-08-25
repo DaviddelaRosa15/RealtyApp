@@ -54,7 +54,7 @@ namespace RealtyApp.Core.Application.Features.ImmovableAssetType.Commands.Create
             }
             catch (Exception)
             {
-               throw new Exception("Error at time to create this new Immovable Asset Type.");
+               throw new Exception("Ocurrió un error tratando de crear este tipo de inmobiliario.");
             }
         }
 

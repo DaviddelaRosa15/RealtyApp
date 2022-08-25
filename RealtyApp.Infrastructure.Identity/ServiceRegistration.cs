@@ -123,14 +123,14 @@ namespace RealtyApp.Infrastructure.Identity
                         c.HandleResponse();
                         c.Response.StatusCode = 401;
                         c.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "You are not Authorized" });
+                        var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "Usted no está autorizado para usar esta app, inicie sesión y coloque su token" });
                         return c.Response.WriteAsync(result);
                     },
                     OnForbidden = c =>
                     {
                         c.Response.StatusCode = 403;
                         c.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "You are not Authorized to access this resource" });
+                        var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "Usted no está autorizado para usar este recurso de la api" });
                         return c.Response.WriteAsync(result);
                     }
                 };
