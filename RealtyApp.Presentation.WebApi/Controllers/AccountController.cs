@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RealtyApp.Core.Application.Dtos.Account;
 using RealtyApp.Core.Application.Interfaces.Services;
@@ -81,7 +82,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers
 
         }
 
-
+        [Authorize(Roles ="Administrator")]
         [HttpPost("Register/Administrator")]
         [SwaggerOperation(
             Summary = "Creación de usuario tipo administrador.",
@@ -117,7 +118,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers
 
         #endregion
 
-
+        #region IgnoreCODE
         //[HttpGet("confirm-email")]
         //[SwaggerOperation(
         //    Summary = "Confirmacion de usuario",
@@ -152,5 +153,8 @@ namespace RealtyApp.Presentation.WebApi.Controllers
         //{           
         //    return Ok(await _accountService.ResetPasswordAsync(request));
         //}
+        #endregion
+
+
     }
 }
