@@ -20,7 +20,7 @@ namespace RealtyApp.Core.Application.Interfaces.Services
         Task<SaveUserViewModel> UpdateAgentAsync(SaveUserViewModel vm, string id);
         Task DeleteAsync(string id);
         Task<List<UserViewModel>> GetAllUsersAdmin();
-        Task<List<UserViewModel>> GetAllUserAgentAsync();
+        Task<List<UserViewModel>> GetAllUserAgentAsync(bool admin = false);
         Task<List<UserViewModel>> GetAllUsersDeveloper();
         Task<SaveUserViewModel> GetUserById(string id);
         Task<List<UserViewModel>> GetUserAgentByName(string name);

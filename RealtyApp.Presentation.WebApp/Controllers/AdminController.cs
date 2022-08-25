@@ -41,7 +41,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
         public async Task<IActionResult> Agents()
         {
-            return View(await _userService.GetAllUserAgentAsync());
+            return View(await _userService.GetAllUserAgentAsync(true));
         }
 
         public async Task<IActionResult> SwithUserStatus(string id, string type)

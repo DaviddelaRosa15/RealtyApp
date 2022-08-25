@@ -92,18 +92,30 @@ namespace RealtyApp.Core.Application.Services
         {
             return await _accountService.GetAllUserAdminAsync();
         }
-        public async Task<List<UserViewModel>> GetAllUserAgentAsync()
+        public async Task<List<UserViewModel>> GetAllUserAgentAsync(bool admin = false)
         {
             
             var agents= await _accountService.GetAllUserAgentAsync();
             List<UserViewModel> userViewModels = new();
+
+            if (!admin)
+            {
+                foreach (var agent in agents.Where(x => x.IsVerified))
+                {
+                    agent.CountImmovable = await _immovableAssetRepository.CountImmovablesByAgent(agent.Id);
+                    userViewModels.Add(agent);
+                }
+
+                return userViewModels;
+            }
+
             foreach( var agent in agents)
             {
                 agent.CountImmovable = await _immovableAssetRepository.CountImmovablesByAgent(agent.Id);
                 userViewModels.Add(agent);
             }
-            return userViewModels;
 
+            return userViewModels;
 
         }
 
