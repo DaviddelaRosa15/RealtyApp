@@ -19,280 +19,286 @@
 
         if(Model.HasError){
 
-            <div class="alert alert-danger d-flex align-items-center" role="alert">
-              <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-              <div>
-                @Model.ErrorMessage
-              </div>
-            </div>
+                                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                      <div>
+                                        @Model.ErrorMessage
+                                      </div>
+                                    </div>
 
         }
 
         if(immovableTypes.Count == 0 || immovableTypes == null || sellTypesModels.Count ==0 || sellTypesModels == null || improvements.Count == 0 || improvements == null)
         {
-            <h1 class="text-lead text-warning"> Lo sentimos, se necesitan crear algunos metadatos para acceder a esta sección. 
-                Comuniquese con el administrador o representante asignado.</h1>
+                                    <h1 class="text-lead text-warning"> Lo sentimos, se necesitan crear algunos metadatos para acceder a esta sección. 
+                                        Comuniquese con el administrador o representante asignado.</h1>
         }
         else
         {
             
-            <div class="row">
-        
-                <h1 class="text-lead my-4"> @(editMode? $"Editando la propiedad: {Model.Code}" : "Creando una propiedad:") </h1>
+                                    <div class="row">
+                                
+                                        <h1 class="text-lead my-4"> @(editMode? $"Editando la propiedad: {Model.Code}" : "Creando una propiedad:") </h1>
 
-                <div class="card shadow-sm contCardEditAdmiGeneric">
+                                        <div class="card shadow-sm contCardEditAdmiGeneric">
 
-                    <div class="card-body">
+                                            <div class="card-body">
 
-                        <form class="row" id="forms_Immovable" method="post" asp-controller="Agent" asp-action=@(editMode?"UpdateImmovable":"AddImmovable") class="form p-4" enctype="multipart/form-data">
-                    
-                            <div class="col-6 p-3">
+                                                <form class="row" id="forms_Immovable" method="post" asp-controller="Agent" asp-action=@(editMode?"UpdateImmovable":"AddImmovable") class="form p-4" enctype="multipart/form-data">
+                                            
+                                                    <div class="col-6 p-3">
 
-                                <div class="mb-3 row">
-                                    <label asp-for="Code" class="form-label"> <i class="fa fa-file" aria-hidden="true"></i> Código:</label>
-                                    <input asp-for="Code" class="form-control" readonly>
-                                    <span asp-validation-for="Code" class="text-danger"></span>
-                                </div>
+                                                        <div class="mb-3 row">
+                                                            <label asp-for="Code" class="form-label"> <i class="fa fa-file" aria-hidden="true"></i> Código:</label>
+                                                            <input asp-for="Code" class="form-control" readonly>
+                                                            <span asp-validation-for="Code" class="text-danger"></span>
+                                                        </div>
 
-                                <div class="mb-3 row">
-                                    <label asp-for="Address" class="form-label"> <i class="fa fa-map-marker" aria-hidden="true"></i>  Dirección:</label>
-                                    <input asp-for="Address" class="form-control" id="inputPassword">
-                                    <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>
+                                                        <div class="mb-3 row">
+                                                            <label asp-for="Address" class="form-label"> <i class="fa fa-map-marker" aria-hidden="true"></i>  Dirección:</label>
+                                                            <input asp-for="Address" class="form-control" id="inputPassword">
+                                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                                        </div>
 
-                                 <div class="mb-3 row">
-                                    <label asp-for="Price" class="form-label"> $ Precio:</label>
-                                    <input class="form-control" asp-for="Price" type="number" step="any">
-                                    <span asp-validation-for="Price" class="text-danger"></span>
-                                </div>
-
-
-                            </div>
-
-                            <div class="col-6 p-3">
+                                                         <div class="mb-3 row">
+                                                            <label asp-for="Price" class="form-label"> $ Precio:</label>
+                                                            <input class="form-control" asp-for="Price" type="number" step="any">
+                                                            <span asp-validation-for="Price" class="text-danger"></span>
+                                                        </div>
 
 
-                                <div class="mb-3 row">
-                                    <label asp-for="Meters" class="form-label"> <i class="fa-solid fa-ruler-horizontal"></i> Metros:</label>
-                                    <input class="form-control" asp-for="Meters" type="number" step="any">
-                                    <span asp-validation-for="Meters" class="text-danger"></span>
-                                </div>
+                                                    </div>
 
-                                <div class="mb-3 row">
-                                    <label for="inputPassword" asp-for="BedroomQuantity" class="form-label"> <i class="fa-solid fa-bath"></i> Cant. Baños</label>
-                                    <input asp-for="BedroomQuantity" type="number" class="form-control">
-                                    <span asp-validation-for="BedroomQuantity" class="text-danger"></span>
-                                </div>
+                                                    <div class="col-6 p-3">
 
-                                <div class="mb-3 row">
-                                    <label for="inputPassword" asp-for="BathroomQuantity" class="form-label"> <i class="fa-solid fa-bed"></i> Cant. Habitaciones</label>
-                                    <input asp-for="BathroomQuantity" type="number" class="form-control">
-                                    <span asp-validation-for="BathroomQuantity" class="text-danger"></span>
-                                </div>
 
-                            </div>
+                                                        <div class="mb-3 row">
+                                                            <label asp-for="Meters" class="form-label"> <i class="fa-solid fa-ruler-horizontal"></i> Metros:</label>
+                                                            <input class="form-control" asp-for="Meters" type="number" step="any">
+                                                            <span asp-validation-for="Meters" class="text-danger"></span>
+                                                        </div>
 
-                            <div class="col-12 p-3">
-                        
-                                <div class="mb-3 row">
-                                    <label asp-for="Description" class="form-label"> <i class="fa fa-comment" aria-hidden="true"></i> Descripción:</label>
-                                    <div class="form-group">
-                                       <textarea
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" asp-for="BedroomQuantity" class="form-label"> <i class="fa-solid fa-bath"></i> Cant. Baños</label>
+                                                            <input asp-for="BedroomQuantity" type="number" class="form-control">
+                                                            <span asp-validation-for="BedroomQuantity" class="text-danger"></span>
+                                                        </div>
+
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" asp-for="BathroomQuantity" class="form-label"> <i class="fa-solid fa-bed"></i> Cant. Habitaciones</label>
+                                                            <input asp-for="BathroomQuantity" type="number" class="form-control">
+                                                            <span asp-validation-for="BathroomQuantity" class="text-danger"></span>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-12 p-3">
+                                                
+                                                        <div class="mb-3 row">
+                                                            <label asp-for="Description" class="form-label"> <i class="fa fa-comment" aria-hidden="true"></i> Descripción:</label>
+                                                            <div class="form-group">
+                                                               <textarea
                                           class="form-control"
                                           id="ImmovableDescription"
                                           rows="3"
                                           name="Description"
                                           asp-for="Description"
-                                       ></textarea>
-                                    </div>
-                                    <span asp-validation-for="Description" class="text-danger"></span>
-                                </div>
+                                                               ></textarea>
+                                                            </div>
+                                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                                        </div>
 
 
-                                <div class="mb-3 row">
-                                    <label class="label"> <i class="fa fa-building" aria-hidden="true"></i> Tipo de venta:</label>
-                                     <select asp-items="@(new SelectList(sellTypesModels, "Id", "Name"));" asp-for="SellTypeId" class="form-select" aria-label="Seleccione una opcion">
-                                        <option value="null">Elige un tipo de venta...</option>
-                                    </select>
-                                </div>
+                                                        <div class="mb-3 row">
+                                                            <label class="label"> <i class="fa fa-building" aria-hidden="true"></i> Tipo de venta:</label>
+                                                             <select asp-items="@(new SelectList(sellTypesModels, "Id", "Name"));" asp-for="SellTypeId" class="form-select" aria-label="Seleccione una opcion">
+                                                                <option value="null">Elige un tipo de venta...</option>
+                                                            </select>
+                                                        </div>
 
-                                <div class="mb-3 row">
-                                    <label class="label"><i class="fa fa-building" aria-hidden="true"></i> Tipo de Propiedad:</label>
-                                     <select asp-items="@(new SelectList(immovableTypes, "Id", "Name"));" asp-for="ImmovableAssetTypeId" class="form-select" aria-label="Seleccione una opcion">
-                                        <option value="0">Elige un tipo de inmueble...</option>
-                                    </select>
-                                </div>
+                                                        <div class="mb-3 row">
+                                                            <label class="label"><i class="fa fa-building" aria-hidden="true"></i> Tipo de Propiedad:</label>
+                                                             <select asp-items="@(new SelectList(immovableTypes, "Id", "Name"));" asp-for="ImmovableAssetTypeId" class="form-select" aria-label="Seleccione una opcion">
+                                                                <option value="0">Elige un tipo de inmueble...</option>
+                                                            </select>
+                                                        </div>
 
 
-                                <div class="mb-3 row d-flex justify-content-center">
-                                    <label class="label text-center"><i class="fa fa-plus-square" aria-hidden="true"></i> Mejoras inmobiliarias:</label>
-                                    <select asp-items="@(new MultiSelectList(improvements,"Id","Name"));" asp-for="Improvements" class="form-select" aria-label="Seleccione una opcion" id="improvement_list">
-                                        <option value="0">Mejoras...</option>
-                                    </select>
-                                </div>
+                                                        <div class="mb-3 row d-flex justify-content-center">
+                                                            <label class="label text-center"><i class="fa fa-plus-square" aria-hidden="true"></i> Mejoras inmobiliarias:</label>
+                                                            <select asp-items="@(new MultiSelectList(improvements,"Id","Name"));" asp-for="Improvements" class="form-select" aria-label="Seleccione una opcion" id="improvement_list">
+                                                            
+                                                            </select>
+                                                        </div>
 
-                                @section Scripts {
+                                                        @section Scripts {
 
-                                    <!-- Initialize the component : -->
-                                   <script type="text/javascript">
-                                      const multiSelect = new IconicMultiSelect({
-                                          customCss: true,
-                                          select: "#improvement_list"
-                                      });
+                                                            <!-- Initialize the component : -->
+                                                           <script type="text/javascript">
+                                                              const multiSelect = new IconicMultiSelect({
+                                                                  customCss: true,
+                                                                  select: "#improvement_list"
+                                                              });
 
-                                      multiSelect.subscribe(function (evt) {
+                                                              multiSelect.subscribe(function (evt) {
+                                                                 
+                                                                switch (evt.action) {
+                                                                  case 'ADD_OPTION':
+                                                                    for (i = 0; i < multiSelect._selectContainer.options.length; i++) {
+                                                                      if (multiSelect._selectContainer.options[i].value == evt.value) {
+                                                                          multiSelect._selectContainer.options[i].selected = true;
+                                                                          multiSelect._selectContainer.options[i].setAttribute("selected", "");
+                                                                      }
+                                                                    }
+                                                                    break;
+                                                                  case 'REMOVE_OPTION':
+                                                                    for (i = 0; i < multiSelect._selectContainer.options.length; i++) {
+                                                                      if (multiSelect._selectContainer.options[i].value == evt.value) {
+                                                                          multiSelect._selectContainer.options[i].selected = false;
+                                                                          multiSelect._selectContainer.options[i].removeAttribute("selected", "");
+                                                                      }
+                                                                    }
+                                                                    break;
+                                                                  case 'CLEAR_ALL_OPTIONS':
+                                                                    for (i = 0; i < multiSelect._selectContainer.options.length; i++) {
+                                                                          multiSelect._selectContainer.options[i].selected = false;
+                                                                          multiSelect._selectContainer.options[i].removeAttribute("selected", "");
+                                                                    }
+                                                                    break;
+                                                                }
 
-                                        switch (evt.action) {
-                                          case 'ADD_OPTION':
-                                            for (i = 0; i < multiSelect._selectContainer.options.length; i++) {
-                                              if (multiSelect._selectContainer.options[i].value == evt.value) {
-                                                multiSelect._selectContainer.options[i].selected = true
-                                                multiSelect._selectContainer.options[i].setAttribute("selected", "")
-                                              }
-                                            }
-                                            break;
-                                          case 'REMOVE_OPTION':
-                                            for (i = 0; i < multiSelect._selectContainer.options.length; i++) {
-                                              if (multiSelect._selectContainer.options[i].value == evt.value) {
-                                                multiSelect._selectContainer.options[i].selected = false
-                                                multiSelect._selectContainer.options[i].removeAttribute("selected", "")
-                                              }
-                                            }
-                                            break;
-                                        }
+                                                             });
 
-                                     });
+                                                              multiSelect.init();
+                                                            </script>
+                                                        }
 
-                                      multiSelect.init();
-                                    </script>
-                                }
+                                                    </div>
 
-                            </div>
+                                                    <input asp-for="Id" type="hidden"/>
 
-                            <input asp-for="Id" type="hidden"/>
-
-                            <h5> <i class="fa fa-upload" aria-hidden="true"></i> Cargar Imagenes de las propiedad:</h5>
-                    
-                            @*Slider Here*@
-                            @{
+                                                    <h5> <i class="fa fa-upload" aria-hidden="true"></i> Cargar Imagenes de las propiedad:</h5>
+                                            
+                                                    @*Slider Here*@
+                                                    @{
 
                               if(editMode){
 
-                                 <div class="col-12">
+                                                                                 <div class="col-12">
 
-                                        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                                                                                        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
 
-                                          <div class="carousel-inner" style="max-height:485px;">
+                                                                                          <div class="carousel-inner" style="max-height:485px;">
 
-                                               @{
+                                                                                               @{
                                                  if(!string.IsNullOrEmpty(Model.UrlImage01)){
                     
-                                                    <div class="carousel-item active" data-bs-interval="4000">
-                                                       <img src="@Model.UrlImage01" class="d-block w-100 img-immovable" alt="@Model.Description"> 
-                                                    </div>      
+                                                                                                                            <div class="carousel-item active" data-bs-interval="4000">
+                                                                                                                               <img src="@Model.UrlImage01" class="d-block w-100 img-immovable" alt="@Model.Description"> 
+                                                                                                                            </div>      
                                                  } 
                                                  if(!string.IsNullOrEmpty(Model.UrlImage02)){
-                                                    <div class="carousel-item active" data-bs-interval="3000">
-                                                       <img src="@Model.UrlImage02" class="d-block w-100 img-immovable" alt="@Model.Description"> 
-                                                    </div>      
+                                                                                                                            <div class="carousel-item active" data-bs-interval="3000">
+                                                                                                                               <img src="@Model.UrlImage02" class="d-block w-100 img-immovable" alt="@Model.Description"> 
+                                                                                                                            </div>      
                                                  }
                                                  if(!string.IsNullOrEmpty(Model.UrlImage03)){
-                                                    <div class="carousel-item active" data-bs-interval="3000">
-                                                       <img src="@Model.UrlImage03" class="d-block w-100 img-immovable" alt="@Model.Description"> 
-                                                    </div>      
+                                                                                                                            <div class="carousel-item active" data-bs-interval="3000">
+                                                                                                                               <img src="@Model.UrlImage03" class="d-block w-100 img-immovable" alt="@Model.Description"> 
+                                                                                                                            </div>      
                                                  }
                                                  if(!string.IsNullOrEmpty(Model.UrlImage04)){
-                                                    <div class="carousel-item active" data-bs-interval="3000">
-                                                       <img src="@Model.UrlImage04" class="d-block w-100 img-immovable" alt="@Model.Description"> 
-                                                    </div>      
+                                                                                                                            <div class="carousel-item active" data-bs-interval="3000">
+                                                                                                                               <img src="@Model.UrlImage04" class="d-block w-100 img-immovable" alt="@Model.Description"> 
+                                                                                                                            </div>      
                                                  } 
-                                               }
+                                                                                               }
 
-                                          </div>
+                                                                                          </div>
 
-                                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                          </button>
+                                                                                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                                                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                                            <span class="visually-hidden">Previous</span>
+                                                                                          </button>
 
-                                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                          </button>
+                                                                                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                                                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                                            <span class="visually-hidden">Next</span>
+                                                                                          </button>
 
-                                        </div>
+                                                                                        </div>
 
-                                       @* END COL12*@
-                                    </div>
+                                                                                       @* END COL12*@
+                                                                                    </div>
 
 
                               }
 
-                            }    
+                                                    }    
 
 
-                            <div class="col-12 p-3 d-flex justify-content-center">
+                                                    <div class="col-12 p-3 d-flex justify-content-center">
 
-                                 <div class="row p-2">
-                            
-                                    @{
+                                                         <div class="row p-2">
+                                                    
+                                                            @{
                                          if(editMode){
 
-                                            <div class="input-group mb-3">
-                                              <input type="file" class="form-control" id="fileImga01" asp-for="FileImg01">
-                                              <label class="input-group-text" asp-for="FileImg01">Image 01</label>
-                                            </div>
+                                                                                            <div class="input-group mb-3">
+                                                                                              <input type="file" class="form-control" id="fileImga01" asp-for="FileImg01">
+                                                                                              <label class="input-group-text" asp-for="FileImg01">Image 01</label>
+                                                                                            </div>
 
                                          }else{
                                     
-                                             <div class="input-group mb-3">
-                                              <input type="file" class="form-control" asp-for="FileImg01" id="fileImga01" required>
-                                              <label class="input-group-text" asp-for="FileImg01">Image 01</label>
-                                            </div>
+                                                                                             <div class="input-group mb-3">
+                                                                                              <input type="file" class="form-control" asp-for="FileImg01" id="fileImga01" required>
+                                                                                              <label class="input-group-text" asp-for="FileImg01">Image 01</label>
+                                                                                            </div>
                                          }
-                                     }
+                                                             }
 
-                                    <div class="input-group mb-3">
-                                      <input type="file" class="form-control" id="fileImga02" asp-for="FileImg02">
-                                      <label class="input-group-text" asp-for="FileImg02">Image 02</label>
+                                                            <div class="input-group mb-3">
+                                                              <input type="file" class="form-control" id="fileImga02" asp-for="FileImg02">
+                                                              <label class="input-group-text" asp-for="FileImg02">Image 02</label>
+                                                            </div>
+
+                                                         </div>
+
+                                                          <div class="row p-2">
+
+                                                            <div class="input-group mb-3">
+                                                              <input type="file" class="form-control" id="fileImga03" asp-for="FileImg03">
+                                                              <label class="input-group-text" asp-for="FileImg03">Image 03</label>
+                                                            </div>
+
+                                                            <div class="input-group mb-3">
+                                                              <input type="file" class="form-control" id="fileImga04" asp-for="FileImg04">
+                                                              <label class="input-group-text" asp-for="FileImg04">Image 04</label>
+                                                            </div>
+
+                                                         </div>
+
+                                                         <div class="row">
+                                                             <input type="hidden" asp-for="UrlImage01"  />
+                                                             <input type="hidden" asp-for="UrlImage02"  />
+                                                             <input type="hidden" asp-for="UrlImage03"  />
+                                                             <input type="hidden" asp-for="UrlImage04"  />
+                                                             <input type="hidden" asp-for="AgentId"  />
+                                                         </div>
+
+                                                    </div>
+
+                                                    <div class="btn-group">
+                                                        <button  class="btn mb-3 text-white" style="background-color: #2A3F54;" type="submit">Guardar</button>
+                                                        <a class="btn btn-warning mb-3 text-white" asp-controller="Agent" asp-action="Index">Cancelar</a>
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+                                        </div>
                                     </div>
-
-                                 </div>
-
-                                  <div class="row p-2">
-
-                                    <div class="input-group mb-3">
-                                      <input type="file" class="form-control" id="fileImga03" asp-for="FileImg03">
-                                      <label class="input-group-text" asp-for="FileImg03">Image 03</label>
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                      <input type="file" class="form-control" id="fileImga04" asp-for="FileImg04">
-                                      <label class="input-group-text" asp-for="FileImg04">Image 04</label>
-                                    </div>
-
-                                 </div>
-
-                                 <div class="row">
-                                     <input type="hidden" asp-for="UrlImage01"  />
-                                     <input type="hidden" asp-for="UrlImage02"  />
-                                     <input type="hidden" asp-for="UrlImage03"  />
-                                     <input type="hidden" asp-for="UrlImage04"  />
-                                     <input type="hidden" asp-for="AgentId"  />
-                                 </div>
-
-                            </div>
-
-                            <div class="btn-group">
-                                <button  class="btn mb-3 text-white" style="background-color: #2A3F54;" type="submit">Guardar</button>
-                                <a class="btn btn-warning mb-3 text-white" asp-controller="Agent" asp-action="Index">Cancelar</a>
-                            </div>
-
-                        </form>
-
-                    </div>
-                </div>
-            </div>
 
         }
 
