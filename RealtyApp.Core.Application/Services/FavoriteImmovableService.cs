@@ -29,7 +29,7 @@ namespace RealtyApp.Core.Application.Services
             List<FavoriteImmovableAssetViewModel> filterListViewModels = new();
             var favList = await _favoriteImmRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAsset" });
 
-            var listViewModels = favList.Where(x => x.ClientId == idClient).Select(fav => new FavoriteImmovableAssetViewModel
+            var listViewModels = favList.OrderByDescending(x => x.Created).Where(x => x.ClientId == idClient).Select(fav => new FavoriteImmovableAssetViewModel
             {
                 Id = fav.ImmovableAsset.Id,
                 Code = fav.ImmovableAsset.Code,

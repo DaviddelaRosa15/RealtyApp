@@ -134,7 +134,7 @@ namespace RealtyApp.Core.Application.Services
 
             if (id != null)
             {
-                listViewModels = assetList.Where(x => x.AgentId == id).Select(asset => new ImmovableAssetViewModel
+                listViewModels = assetList.OrderByDescending(x => x.Created).Where(x => x.AgentId == id).Select(asset => new ImmovableAssetViewModel
                 {
                     Id = asset.Id,
                     Code = asset.Code,
@@ -157,7 +157,7 @@ namespace RealtyApp.Core.Application.Services
             }
             else
             {
-                listViewModels = assetList.Select(asset => new ImmovableAssetViewModel
+                listViewModels = assetList.OrderByDescending(x => x.Created).Select(asset => new ImmovableAssetViewModel
                 {
                     Id = asset.Id,
                     Code = asset.Code,
@@ -249,7 +249,7 @@ namespace RealtyApp.Core.Application.Services
         {
             var assetList = await _immovableAssetRepository.GetAllWithIncludeAsync(new List<string> { "ImmovableAssetType", "SellType" });
 
-            return assetList.Select(asset => new ImmovableAssetViewModel
+            return assetList.OrderByDescending(x => x.Created).Select(asset => new ImmovableAssetViewModel
             {
                 Id = asset.Id,
                 Code = asset.Code,
