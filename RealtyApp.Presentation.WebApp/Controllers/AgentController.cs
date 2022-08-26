@@ -157,9 +157,9 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
             var imagesURLs = await ImageUpload.FileUpload(formFiles, savedImmovable.Id, "Images/ImmovableAssets");
             savedImmovable.UrlImage01 = imagesURLs[0];
-            savedImmovable.UrlImage02 = imagesURLs[1];
-            savedImmovable.UrlImage03 = imagesURLs[2];
-            savedImmovable.UrlImage04 = imagesURLs[3];
+            savedImmovable.UrlImage02 = string.IsNullOrEmpty(imagesURLs[1]) ? null: imagesURLs[1];
+            savedImmovable.UrlImage03 = string.IsNullOrEmpty(imagesURLs[2]) ? null : imagesURLs[2];
+            savedImmovable.UrlImage04 = string.IsNullOrEmpty(imagesURLs[3]) ? null : imagesURLs[3];
 
             await _immovableAssetService.Update(savedImmovable, savedImmovable.Id);
 
