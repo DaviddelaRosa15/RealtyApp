@@ -60,8 +60,8 @@
 
                             <div class="input-group mb-2">
                                 <label for="maxRange" class="form-label m-0">Precio máximo</label>
-                                <input type="range" class="form-range" name="MaxPrice" min="@filterVm.MinPrice" max="@filterVm.MaxPrice" value="0" id="maxRange">
-                                <b>$ <small id="maxvalue">0</small></b>
+                                <input type="range" class="form-range" name="MaxPrice" min="@filterVm.MinPrice" max="@filterVm.MaxPrice" value="@filterVm.MaxPrice" id="maxRange">
+                                <b>$ <small id="maxvalue">@filterVm.MaxPrice</small></b>
 
                                 <script>
 
