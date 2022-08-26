@@ -204,7 +204,6 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         }
         #endregion
 
-
         #region MyProfile
 
         [HttpGet]
