@@ -7,7 +7,7 @@
 @inject IHttpContextAccessor httpContextAccessor
 @model List<ImmovableAssetViewModel>
 @{
-    ViewData["Title"] = "My Immovables";
+    ViewData["Title"] = "Mis inmobiliarios";
     var Client = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
     DataFilterViewModel filterVm = ViewBag.DataFilterViewModel;
 }
@@ -31,7 +31,7 @@
 
                         <div class="mb-2 ms-3">
                             <div class="form-check">
-                                <input class="form-check-input fs-5" value="0" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-all" onchange="GetTypeIdValue(0)"/>
+                                <input class="form-check-input fs-5" value="0" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-all" onchange="GetTypeIdValue(0)" />
                                 <label class="form-check-label fs-5" for="immovableAssetType-all">Todas</label>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                         {
                             <div class="mb-2 ms-3">
                                 <div class="form-check">
-                                    <input class="form-check-input fs-5" value="@type.Id" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-@type.Id" onchange="GetTypeIdValue(@type.Id)"/>
+                                    <input class="form-check-input fs-5" value="@type.Id" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-@type.Id" onchange="GetTypeIdValue(@type.Id)" />
                                     <label class="form-check-label fs-5" for="ImmovableAssetType-@type.Id">@type.Name</label>
                                 </div>
                             </div>
@@ -208,26 +208,26 @@
                 </div>
             </div>
         </div>
-       
+
         <div class="col-9">
 
 
             <div class="card mx-0">
 
                 <div class="card-header mb-0 text-light">
-                    
+
                     <div class="d-flex justify-content-between my-3 text-center">
-                        
+
                         <div class="col-6">
                             <h2 class="lead my-2 text-dark">Encuentra la propiedad deseada:</h2>
                         </div>
 
                         <div class="col-6">
-                           <a asp-action="AddImmovable" class="btn btn-success"> Añadir una nueva propiedad! </a>
+                            <a asp-action="AddImmovable" class="btn btn-success"> Añadir una nueva propiedad! </a>
                         </div>
                         <hr />
                     </div>
-                    
+
                     <form method="post" asp-controller="Agent" asp-action="MyImmovables">
 
                         <input type="hidden" name="ImmovableAssetTypeId" id="assetTypeHidden" value="" />
@@ -243,14 +243,13 @@
                     </form>
 
                 </div>
-
-                @if (Model == null || Model.Count == 0)
-                {
-                    <h3 class="text-lg-center mb-3">Usted no ha creado propiedades.</h3>
-                }
-                else
-                {
-                    <div class="card-body">
+                <div class="card-body">
+                    @if (Model == null || Model.Count == 0)
+                    {
+                        <h3 class="text-center mb-3">Usted no ha creado propiedades.</h3>
+                    }
+                    else
+                    {
                         <div class="row">
                             @foreach (ImmovableAssetViewModel item in Model)
                             {
@@ -294,27 +293,28 @@
                                         </div>
 
                                         <div class="card-footer">
-                                              
+
                                             <div class="d-flex justify-content-between">
-                                                
-                                                <a asp-controller="Agent" asp-action="ConfirmDelete" asp-route-id="@item.Id"> 
+
+                                                <a asp-controller="Agent" asp-action="ConfirmDelete" asp-route-id="@item.Id">
                                                     <i class="fa-solid fa-circle-trash">⛔</i>
                                                 </a>
 
-                                                <a asp-controller="Agent" asp-action="AddImmovable" asp-route-id="@item.Id"> 
+                                                <a asp-controller="Agent" asp-action="AddImmovable" asp-route-id="@item.Id">
                                                     <i class="fa-solid fa-arrows-rotate"></i>
                                                 </a>
 
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
 
                             }
                         </div>
-                    </div>
-                }
+
+                    }
+                </div>
             </div>
         </div>
 

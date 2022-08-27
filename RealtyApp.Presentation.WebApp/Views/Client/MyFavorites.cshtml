@@ -5,12 +5,11 @@
 @using RealtyApp.Core.Application.Dtos.Account
 @using RealtyApp.Core.Application.Helpers;
 @using RealtyApp.Core.Application.Interfaces.Services;
-@using RealtyApp.Core.Application.ViewModels.ImmovableAsset;
 @inject IHttpContextAccessor httpContextAccessor
 @inject IFavoriteImmovableService favoriteImmovableService
 @model List<FavoriteImmovableAssetViewModel>
 @{
-    ViewData["Title"] = "Mis propiedades favoritas";
+    ViewData["Title"] = "Mis inmobiliarios favoritos";
     var Client = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
     DataFilterViewModel filterVm = ViewBag.DataFilterViewModel;
 }
@@ -31,7 +30,7 @@
 
                         <div class="mb-2 ms-3">
                             <div class="form-check">
-                                <input class="form-check-input fs-5" value="0" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-all" onchange="GetTypeIdValue(0)"/>
+                                <input class="form-check-input fs-5" value="0" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-all" onchange="GetTypeIdValue(0)" />
                                 <label class="form-check-label fs-5" for="immovableAssetType-all">Todas</label>
                             </div>
                         </div>
@@ -40,7 +39,7 @@
                         {
                             <div class="mb-2 ms-3">
                                 <div class="form-check">
-                                    <input class="form-check-input fs-5" value="@type.Id" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-@type.Id" onchange="GetTypeIdValue(@type.Id)"/>
+                                    <input class="form-check-input fs-5" value="@type.Id" type="radio" name="ImmovableAssetTypeId" id="immovableAssetType-@type.Id" onchange="GetTypeIdValue(@type.Id)" />
                                     <label class="form-check-label fs-5" for="ImmovableAssetType-@type.Id">@type.Name</label>
                                 </div>
                             </div>
@@ -226,13 +225,14 @@
                         </div>
                     </form>
                 </div>
-                @if (Model == null || Model.Count == 0)
-                {
-                    <h3 class="text-lg-center mb-3">No hay propiedades creadas, espere.</h3>
-                }
-                else
-                {
-                    <div class="card-body">
+                <div class="card-body">
+                    @if (Model == null || Model.Count == 0)
+                    {
+                        <h3 class="text-center mb-3">No hay propiedades favoritas, agregue.</h3>
+                    }
+                    else
+                    {
+
                         <div class="row">
                             @foreach (FavoriteImmovableAssetViewModel item in Model)
                             {
@@ -288,8 +288,9 @@
 
                             }
                         </div>
-                    </div>
-                }
+
+                    }
+                </div>
             </div>
         </div>
     </div>
