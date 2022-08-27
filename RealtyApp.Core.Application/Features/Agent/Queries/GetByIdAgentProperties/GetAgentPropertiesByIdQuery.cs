@@ -26,11 +26,13 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetByIdAgentProperti
     public class GetAgentPropertiesByIdHandler : IRequestHandler<GetAgentPropertiesByIdQuery, IEnumerable<ImmovableAssetDTO>>
     {
         private readonly IImmovableAssetService _immovableService;
+        private readonly IUserService _userService;
         private readonly IMapper _maper;
 
-        public GetAgentPropertiesByIdHandler(IImmovableAssetService immovableService, IMapper maper)
+        public GetAgentPropertiesByIdHandler(IImmovableAssetService immovableService, IUserService userService, IMapper maper)
         {
             _immovableService = immovableService;
+            _userService = userService;
             _maper = maper;
         }
 
@@ -39,17 +41,21 @@ namespace RealtyApp.Core.Application.Features.Agent.Queries.GetByIdAgentProperti
             var result = await GetAgentPropertiesDTOById(request.Id);
 
             if (result == null || result.Count == 0)
-                throw new Exception($"No se encontraron las propiedades del agente...");
+                return null;
             else
                 return result;
         }
 
         private async Task<List<ImmovableAssetDTO>> GetAgentPropertiesDTOById(string id)
         {
+            var agent = await _userService.GetAgentById(id);
+            if(agent == null)
+                throw new Exception($"No se encontró este agente en el sistema...");
+
             var result = await _immovableService.GetIncludeDetails();
 
             if (result == null)
-                return null;
+                throw new Exception($"No se encontraron propiedades en el sistema...");
             else
             {
                 var immovables = result.Where(x => x.AgentId == id).ToList();

@@ -36,7 +36,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
                 if (toReturn == null)
                 {
-                    return NotFound();
+                    return NotFound("No hay agentes");
                 }                    
 
                 return Ok(toReturn);
@@ -53,7 +53,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         [HttpGet("GetById/{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AgentDTO))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
         Summary = "Nos permite obtener un usuario agente mediante su identificador.",
@@ -63,13 +63,14 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         {
 
             try
-            {
-                if (id == null)
-                {
-                    return BadRequest();
-                }                    
+            {                 
 
-                var result = await Mediator.Send(new GetAgentByIdQuery() { Id = id });               
+                var result = await Mediator.Send(new GetAgentByIdQuery() { Id = id });
+
+                if (result == null)
+                {
+                    return NotFound("No se encontró un agente con este id");
+                }
 
                 return Ok(result);
             }
@@ -84,7 +85,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         [HttpGet("GetAgentPropertiesById/{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AgentDTO))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
         Summary = "Nos permite obtener el listado de propiedades de un agente mediante su identificador.",
@@ -94,16 +95,11 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         {
             try
             {
-                if (id == "string")
-                {
-                    return BadRequest();
-                }
-
                 var result = await Mediator.Send(new GetAgentPropertiesByIdQuery() { Id = id });
 
                 if (result == null)
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError);
+                    return NotFound("Este agente no tiene propiedades");
                 }
 
                 return Ok(result);
