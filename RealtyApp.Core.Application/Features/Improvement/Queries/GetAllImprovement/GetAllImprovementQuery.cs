@@ -36,8 +36,8 @@ namespace RealtyApp.Core.Application.Features.Improvement.Queries.GetAllImprovem
 
             var result = await GetAllImprovementDtoWithIncludes();
 
-            if (result == null)
-                throw new Exception("No se encontro ninguna mejora en el sistema, por favor si esto persiste contactenos al soporte.");
+            if (result == null || result.Count == 0)
+                return null;
 
             return result;
 
@@ -46,8 +46,6 @@ namespace RealtyApp.Core.Application.Features.Improvement.Queries.GetAllImprovem
         private async Task<List<ImprovementDTO>> GetAllImprovementDtoWithIncludes()
         {
             var improvements = await _improvementRepository.GetAllAsync();
-            //var improvements = await _improvementRepository.GetAllWithIncludeAsync(new List<string>() { "Improvement_Immovables" });
-            //Prefiero no entrar en un long cycle.
 
             List<ImprovementDTO> improvementViews = _mapper.Map<List<ImprovementDTO>>(improvements);
 

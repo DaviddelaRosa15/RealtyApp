@@ -40,7 +40,7 @@ namespace RealtyApp.Core.Application.Features.Improvement.Queries.GetImprovement
             var result = await _improvementRepository.GetByIdAsync(request.Id);
 
             if (result == null)
-                throw new Exception("Mejora inmobiliaria no encontrada.");
+                return null;
             else
                 return _mapper.Map<ImprovementDTO>(result);
 

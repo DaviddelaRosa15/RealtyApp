@@ -35,6 +35,9 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
                 if (!ModelState.IsValid)
                     return BadRequest();
 
+                if (command.Name == "string" || command.Description == "string")
+                    return BadRequest("No puede dejar los valores por defecto");
+
                 var result = await Mediator.Send(command);
 
                 if (result == 0)
@@ -66,12 +69,15 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             try
             {
                 if (!ModelState.IsValid || id == 0 || id != command.Id)
-                    return BadRequest();
+                    return BadRequest("Revise los datos");
+
+                if (command.Name == "string" || command.Description == "string")
+                    return BadRequest("No puede dejar los valores por defecto");
 
                 var toReturn = await Mediator.Send(command);
 
                 if (toReturn == null)
-                    return BadRequest();
+                    return StatusCode(StatusCodes.Status500InternalServerError);
 
                 return Ok(toReturn);
 
@@ -102,7 +108,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
                var toReturn = await Mediator.Send(new GetAllImprovementQuery());
 
                 if (toReturn == null)
-                    return NotFound();
+                    return NotFound("No hay mejoras");
 
                 return Ok(toReturn);
 
@@ -114,12 +120,39 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
         }
 
+        [Authorize(Roles = "Administrator,Developer")]
+        [HttpGet("GetById/{id}")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImprovementDTO))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation(
+        Summary = "Nos permite obtener una mejora mediante su identificador.",
+        Description = "permite obtener una mejora mediante su identificador (ID)."
+        )]
+        public async Task<IActionResult> GetById(int id)
+        {
+
+            try
+            {
+                var result = await Mediator.Send(new GetImprovementByIdQuery() { Id = id });
+
+                if (result == null)
+                    return NotFound("No se encontró una mejora con este id");
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(ex.Message) { StatusCode = StatusCodes.Status500InternalServerError };
+            }
+
+        }
 
         [Authorize(Roles = "Administrator")]
         [HttpDelete("Delete/{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
          Summary = "Nos da la opción de realizar un borrado.",
@@ -130,12 +163,9 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
             try
             {
-                if (id == 0)
-                    return BadRequest();
-
                 var result = await Mediator.Send(new DeleteImprovementCommand() { Id = id});
                 
-                if (id == 0)
+                if (result == 0)
                     return StatusCode(StatusCodes.Status500InternalServerError);
 
 
@@ -147,40 +177,6 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             }
 
         }
-
-
-        [Authorize(Roles = "Administrator,Developer")]
-        [HttpGet("GetById/{id}")]
-        [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImprovementDTO))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes. Status500InternalServerError)]
-        [SwaggerOperation(
-        Summary = "Nos permite obtener una mejora mediante su identificador.",
-        Description = "permite obtener una mejora mediante su identificador (ID)."
-        )]
-        public async Task<IActionResult> GetById(int id)
-        {
-
-            try
-            {
-                if (id == 0)
-                    return BadRequest();
-
-                var result = await Mediator.Send(new GetImprovementByIdQuery() { Id = id });
-
-                if (result == null)
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return new JsonResult(ex.Message) { StatusCode = StatusCodes.Status500InternalServerError };
-            }
-
-        }
-
 
     }
 }
