@@ -43,10 +43,14 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(FilterViewModel vm, string id = null)
         {
-            ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
+            var DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
+            ViewBag.DataFilterViewModel = DataFilterViewModel;
             ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
-            
+            if (vm.MinPrice > 0 && (vm.MaxPrice == null || vm.MaxPrice == 0))
+            {
+                vm.MaxPrice = DataFilterViewModel.MaxPrice;
+            }
             var model = await _immovableAssetService.GetAllViewModelWithFilters(_loggedUser.Id, vm);
             return View(model);
         }
@@ -55,10 +59,14 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         #region Display My Immovables
         public async Task<IActionResult> MyImmovables(FilterViewModel vm, string id = null)
         {
-            ViewBag.DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
+            var DataFilterViewModel = await _immovableAssetService.GetDataFilterViewModel();
+            ViewBag.DataFilterViewModel = DataFilterViewModel;
             ViewBag.ImmovableAssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
             ViewBag.AssetTypes = await _immovableAssetTypeService.GetAllViewModelWithIncludes();
-
+            if (vm.MinPrice > 0 && (vm.MaxPrice == null || vm.MaxPrice == 0))
+            {
+                vm.MaxPrice = DataFilterViewModel.MaxPrice;
+            }
             var model = await _immovableAssetService.GetAllViewModelWithFilters(_loggedUser.Id, vm);
             return View(model);
         }
@@ -153,7 +161,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
 
             //Persist the images.
 
-            IFormFile[] formFiles = new[] { saveImmovableAsset.FileImg01, saveImmovableAsset.FileImg02, saveImmovableAsset.FileImg03, savedImmovable.FileImg04 };
+            IFormFile[] formFiles = new[] { saveImmovableAsset.FileImg01, saveImmovableAsset.FileImg02, saveImmovableAsset.FileImg03, saveImmovableAsset.FileImg04 };
 
             var imagesURLs = await ImageUpload.FileUpload(formFiles, savedImmovable.Id, "Images/ImmovableAssets");
             savedImmovable.UrlImage01 = imagesURLs[0];

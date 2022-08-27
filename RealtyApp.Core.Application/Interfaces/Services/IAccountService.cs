@@ -1,5 +1,4 @@
 ﻿using RealtyApp.Core.Application.Dtos.Account;
-using RealtyApp.Core.Application.Dtos.EntitiesDTOs.Agent;
 using RealtyApp.Core.Application.Helpers;
 using RealtyApp.Core.Application.ViewModels.User;
 using System.Collections.Generic;

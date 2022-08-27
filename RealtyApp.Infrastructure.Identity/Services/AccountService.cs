@@ -866,17 +866,6 @@ namespace RealtyApp.Infrastructure.Identity.Services
             return verificationUri;
         }
 
-        private async Task<string> SendForgotPasswordUri(ApplicationUser user, string origin)
-        {
-            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            var route = "User/ResetPassword";
-            var Uri = new Uri(string.Concat($"{origin}/", route));
-            var verificationUri = QueryHelpers.AddQueryString(Uri.ToString(), "token", code);
-
-            return verificationUri;
-        }
-
         #endregion
     }
 

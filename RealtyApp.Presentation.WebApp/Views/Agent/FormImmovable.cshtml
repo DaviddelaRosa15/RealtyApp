@@ -112,8 +112,9 @@
                                                         <div class="mb-3 row">
                                                             <label class="label"> <i class="fa fa-building" aria-hidden="true"></i> Tipo de venta:</label>
                                                              <select asp-items="@(new SelectList(sellTypesModels, "Id", "Name"));" asp-for="SellTypeId" class="form-select" aria-label="Seleccione una opcion">
-                                                                <option value="null">Elige un tipo de venta...</option>
+                                                                <option value="0">Elige un tipo de venta...</option>
                                                             </select>
+                                                            <span asp-validation-for="SellTypeId" class="text-danger"></span>
                                                         </div>
 
                                                         <div class="mb-3 row">
@@ -121,6 +122,7 @@
                                                              <select asp-items="@(new SelectList(immovableTypes, "Id", "Name"));" asp-for="ImmovableAssetTypeId" class="form-select" aria-label="Seleccione una opcion">
                                                                 <option value="0">Elige un tipo de inmueble...</option>
                                                             </select>
+                                                            <span asp-validation-for="ImmovableAssetTypeId" class="text-danger"></span>
                                                         </div>
 
 

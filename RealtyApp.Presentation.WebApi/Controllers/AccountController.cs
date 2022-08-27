@@ -117,44 +117,5 @@ namespace RealtyApp.Presentation.WebApi.Controllers
         }
 
         #endregion
-
-        #region IgnoreCODE
-        //[HttpGet("confirm-email")]
-        //[SwaggerOperation(
-        //    Summary = "Confirmacion de usuario",
-        //    Description = "Permite activar un usuario nuevo"
-        //)]
-        //[Consumes(MediaTypeNames.Application.Json)]
-        //public async Task<IActionResult> ConfirmAccountAsync([FromQuery] string userId , [FromQuery]string token)
-        //{          
-        //    return Ok(await _accountService.ConfirmAccountAsync(userId, token));
-        //}
-
-
-        //[HttpPost("forgot-password")]
-        //[SwaggerOperation(
-        //    Summary = "Recordar contrasenia",
-        //    Description = "Permite al usuario iniciar el proceso para obtener una nueva contrasenia"
-        //)]
-        //[Consumes(MediaTypeNames.Application.Json)]
-        //public async Task<IActionResult> ForgotPasswordAsync([FromBody] ForgotPasswordRequest request)
-        //{
-        //    var origin = Request.Headers["origin"];
-        //    return Ok(await _accountService.ForgotPasswordAsync(request, origin));
-        //}
-
-        //[HttpPost("reset-password")]
-        //[SwaggerOperation(
-        //    Summary = "Reinicio de contrasenia",
-        //    Description = "Permite al usuario cambiar su contrasenia actual por una nueva"
-        //)]
-        //[Consumes(MediaTypeNames.Application.Json)]
-        //public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordRequest request)
-        //{           
-        //    return Ok(await _accountService.ResetPasswordAsync(request));
-        //}
-        #endregion
-
-
     }
 }

@@ -18,7 +18,7 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
         [Required(ErrorMessage = "Coloque la descripcion de la propiedad.")]
         public string Description { get; set; }
         [Required(ErrorMessage = "Coloque un precio valido.")]
-        [Range(1,int.MaxValue,ErrorMessage = "El precion debe ser mayor a cero.")]
+        [Range(1,int.MaxValue,ErrorMessage = "El precio debe ser mayor a cero.")]
         public double Price { get; set; }
         
         public string UrlImage01 { get; set; }
@@ -53,10 +53,10 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad de baños debe ser mayor a 0.")]
         public double BathroomQuantity { get; set; }
 
-        [Required(ErrorMessage = "Debe de seleccionar al un tipo de inmueble a ofrecer.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar un tipo de inmobiliario.")]
         public int ImmovableAssetTypeId { get; set; }
 
-        [Required(ErrorMessage = "Debe de seleccionar al un tipo de venta a ofertar.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar un tipo de venta de inmobiliario.")]
         public int SellTypeId { get; set; }
 
         public string AgentId { get; set; }
