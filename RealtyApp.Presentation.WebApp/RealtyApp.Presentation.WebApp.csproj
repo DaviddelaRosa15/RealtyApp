@@ -40,6 +40,7 @@
     <Folder Include="wwwroot\Images\ImmovableAssets\" />
     <Folder Include="wwwroot\Images\User\Agent\" />
     <Folder Include="wwwroot\Images\User\Client\" />
+    <Folder Include="wwwroot\User\Agent\" />
   </ItemGroup>
 
   <ItemGroup>
