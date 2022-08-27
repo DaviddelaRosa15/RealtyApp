@@ -53,7 +53,8 @@ namespace RealtyApp.Core.Application.ViewModels.User
         public IFormFile File { get; set; }
 
         [Required(ErrorMessage = "Debe colocar un telefono")]
-        [StringLength(11, ErrorMessage = "El formato dominicano tiene 10 numeros", MinimumLength = 10)]
+        [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números")]
+        [StringLength(10, ErrorMessage = "El formato dominicano tiene 10 numeros", MinimumLength = 10)]
         [DataType(DataType.Text)]
         public string Phone { get; set; }
         public bool IsVerified { get; set; }
