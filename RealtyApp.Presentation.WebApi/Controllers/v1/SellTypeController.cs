@@ -35,14 +35,17 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
                 if (!ModelState.IsValid)
                 {
                     return BadRequest("Revise los datos");
-                }                    
+                }
+
+                if (command.Name == "string" || command.Description == "string")
+                    return BadRequest("No puede dejar los valores por defecto");
 
                 var result = await Mediator.Send(command);
 
                 if (result == 0)
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError);
-                }                    
+                }
 
                 return NoContent();
 
@@ -72,14 +75,17 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
                 if (!ModelState.IsValid || id == 0 || id != command.Id)
                 {
                     return BadRequest("Revise los datos");
-                }                    
+                }
+
+                if (command.Name == "string" || command.Description == "string")
+                    return BadRequest("No puede dejar los valores por defecto");
 
                 var toReturn = await Mediator.Send(command);
 
                 if (toReturn == null)
                 {
-                    return BadRequest();
-                }                    
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
 
                 return Ok(toReturn);
 
@@ -106,12 +112,12 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
             try
             {
-               var toReturn = await Mediator.Send(new GetAllSellTypeQuery());
+                var toReturn = await Mediator.Send(new GetAllSellTypeQuery());
 
                 if (toReturn == null)
                 {
-                    return NotFound();
-                }                    
+                    return NotFound("No hay tipos de ventas");
+                }
 
                 return Ok(toReturn);
 
@@ -127,7 +133,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         [HttpGet("GetById/{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SellTypeDTO))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
         Summary = "Nos permite obtener un tipo de venta mediante su identificador.",
@@ -138,17 +144,12 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
             try
             {
-                if (id == 0)
-                {
-                    return BadRequest();
-                }                    
-
                 var result = await Mediator.Send(new GetSellTypeByIdQuery() { Id = id });
 
                 if (result == null)
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-                }                    
+                    return NotFound("No se encontró un tipo de venta con este id");
+                }
 
                 return Ok(result);
             }
@@ -173,12 +174,12 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
 
             try
             {
-                var result = await Mediator.Send(new DeleteSellTypeCommand() { Id = id});
-                
+                var result = await Mediator.Send(new DeleteSellTypeCommand() { Id = id });
+
                 if (result == 0)
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError);
-                }              
+                }
 
                 return NoContent();
             }

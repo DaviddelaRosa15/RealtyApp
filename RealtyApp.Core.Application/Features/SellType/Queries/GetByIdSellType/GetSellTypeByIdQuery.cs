@@ -36,9 +36,9 @@ namespace RealtyApp.Core.Application.Features.SellType.Queries.GetByIdSellType
         public async Task<SellTypeDTO> Handle(GetSellTypeByIdQuery request, CancellationToken cancellationToken)
         {
             var result = await GetSellTypeDTOById(request.Id);
-            
+
             if (result == null)
-                 throw new Exception($"No se encontró el tipo de venta...");
+                return null;
             else
                 return result;
         }

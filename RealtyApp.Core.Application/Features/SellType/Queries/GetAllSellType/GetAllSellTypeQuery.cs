@@ -36,8 +36,8 @@ namespace RealtyApp.Core.Application.Features.SellType.Queries.GetAllSellType
         {
            var result = await GetAllDTOsWithIncludes();
 
-            if (result == null)
-                throw new Exception("No se encontraron tipos de venta...");
+            if (result == null || result.Count == 0)
+                return null;
             else
                 return result;
         }
