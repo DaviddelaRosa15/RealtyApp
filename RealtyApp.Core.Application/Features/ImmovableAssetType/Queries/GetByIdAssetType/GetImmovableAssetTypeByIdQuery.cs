@@ -37,9 +37,9 @@ namespace RealtyApp.Core.Application.Features.ImmovableAssetType.Queries.GetById
         public async Task<ImmovableAssetTypeDTO> Handle(GetImmovableAssetTypeByIdQuery request, CancellationToken cancellationToken)
         {
             var result = await GetImmovableAssetTypeDTOById(request.Id);
-            
+
             if (result == null)
-                 throw new Exception($"No se encontró el tipo de inmobiliario...");
+                return null;
             else
                 return result;
         }

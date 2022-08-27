@@ -35,6 +35,9 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
                 if (!ModelState.IsValid)
                     return BadRequest();
 
+                if (command.Name == "string" || command.Description == "string")
+                    return BadRequest("No puede dejar los valores por defecto");
+
                 var result = await Mediator.Send(command);
 
                 if (result == 0)
@@ -68,7 +71,10 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
                     return BadRequest();
 
                 if (id != command.Id)
-                    return BadRequest();
+                    return BadRequest("No ingreso los mismos identificadores");
+
+                if (command.Name == "string" || command.Description == "string")
+                    return BadRequest("No puede dejar los valores por defecto");
 
                 var result = await Mediator.Send(command);
 
@@ -132,7 +138,7 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
               var result = await Mediator.Send(new GetAllAssetTypeQuery());
 
               if (result == null)
-                  return NotFound();
+                  return NotFound("No hay tipos de propiedades");
 
               return Ok(result);
 
@@ -152,19 +158,16 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             Description = "Provee mecanismos de identificación para encontrar un tipo de inmobiliario."
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImmovableAssetTypeDTO) )]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdAssetType(int id)
         {
             try
             {
-                if (id == 0)
-                    return BadRequest();
-
                 var result = await Mediator.Send(new GetImmovableAssetTypeByIdQuery() { Id = id });
 
                 if (result == null)
-                    return NotFound();
+                    return NotFound("No se encontró un tipo de propiedad con este id");
 
                 return Ok(result);
 

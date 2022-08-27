@@ -34,10 +34,10 @@ namespace RealtyApp.Core.Application.Features.ImmovableAssetType.Queries.GetAllA
 
         public async Task<IEnumerable<ImmovableAssetTypeDTO>> Handle(GetAllAssetTypeQuery request, CancellationToken cancellationToken)
         {
-           var result = await GetAllDTOsWithIncludes();
+            var result = await GetAllDTOsWithIncludes();
 
-            if (result == null)
-                throw new Exception("No se encontraron tipos de inmobiliario...");
+            if (result == null || result.Count == 0)
+                return null;
             else
                 return result;
         }
@@ -47,8 +47,7 @@ namespace RealtyApp.Core.Application.Features.ImmovableAssetType.Queries.GetAllA
 
             var immovableAssetTypes = await _assetTypeRepository.GetAllWithIncludeAsync(new List<string>() { "ImmovableAssets" });
 
-            List<ImmovableAssetTypeDTO> immovableAssetTypesViewModels =
-                                                                    _mapper.Map<List<ImmovableAssetTypeDTO>>(immovableAssetTypes);
+            List<ImmovableAssetTypeDTO> immovableAssetTypesViewModels = _mapper.Map<List<ImmovableAssetTypeDTO>>(immovableAssetTypes);
 
             return immovableAssetTypesViewModels;
         }
