@@ -21,7 +21,7 @@ namespace RealtyApp.Presentation.WebApp.Controllers
         {          
             return View(await _immovableAssetType.GetAllWithCountTypeImmovableUse());
         }
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {            
             return View(new ImmovableAssetTypeSaveViewModel ());
         }
