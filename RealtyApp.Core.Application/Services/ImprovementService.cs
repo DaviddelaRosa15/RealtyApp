@@ -22,6 +22,15 @@ namespace RealtyApp.Core.Application.Services
             this._mapper = mapper;
             this._repository = repository;
         }
+
+        public override async Task Update(ImprovementSaveViewModel vm, int id)
+        {
+            var beforeUpdate = await GetByIdSaveViewModel(id);
+            vm.Created = beforeUpdate.Created;
+            vm.CreatedBy = beforeUpdate.CreatedBy;
+            await base.Update(vm, id);
+        }
+
         public async Task<List<ImprovementViewModel>> GetAllViewModelWithIncludes()
         {
             var improvements = await _repository.GetAllWithIncludeAsync(new List<string>() { "Improvement_Immovable" });

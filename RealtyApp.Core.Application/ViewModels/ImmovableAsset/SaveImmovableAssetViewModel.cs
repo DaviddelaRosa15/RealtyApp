@@ -63,6 +63,9 @@ namespace RealtyApp.Core.Application.ViewModels.ImmovableAsset
 
         public List<int> Improvements { get; set; }
 
+        public string CreatedBy { get; set; }
+        public DateTime Created { get; set; }
+
         public bool HasError { get; set; }
         public string ErrorMessage { get; set; }
 

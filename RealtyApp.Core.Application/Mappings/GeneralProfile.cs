@@ -56,6 +56,7 @@ namespace RealtyApp.Core.Application.Mappings
             #endregion
 
             #region ViewModels
+
             #region FeaturesCqrs
             //CreateMap<ImmovableAsset, CreateImmovableAssetCommand>()
             //   .ReverseMap();
@@ -149,9 +150,7 @@ namespace RealtyApp.Core.Application.Mappings
              .ForMember(opt => opt.SellType, opt => opt.Ignore())
              .ForMember(opt => opt.FavoriteImmovables, opt => opt.Ignore())
              .ForMember(opt => opt.Improvement_Immovables, opt => opt.Ignore())
-             .ForMember(dest => dest.Created, options => options.Ignore())
              .ForMember(dest => dest.LastModified, options => options.Ignore())
-             .ForMember(dest => dest.CreatedBy, options => options.Ignore())
              .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
             #endregion
 
@@ -168,9 +167,7 @@ namespace RealtyApp.Core.Application.Mappings
 
             CreateMap<ImmovableAssetType,ImmovableAssetTypeSaveViewModel>()
                 .ReverseMap()
-                .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
-                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
                 .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
                 .ForMember(dest => dest.ImmovableAssets, options => options.Ignore());
 
@@ -186,9 +183,7 @@ namespace RealtyApp.Core.Application.Mappings
 
             CreateMap<Improvement,ImprovementSaveViewModel>()
                 .ReverseMap()
-                .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
-                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
                 .ForMember(dest => dest.LastModifiedBy, options => options.Ignore())
                 .ForMember(dest => dest.Improvement_Immovables, options => options.Ignore());
             #endregion
@@ -220,11 +215,10 @@ namespace RealtyApp.Core.Application.Mappings
 
             CreateMap<SellType,SaveSellTypeViewModel>()
                 .ReverseMap()
-                .ForMember(dest => dest.Created, options => options.Ignore())
                 .ForMember(dest => dest.LastModified, options => options.Ignore())
-                .ForMember(dest => dest.CreatedBy, options => options.Ignore())
                 .ForMember(dest => dest.LastModifiedBy, options => options.Ignore());
             #endregion
+
             #endregion
 
             #region DTOs_CQRS

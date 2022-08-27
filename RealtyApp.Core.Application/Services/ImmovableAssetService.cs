@@ -101,7 +101,8 @@ namespace RealtyApp.Core.Application.Services
                 }
 
             }
-
+            vm.Created = immovableBeforeUpdate.Created;
+            vm.CreatedBy = immovableBeforeUpdate.CreatedBy;
             await base.Update(vm, id);
 
         }

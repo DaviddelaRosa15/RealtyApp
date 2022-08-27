@@ -25,6 +25,14 @@ namespace RealtyApp.Core.Application.Services
             this._ImmovableService = ImmovableService;
         }
 
+        public override async Task Update(SaveSellTypeViewModel vm, int id)
+        {
+            var beforeUpdate = await GetByIdSaveViewModel(id);
+            vm.Created = beforeUpdate.Created;
+            vm.CreatedBy = beforeUpdate.CreatedBy;
+            await base.Update(vm, id);
+        }
+
         public async Task<List<SellTypeViewModel>> GetAllViewModelWithIncludes()
         {
             var sellTypes = await _repository.GetAllWithIncludeAsync(new List<string>() { "ImmovableAssets" });

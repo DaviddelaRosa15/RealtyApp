@@ -18,5 +18,8 @@ namespace RealtyApp.Core.Application.ViewModels.SellType
 
         public string Description { get; set; }
         public List<ImmovableAssetViewModel> ImmovableAssets { get; set; }
+
+        public string CreatedBy { get; set; }
+        public DateTime Created { get; set; }
     }
 }

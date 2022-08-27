@@ -16,5 +16,8 @@ namespace RealtyApp.Core.Application.ViewModels.Improvement
 
         [Required(ErrorMessage = "Debe de especificar una descripción para esta mejora.")]
         public string Description { get; set; }
+
+        public string CreatedBy { get; set; }
+        public DateTime Created { get; set; }
     }
 }
