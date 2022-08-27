@@ -4,14 +4,29 @@
 // Write your JavaScript code.
 
 
+let code = document.getElementById("codeTxt");
+let codeHidden = document.getElementById("codeHidden");
+let assetTypeHidden = document.getElementById("assetTypeHidden");
+let minHidden = document.getElementById("minHidden");
+let maxHidden = document.getElementById("maxHidden");
+let bathroomHidden = document.getElementById("bathroomHidden");
+let bedroomHidden = document.getElementById("bedroomHidden");
+
+function GetCodeValue() {
+    codeHidden.value = code.value;
+}
+
+function GetTypeIdValue(id) {
+    assetTypeHidden.value = id;
+}
+
 /// function to open and close dashboard
 const btn_Close = document.querySelector(".fa-x");
-btn_Close.addEventListener("click",()=>
-{
+btn_Close.addEventListener("click", () => {
     const dashboard = document.querySelector(".dashboard");
     const Btn_Open = document.querySelector(".Cont-btn_Opne");
-    Btn_Open.style.display="inline"
-    dashboard.style.display="none"
+    Btn_Open.style.display = "inline"
+    dashboard.style.display = "none"
 })
 const btn_Open = document.querySelector(".Cont-btn_Opne");
 btn_Open.addEventListener("click", () => {
@@ -57,11 +72,14 @@ const multiSelectInitializer = () => {
 
 }
 
-//This code is for the FormImmovable View.
+////This code is for the FormImmovable View.
 
-const $minRange = document.getElementById("minRange");
-const $minlabel = document.getElementById("minvalue");
+//const $minRange = document.getElementById("minRange");
+//const $minlabel = document.getElementById("minvalue");
 
-$minRange.addEventListener('change', (e) => {
-    $minlabel.textContent = e.target.value;
-});
+//$minRange.addEventListener('change', (e) => {
+//    $minlabel.textContent = e.target.value;
+//});
+
+//This code is for the Forms in the views.
+
