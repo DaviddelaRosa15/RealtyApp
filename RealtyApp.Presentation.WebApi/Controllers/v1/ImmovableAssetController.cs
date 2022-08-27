@@ -34,7 +34,8 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
             {
                 var result = await Mediator.Send(new GetAllImmovableAssetQuery());
 
-                if (result == null)return NotFound();
+                if (result == null)
+                    return NotFound("No hay inmuebles");
 
                 return Ok(result);
 
@@ -54,23 +55,18 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         )]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImmovableAssetDTO))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(int id)
         {
 
             try
             {
-                if (id == 0)
-                {
-                    return BadRequest();
-                }
-
                 var result = await Mediator.Send(new GetImmovableAssetByIdQuery() { Id = id });
 
                 if (result == null)
                 {
-                    return StatusCode(StatusCodes.Status404NotFound);
+                    return NotFound("No se encontró un inmueble con este id");
                 }
 
                 return Ok(result);
@@ -90,22 +86,17 @@ namespace RealtyApp.Presentation.WebApi.Controllers.v1
         )]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImmovableAssetDTO))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByCode(string code)
         {
             try
             {
-                if (code==null)
-                {
-                    return BadRequest();
-                }
-
                 var result = await Mediator.Send(new GetImmovableAssetByCodeQuery() { Code = code });
 
                 if (result == null)
                 {
-                    return StatusCode(StatusCodes.Status404NotFound);
+                    return NotFound("No se encontró un inmueble con este código");
                 }
 
                 return Ok(result);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace RealtyApp.Core.Application.Dtos.Account
@@ -51,6 +52,8 @@ namespace RealtyApp.Core.Application.Dtos.Account
         [Required(ErrorMessage = "Debe de especificar un número de teléfono activo.")]
         [DataType(DataType.Text)]
         public string Phone { get; set; }
+
+        [JsonIgnore]
         public string ImageUrl { get; set; }
     }
 }
